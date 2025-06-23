@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⊞ ⊗ ⊞</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/harmonics.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+╔═══════════════════════════════════════════════╗
+║           ⊞ Linear Transformations ⊞         ║
+║                                               ║
+║        A ⊗ B ≠ B ⊗ A (generally)           ║
+╚═══════════════════════════════════════════════╝
+            </div>
+            
+            <div class="ascii-art">
+    ┌─────────────┐    ┌─────────────┐
+    │ a₁₁  a₁₂  a₁₃│    │ b₁₁  b₁₂  b₁₃│
+    │ a₂₁  a₂₂  a₂₃│ ⊗  │ b₂₁  b₂₂  b₂₃│
+    │ a₃₁  a₃₂  a₃₃│    │ b₃₁  b₃₂  b₃₃│
+    └─────────────┘    └─────────────┘
+    
+           A               B
+           
+           ↓
+           
+    ┌─────────────┐
+    │ c₁₁  c₁₂  c₁₃│
+    │ c₂₁  c₂₂  c₂₃│ = A ⊗ B
+    │ c₃₁  c₃₂  c₃₃│
+    └─────────────┘
+    
+    cᵢⱼ = Σₖ aᵢₖ bₖⱼ
+            </div>
+            
+            <div class="divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+            
+            <div class="symbol-grid">
+                <div class="symbol interactive-operation" data-operation="multiply">⊗</div>
+                <div class="symbol interactive-operation" data-operation="add">⊞</div>
+                <div class="symbol interactive-operation" data-operation="transpose">ᵀ</div>
+                <div class="symbol interactive-operation" data-operation="inverse">⁻¹</div>
+                <div class="symbol interactive-operation" data-operation="determinant">det</div>
+                <div class="symbol interactive-operation" data-operation="trace">tr</div>
+                <div class="symbol interactive-operation" data-operation="eigenvalue">λ</div>
+                <div class="symbol interactive-operation" data-operation="rotate">↻</div>
+            </div>
+            
+            <div class="matrix-playground" id="matrix-playground">
+                <div class="matrix-display">
+                    <div class="matrix-container">
+                        <div class="matrix" id="matrix-a">
+                            <div class="matrix-title">Matrix A</div>
+                            <div class="matrix-grid" id="grid-a"></div>
+                        </div>
+                        <div class="operation-symbol" id="operation">⊗</div>
+                        <div class="matrix" id="matrix-b">
+                            <div class="matrix-title">Matrix B</div>
+                            <div class="matrix-grid" id="grid-b"></div>
+                        </div>
+                        <div class="equals">=</div>
+                        <div class="matrix" id="matrix-result">
+                            <div class="matrix-title">Result</div>
+                            <div class="matrix-grid" id="grid-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ascii-art" style="font-size: 0.8rem;">
+    Special Matrices:
+    
+    Identity: I = ┌ 1  0  0 ┐    Zero: O = ┌ 0  0  0 ┐
+                  │ 0  1  0 │             │ 0  0  0 │
+                  └ 0  0  1 ┘             └ 0  0  0 ┘
+    
+    Rotation: R(θ) = ┌ cos(θ) -sin(θ) ┐
+                     └ sin(θ)  cos(θ) ┘
+    
+    Pauli Matrices:
+    σₓ = ┌ 0  1 ┐  σᵧ = ┌ 0 -i ┐  σᵤ = ┌ 1  0 ┐
+         └ 1  0 ┘       └ i  0 ┘       └ 0 -1 ┘
+            </div>
+            
+            <div class="navigation">
+                <a href="/realms/mathematics/" class="nav-link">∑</a>
+                <a href="/" class="nav-link">◊</a>
+                <a href="/realms/circuits/" class="nav-link">⌘</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script src="/js/quantum-particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script>
+        // ♫ ⊞ ∞
+        window.harmonics.init();
+        
+        // ψ ⊞ ⊗
+        const quantumField = window.quantumParticles.init([
+            '⊞', '⊗', 'λ', 'det', 'tr', '▢', '▣', '◇', '◆', '□', '■'
+        ]);
+        
+        // ○ ● ◉
+        initParticles(['⊞', '⊗', 'λ', 'det', 'tr']);
+        
+        // Matrix operations class
+        class MatrixOps {
+            static create(rows, cols, values = null) {
+                const matrix = [];
+                for (let i = 0; i < rows; i++) {
+                    matrix[i] = [];
+                    for (let j = 0; j < cols; j++) {
+                        if (values) {
+                            matrix[i][j] = values[i * cols + j] || 0;
+                        } else {
+                            matrix[i][j] = Math.floor(Math.random() * 10) - 5;
+                        }
+                    }
+                }
+                return matrix;
+            }
+            
+            static multiply(A, B) {
+                const rows = A.length;
+                const cols = B[0].length;
+                const common = B.length;
+                const result = [];
+                
+                for (let i = 0; i < rows; i++) {
+                    result[i] = [];
+                    for (let j = 0; j < cols; j++) {
+                        result[i][j] = 0;
+                        for (let k = 0; k < common; k++) {
+                            result[i][j] += A[i][k] * B[k][j];
+                        }
+                    }
+                }
+                return result;
+            }
+            
+            static add(A, B) {
+                const rows = A.length;
+                const cols = A[0].length;
+                const result = [];
+                
+                for (let i = 0; i < rows; i++) {
+                    result[i] = [];
+                    for (let j = 0; j < cols; j++) {
+                        result[i][j] = A[i][j] + B[i][j];
+                    }
+                }
+                return result;
+            }
+            
+            static transpose(A) {
+                const rows = A.length;
+                const cols = A[0].length;
+                const result = [];
+                
+                for (let i = 0; i < cols; i++) {
+                    result[i] = [];
+                    for (let j = 0; j < rows; j++) {
+                        result[i][j] = A[j][i];
+                    }
+                }
+                return result;
+            }
+            
+            static determinant(A) {
+                const n = A.length;
+                if (n === 1) return A[0][0];
+                if (n === 2) return A[0][0] * A[1][1] - A[0][1] * A[1][0];
+                
+                let det = 0;
+                for (let j = 0; j < n; j++) {
+                    const minor = [];
+                    for (let i = 1; i < n; i++) {
+                        minor[i - 1] = [];
+                        for (let k = 0; k < n; k++) {
+                            if (k !== j) {
+                                minor[i - 1].push(A[i][k]);
+                            }
+                        }
+                    }
+                    det += Math.pow(-1, j) * A[0][j] * MatrixOps.determinant(minor);
+                }
+                return det;
+            }
+            
+            static trace(A) {
+                let trace = 0;
+                for (let i = 0; i < Math.min(A.length, A[0].length); i++) {
+                    trace += A[i][i];
+                }
+                return trace;
+            }
+            
+            static identity(n) {
+                const matrix = [];
+                for (let i = 0; i < n; i++) {
+                    matrix[i] = [];
+                    for (let j = 0; j < n; j++) {
+                        matrix[i][j] = i === j ? 1 : 0;
+                    }
+                }
+                return matrix;
+            }
+            
+            static rotation(angle) {
+                const c = Math.cos(angle);
+                const s = Math.sin(angle);
+                return [
+                    [c, -s],
+                    [s, c]
+                ];
+            }
+        }
+        
+        // Current matrices
+        let matrixA = MatrixOps.create(3, 3);
+        let matrixB = MatrixOps.create(3, 3);
+        let currentOperation = 'multiply';
+        
+        function renderMatrix(matrix, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            const rows = matrix.length;
+            const cols = matrix[0].length;
+            
+            container.style.cssText = `
+                display: grid;
+                grid-template-columns: repeat(${cols}, 1fr);
+                gap: 5px;
+                padding: 10px;
+                border: 2px solid rgba(255,255,255,0.3);
+                border-radius: 5px;
+                background: rgba(255,255,255,0.05);
+            `;
+            
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const cell = document.createElement('div');
+                    cell.textContent = matrix[i][j].toFixed(2);
+                    cell.style.cssText = `
+                        padding: 5px;
+                        text-align: center;
+                        border: 1px solid rgba(255,255,255,0.2);
+                        background: rgba(255,255,255,0.1);
+                        cursor: pointer;
+                        color: white;
+                        font-family: monospace;
+                    `;
+                    
+                    // Make matrix A and B editable
+                    if (containerId === 'grid-a' || containerId === 'grid-b') {
+                        cell.addEventListener('click', () => {
+                            const newValue = prompt(`Enter new value for [${i}][${j}]:`, matrix[i][j]);
+                            if (newValue !== null) {
+                                matrix[i][j] = parseFloat(newValue) || 0;
+                                updateMatrices();
+                            }
+                        });
+                    }
+                    
+                    container.appendChild(cell);
+                }
+            }
+        }
+        
+        function updateMatrices() {
+            renderMatrix(matrixA, 'grid-a');
+            renderMatrix(matrixB, 'grid-b');
+            
+            let result;
+            try {
+                switch (currentOperation) {
+                    case 'multiply':
+                        result = MatrixOps.multiply(matrixA, matrixB);
+                        break;
+                    case 'add':
+                        result = MatrixOps.add(matrixA, matrixB);
+                        break;
+                    default:
+                        result = MatrixOps.create(3, 3, [0,0,0,0,0,0,0,0,0]);
+                }
+                renderMatrix(result, 'grid-result');
+            } catch (error) {
+                document.getElementById('grid-result').innerHTML = '<div style="color: red;">Invalid operation</div>';
+            }
+        }
+        
+        // Interactive operations
+        document.querySelectorAll('.interactive-operation').forEach(element => {
+            element.addEventListener('click', () => {
+                const operation = element.dataset.operation;
+                performOperation(operation, element);
+            });
+        });
+        
+        function performOperation(operation, element) {
+            element.style.animation = 'matrix-pulse 1s ease-in-out';
+            
+            switch (operation) {
+                case 'multiply':
+                    currentOperation = 'multiply';
+                    document.getElementById('operation').textContent = '⊗';
+                    updateMatrices();
+                    break;
+                case 'add':
+                    currentOperation = 'add';
+                    document.getElementById('operation').textContent = '⊞';
+                    updateMatrices();
+                    break;
+                case 'transpose':
+                    showTranspose();
+                    break;
+                case 'inverse':
+                    showInverse();
+                    break;
+                case 'determinant':
+                    showDeterminant();
+                    break;
+                case 'trace':
+                    showTrace();
+                    break;
+                case 'eigenvalue':
+                    showEigenvalues();
+                    break;
+                case 'rotate':
+                    showRotation();
+                    break;
+            }
+            
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 1000);
+        }
+        
+        function showTranspose() {
+            const transposed = MatrixOps.transpose(matrixA);
+            showMatrixResult('Transpose of Matrix A', transposed);
+        }
+        
+        function showInverse() {
+            // For simplicity, show message about inverse calculation
+            const det = MatrixOps.determinant(matrixA);
+            if (Math.abs(det) < 0.0001) {
+                showMatrixInfo('Matrix A is singular (det = 0)', 'No inverse exists');
+            } else {
+                showMatrixInfo('Matrix A is invertible', `det(A) = ${det.toFixed(4)}`);
+            }
+        }
+        
+        function showDeterminant() {
+            const det = MatrixOps.determinant(matrixA);
+            showMatrixInfo('Determinant of Matrix A', `det(A) = ${det.toFixed(4)}`);
+        }
+        
+        function showTrace() {
+            const tr = MatrixOps.trace(matrixA);
+            showMatrixInfo('Trace of Matrix A', `tr(A) = ${tr.toFixed(4)}`);
+        }
+        
+        function showEigenvalues() {
+            showMatrixInfo('Eigenvalues', 'Computing eigenvalues requires advanced algorithms...');
+        }
+        
+        function showRotation() {
+            const angle = Math.PI / 4; // 45 degrees
+            const rotation = MatrixOps.rotation(angle);
+            showMatrixResult('Rotation Matrix (45°)', rotation);
+        }
+        
+        function showMatrixResult(title, matrix) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.95);
+                color: white;
+                padding: 2rem;
+                border: 2px solid gold;
+                border-radius: 10px;
+                z-index: 1000;
+                font-family: monospace;
+            `;
+            
+            modal.innerHTML = `
+                <h3>${title}</h3>
+                <div id="modal-matrix" style="margin: 1rem 0;"></div>
+                <div style="font-size: 0.8rem; opacity: 0.7; text-align: center;">
+                    ⌨ → ∅
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Render matrix in modal
+            const modalMatrix = document.getElementById('modal-matrix');
+            const rows = matrix.length;
+            const cols = matrix[0].length;
+            
+            modalMatrix.style.cssText = `
+                display: grid;
+                grid-template-columns: repeat(${cols}, 1fr);
+                gap: 5px;
+                max-width: 300px;
+                margin: 0 auto;
+            `;
+            
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const cell = document.createElement('div');
+                    cell.textContent = matrix[i][j].toFixed(3);
+                    cell.style.cssText = `
+                        padding: 8px;
+                        text-align: center;
+                        border: 1px solid rgba(255,255,255,0.3);
+                        background: rgba(255,255,255,0.1);
+                    `;
+                    modalMatrix.appendChild(cell);
+                }
+            }
+            
+            const dismissHandler = () => {
+                modal.remove();
+                document.removeEventListener('keydown', dismissHandler);
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('keydown', dismissHandler);
+            }, 100);
+        }
+        
+        function showMatrixInfo(title, info) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.95);
+                color: white;
+                padding: 2rem;
+                border: 2px solid gold;
+                border-radius: 10px;
+                z-index: 1000;
+                font-family: monospace;
+                text-align: center;
+            `;
+            
+            modal.innerHTML = `
+                <h3>${title}</h3>
+                <div style="margin: 1rem 0; font-size: 1.2rem; color: gold;">
+                    ${info}
+                </div>
+                <div style="font-size: 0.8rem; opacity: 0.7;">
+                    ⌨ → ∅
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            const dismissHandler = () => {
+                modal.remove();
+                document.removeEventListener('keydown', dismissHandler);
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('keydown', dismissHandler);
+            }, 100);
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            switch (e.key.toLowerCase()) {
+                case 'n':
+                    // New random matrices
+                    matrixA = MatrixOps.create(3, 3);
+                    matrixB = MatrixOps.create(3, 3);
+                    updateMatrices();
+                    break;
+                case 'i':
+                    // Identity matrix
+                    matrixA = MatrixOps.identity(3);
+                    updateMatrices();
+                    break;
+                case 'z':
+                    // Zero matrix
+                    matrixA = MatrixOps.create(3, 3, [0,0,0,0,0,0,0,0,0]);
+                    updateMatrices();
+                    break;
+                case 'r':
+                    // Rotation matrix
+                    const angle = Math.random() * 2 * Math.PI;
+                    const rotation = MatrixOps.rotation(angle);
+                    // Pad to 3x3
+                    matrixA = [
+                        [rotation[0][0], rotation[0][1], 0],
+                        [rotation[1][0], rotation[1][1], 0],
+                        [0, 0, 1]
+                    ];
+                    updateMatrices();
+                    break;
+            }
+        });
+        
+        // Initialize display
+        updateMatrices();
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes matrix-pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); box-shadow: 0 0 20px gold; }
+            }
+            
+            .interactive-operation {
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .interactive-operation:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            }
+            
+            .matrix-playground {
+                margin: 2rem 0;
+                padding: 1rem;
+                border: 1px solid rgba(255,255,255,0.2);
+                border-radius: 10px;
+                background: rgba(255,255,255,0.02);
+            }
+            
+            .matrix-display {
+                overflow-x: auto;
+            }
+            
+            .matrix-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                min-width: 800px;
+            }
+            
+            .matrix {
+                text-align: center;
+            }
+            
+            .matrix-title {
+                margin-bottom: 0.5rem;
+                font-weight: bold;
+                color: gold;
+            }
+            
+            .operation-symbol, .equals {
+                font-size: 2rem;
+                color: white;
+                font-weight: bold;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Show welcome message
+        setTimeout(() => {
+            const welcome = document.createElement('div');
+            welcome.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 1rem;
+                border: 1px solid gold;
+                border-radius: 5px;
+                z-index: 1000;
+                font-family: monospace;
+                text-align: center;
+            `;
+            
+            welcome.innerHTML = `
+                <div>Click matrix elements to edit | Click symbols for operations</div>
+                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                    Press N=new, I=identity, Z=zero, R=rotation
+                </div>
+            `;
+            
+            document.body.appendChild(welcome);
+            
+            setTimeout(() => welcome.remove(), 8000);
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✦ ◊ ✦</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/harmonics.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+     ·  ✦  ·   ✧   ·  ✦  ·
+         ·    ✦    ·
+    ✧  ☆ ✩ ✪ ✨  ✧
+         ·    ✦    ·
+     ·  ✦  ·   ✧   ·  ✦  ·
+            </div>
+            
+            <div class="ascii-art">
+           ✦
+          ╱ ╲
+         ╱   ╲
+        │  ☉  │
+         ╲   ╱
+          ╲ ╱
+           ·
+     ✧         ✧
+    ·     ●     ·
+   ✦    ╱   ╲    ✦
+  ·    │     │    ·
+       ╲     ╱
+        ╲___╱
+            </div>
+            
+            <div class="divider">· · · · · · · · · · · · · · · ·</div>
+            
+            <div class="symbol-grid">
+                <a href="constellations.html" class="symbol nav-link">✧</a>
+                <a href="nebula.html" class="symbol nav-link">◉</a>
+                <a href="planets.html" class="symbol nav-link">☉</a>
+                <a href="void.html" class="symbol nav-link">●</a>
+                <a href="galaxies.html" class="symbol nav-link">✦</a>
+                <a href="eclipse.html" class="symbol nav-link">◐</a>
+                <a href="aurora.html" class="symbol nav-link">≈</a>
+                <a href="quasar.html" class="symbol nav-link">✺</a>
+            </div>
+            
+            <div class="ascii-art" style="font-size: 0.7rem;">
+    . · ˚ * 🌌 * ˚ · .
+         ∞ ≈ ∞
+      ○ → ✦ → ○
+            </div>
+            
+            <div class="navigation">
+                <a href="/realms/mathematics/" class="nav-link">∑</a>
+                <a href="/" class="nav-link">◊</a>
+                <a href="/realms/glyphs/" class="nav-link">☥</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script src="/js/quantum-particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script>
+        // ♫ ✦ ∞
+        window.harmonics.init();
+        
+        // ψ ✦ ☉
+        const quantumField = window.quantumParticles.init([
+            '✦', '✧', '·', '˚', '*', '☉', '◉', '○', '🌌', '⭐', '☄', '🌠'
+        ]);
+        
+        // ○ ● ◉
+        initParticles(['✦', '✧', '·', '˚', '*', '☉', '◉', '○']);
+        
+        // ✦ ∼ ψ
+        setInterval(() => {
+            const stars = document.querySelectorAll('.ascii-art');
+            stars.forEach(star => {
+                if (Math.random() > 0.95) {
+                    // ψ ∼ ✦
+                    const opacity = Math.random() * 0.5 + 0.5;
+                    star.style.opacity = opacity;
+                    star.style.filter = `blur(${(1 - opacity) * 2}px)`;
+                    
+                    setTimeout(() => {
+                        star.style.opacity = 1;
+                        star.style.filter = 'none';
+                    }, 200);
+                    
+                    // ψ → ●
+                    if (Math.random() > 0.9) {
+                        const rect = star.getBoundingClientRect();
+                        quantumField.createParticle(
+                            rect.left + rect.width / 2,
+                            rect.top + rect.height / 2,
+                            ['✦', '✧', '·'][Math.floor(Math.random() * 3)]
+                        );
+                    }
+                }
+            });
+        }, 100);
+        
+        // ✦ ∼ □
+        const cosmicBackground = document.createElement('canvas');
+        cosmicBackground.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            z-index: -1;
+        `;
+        cosmicBackground.width = window.innerWidth;
+        cosmicBackground.height = window.innerHeight;
+        document.body.appendChild(cosmicBackground);
+        
+        const ctx = cosmicBackground.getContext('2d');
+        
+        // ✦ ∼ ■
+        function drawCosmicBackground() {
+            const imageData = ctx.createImageData(cosmicBackground.width, cosmicBackground.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // ✦ ∼ ΔT
+                const temperature = 2.725 + (Math.random() - 0.5) * 0.0001;
+                const intensity = Math.floor(temperature * 100);
+                
+                data[i] = intensity;     // Red
+                data[i + 1] = intensity; // Green
+                data[i + 2] = intensity; // Blue
+                data[i + 3] = 255;       // Alpha
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        drawCosmicBackground();
+        
+        // H₀ → ◊
+        let hubbleConstant = 70; // km/s/Mpc
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'h' || e.key === 'H') {
+                const hubbleDiv = document.createElement('div');
+                hubbleDiv.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: rgba(0,0,0,0.8);
+                    color: white;
+                    padding: 1rem;
+                    border: 1px solid #fff;
+                    font-family: monospace;
+                    z-index: 1000;
+                `;
+                
+                hubbleDiv.innerHTML = `
+                    <div>H₀: ${hubbleConstant} km/s/Mpc</div>
+                    <div>☉τ: ${(1/hubbleConstant * 978).toFixed(1)} Gyr</div>
+                    <div>○≡: ${(3000/hubbleConstant).toFixed(1)} Gpc</div>
+                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                        ⌨ → ∅
+                    </div>
+                `;
+                
+                document.body.appendChild(hubbleDiv);
+                
+                const dismissHandler = () => {
+                    hubbleDiv.remove();
+                    document.removeEventListener('keydown', dismissHandler);
+                };
+                
+                setTimeout(() => {
+                    document.addEventListener('keydown', dismissHandler);
+                }, 100);
+            }
+        });
+        
+        // εᴰ → ◊
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'd' || e.key === 'D') {
+                const drakeDiv = document.createElement('div');
+                drakeDiv.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(0,0,0,0.9);
+                    color: white;
+                    padding: 2rem;
+                    border: 2px solid #fff;
+                    font-family: monospace;
+                    z-index: 1000;
+                    text-align: center;
+                `;
+                
+                const N = 1 * 10 * 0.5 * 1 * 0.2 * 0.1 * 10000;
+                
+                drakeDiv.innerHTML = `
+                    <h3>εᴰ ∑</h3>
+                    <pre>
+N = R* × fp × ne × fl × fi × fc × L
+
+∴:
+R* = 1    (✦ → ⊕)
+fp = 10   (⊕ → ○)
+ne = 0.5  (⊕ ≈ ♁)
+fl = 1    (♁ → ♀)
+fi = 0.2  (♀ → ψ)
+fc = 0.1  (ψ → ⧐)
+L = 10^4  (τ ∞)
+
+N = ${N.toFixed(0)} ψ♀
+                    </pre>
+                    <div style="font-size: 0.8rem; opacity: 0.7;">
+                        ⌨ → ∅
+                    </div>
+                `;
+                
+                document.body.appendChild(drakeDiv);
+                
+                const dismissHandler = () => {
+                    drakeDiv.remove();
+                    document.removeEventListener('keydown', dismissHandler);
+                };
+                
+                setTimeout(() => {
+                    document.addEventListener('keydown', dismissHandler);
+                }, 100);
+            }
+        });
+        
+        // ☉ ⟷ ⚫
+        const stellarTypes = ['☉', '⭐', '🌟', '💫', '⚫'];
+        let currentStellarType = 0;
+        
+        document.querySelectorAll('.ascii-art').forEach(art => {
+            if (art.textContent.includes('☉')) {
+                art.addEventListener('click', () => {
+                    currentStellarType = (currentStellarType + 1) % stellarTypes.length;
+                    art.innerHTML = art.innerHTML.replace('☉', stellarTypes[currentStellarType]);
+                    
+                    // ☉ ⟷ ℹ
+                    const phases = [
+                        '☉ → ★',
+                        '★ → 🔴',
+                        '🔴 → ⚪',
+                        '⚪ → 💫',
+                        '💫 → ⚫'
+                    ];
+                    
+                    const info = document.createElement('div');
+                    info.style.cssText = `
+                        position: fixed;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        padding: 0.5rem 1rem;
+                        border-radius: 5px;
+                        z-index: 1000;
+                        font-family: monospace;
+                    `;
+                    
+                    info.textContent = `☉⟷: ${phases[currentStellarType]}`;
+                    document.body.appendChild(info);
+                    
+                    setTimeout(() => info.remove(), 2000);
+                });
+            }
+        });
+        
+        // ✦ ⟷ □
+        let constellationMode = false;
+        let constellationPoints = [];
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'c' || e.key === 'C') {
+                constellationMode = !constellationMode;
+                if (constellationMode) {
+                    document.body.style.cursor = 'crosshair';
+                    constellationPoints = [];
+                } else {
+                    document.body.style.cursor = '';
+                    // ✦ → ∅
+                    document.querySelectorAll('.constellation-line').forEach(line => line.remove());
+                }
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (constellationMode) {
+                constellationPoints.push({ x: e.clientX, y: e.clientY });
+                
+                // Create star marker
+                const star = document.createElement('div');
+                star.style.cssText = `
+                    position: fixed;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    width: 4px;
+                    height: 4px;
+                    background: white;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1000;
+                `;
+                star.className = 'constellation-star';
+                document.body.appendChild(star);
+                
+                // Draw line to previous point
+                if (constellationPoints.length > 1) {
+                    const prev = constellationPoints[constellationPoints.length - 2];
+                    const curr = constellationPoints[constellationPoints.length - 1];
+                    
+                    const line = document.createElement('div');
+                    const dx = curr.x - prev.x;
+                    const dy = curr.y - prev.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx);
+                    
+                    line.style.cssText = `
+                        position: fixed;
+                        left: ${prev.x}px;
+                        top: ${prev.y}px;
+                        width: ${length}px;
+                        height: 1px;
+                        background: rgba(255,255,255,0.5);
+                        transform-origin: left center;
+                        transform: rotate(${angle}rad);
+                        z-index: 999;
+                    `;
+                    line.className = 'constellation-line';
+                    document.body.appendChild(line);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⊕</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    ┌─┐     ┌─┐     ┌─┐
+ 0──┤&├──1──┤|├──1──┤!├──0
+    └─┘     └─┘     └─┘
+     ∧       ∨       ¬
+            </div>
+            
+            <div class="ascii-art">
+       ⊕
+      ╱ ╲
+ 0───┤   ├───1
+     │ ⊕ │
+ 1───┤   ├───0
+      ╲ ╱
+       ⊕
+       
+    0⊕1=1, 1⊕0=1
+    0⊕0=0, 1⊕1=0
+            </div>
+            
+            <div class="divider">⊕ ⊗ ∧ ∨ ¬ → ↔ ≡ ⊕ ⊗</div>
+            
+            <div class="ascii-art">
+    ┌───┬───┬───┐
+    │ A │ B │ ⊕ │
+    ├───┼───┼───┤
+    │ 0 │ 0 │ 0 │
+    │ 0 │ 1 │ 1 │
+    │ 1 │ 0 │ 1 │
+    │ 1 │ 1 │ 0 │
+    └───┴───┴───┘
+            </div>
+            
+            <div class="ascii-art">
+      ┌─────────┐
+   0──┤    ⊕    ├──0
+      │         │
+   1──┤    ⊗    ├──1
+      └─────────┘
+      
+    ∀A,B: A⊕B = ¬(A⊗B)
+            </div>
+            
+            <div class="ascii-art">
+    ◯──────⊕──────◯
+    │      │      │
+    │   ┌──┴──┐   │
+    └───┤ ¬∧¬ ├───┘
+        └─────┘
+        
+      NAND = ¬(A∧B)
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">⌘</a>
+                <a href="binary.html" class="nav-link">01</a>
+                <a href="quantum.html" class="nav-link">⟨ψ⟩</a>
+                <a href="morse.html" class="nav-link">•–</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['⊕', '⊗', '∧', '∨', '¬', '→', '↔', '≡']);
+        
+        // Logic gate animation
+        const gates = ['⊕', '⊗', '∧', '∨', '¬', '→'];
+        let gateIndex = 0;
+        
+        setInterval(() => {
+            const gateElements = document.querySelectorAll('.ascii-art');
+            gateElements.forEach(el => {
+                el.innerHTML = el.innerHTML.replace(/[⊕⊗∧∨¬→]/g, 
+                    () => gates[gateIndex % gates.length]);
+            });
+            gateIndex++;
+        }, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ℙ</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/pure-symbols.css">
+    <link rel="stylesheet" href="/css/spirals.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    2  3  5  7  11 13 17 19 23
+    29 31 37 41 43 47 53 59 61
+    67 71 73 79 83 89 97 101 103
+    107 109 113 127 131 137 139
+            </div>
+            
+            <div class="ascii-art">
+        ● ○ ● ○ ● ○ ● ○ ●
+       ○ ● ○ ● ○ ● ○ ● ○ ●
+      ● ○ ● ○ ● ○ ● ○ ● ○ ●
+     ○ ● ○ ● ○ ● ○ ● ○ ● ○
+    ● ○ ● ○ ● ○ ● ○ ● ○ ● ○
+            </div>
+            
+            <div class="divider">ℙ ℙ ℙ ℙ ℙ ℙ ℙ ℙ ℙ ℙ ℙ</div>
+            
+            <div class="ascii-art" id="ulam-spiral">
+    ┌─────────────────┐
+    │ 37 36 35 34 33 │
+    │ 38 17 16 15 32 │
+    │ 39 18  5  4 31 │
+    │ 40 19  6  1 30 │
+    │ 41 20  7  8  9 │
+    │ 42 21 22 23 24 │
+    │ 43 44 45 46 47 │
+    └─────────────────┘
+            </div>
+            
+            <div class="ascii-art">
+     ℙ → ∞
+    ╱ ╲
+   ╱   ╲
+  ∑     ∏
+   ╲   ╱
+    ╲ ╱
+     1
+            </div>
+            
+            <div class="ascii-art">
+    ζ(s) = ∑(1/n^s) = ∏(1/(1-p^(-s)))
+    
+    ζ(2) = π²/6 ≈ 1.645
+    ζ(4) = π⁴/90 ≈ 1.082
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">∴</a>
+                <a href="euler.html" class="nav-link">ℯ</a>
+                <a href="infinity.html" class="nav-link">∞</a>
+                <a href="matrices.html" class="nav-link">⊞</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script src="/js/resonance-effects.js"></script>
+    <script>
+        initParticles(['ℙ', '2', '3', '5', '7', '11', '13', '17', '19', '23']);
+        
+        // Prime highlighting system
+        const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+        
+        function isPrime(n) {
+            if (n < 2) return false;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+        
+        // Animate Ulam spiral
+        function animateUlamSpiral() {
+            const spiral = document.getElementById('ulam-spiral');
+            const numbers = spiral.textContent.match(/\d+/g);
+            
+            if (numbers) {
+                let html = spiral.innerHTML;
+                numbers.forEach(num => {
+                    const n = parseInt(num);
+                    if (isPrime(n)) {
+                        html = html.replace(new RegExp(`\\b${num}\\b`, 'g'), 
+                            `<span class="prime-glow">${num}</span>`);
+                    }
+                });
+                spiral.innerHTML = html;
+            }
+        }
+        
+        // Generate Fibonacci spiral with primes
+        document.addEventListener('DOMContentLoaded', () => {
+            animateUlamSpiral();
+            
+            // Add resonance to prime numbers
+            setInterval(() => {
+                document.querySelectorAll('.prime-glow').forEach(prime => {
+                    if (Math.random() > 0.95) {
+                        prime.style.textShadow = '0 0 15px #fff, 0 0 25px #fff';
+                        setTimeout(() => {
+                            prime.style.textShadow = '0 0 3px #fff, 0 0 6px #fff';
+                        }, 200);
+                    }
+                });
+            }, 100);
+        });
+        
+        // Prime discovery game
+        let discoveredPrimes = new Set();
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('prime-glow')) {
+                const prime = parseInt(e.target.textContent);
+                if (!discoveredPrimes.has(prime)) {
+                    discoveredPrimes.add(prime);
+                    e.target.style.transform = 'scale(1.5)';
+                    setTimeout(() => {
+                        e.target.style.transform = 'scale(1)';
+                    }, 300);
+                    
+                    // Show Riemann zeta connection
+                    if (discoveredPrimes.size === 5) {
+                        document.body.style.filter = 'brightness(1.2)';
+                        setTimeout(() => {
+                            document.body.style.filter = 'brightness(1)';
+                        }, 1000);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.symbol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.symbol {
+    font-size: 2rem;
+    transition: transform 0.3s;
+}
+
+.symbol:hover {
+    transform: scale(1.5) rotate(180deg);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.blink {
+    animation: blink 1s infinite;
+}

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☉ ⊕ ♃</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/harmonics.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+╔═══════════════════════════════════════════════╗
+║            ☉ Planetary System ☉              ║
+║                                               ║
+║        Worlds dancing around stars           ║
+╚═══════════════════════════════════════════════╝
+            </div>
+            
+            <div class="ascii-art solar-system">
+                    ☉
+                 ☿     ♀
+              ⊕   ♂
+           ♃         ♄
+              ♅   ♆
+                 ⚳
+            </div>
+            
+            <div class="orbital-diagram" id="orbital-system">
+                <!-- Orbital animation will be generated here -->
+            </div>
+            
+            <div class="divider">∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿</div>
+            
+            <div class="symbol-grid">
+                <div class="symbol planet-symbol" data-planet="mercury">☿</div>
+                <div class="symbol planet-symbol" data-planet="venus">♀</div>
+                <div class="symbol planet-symbol" data-planet="earth">⊕</div>
+                <div class="symbol planet-symbol" data-planet="mars">♂</div>
+                <div class="symbol planet-symbol" data-planet="jupiter">♃</div>
+                <div class="symbol planet-symbol" data-planet="saturn">♄</div>
+                <div class="symbol planet-symbol" data-planet="uranus">♅</div>
+                <div class="symbol planet-symbol" data-planet="neptune">♆</div>
+            </div>
+            
+            <div class="ascii-art" style="font-size: 0.8rem;">
+    Kepler's Laws:
+    
+    1. Elliptical Orbits:    ○ → ◯ → ⬯
+    2. Equal Areas:          A₁ = A₂ = A₃ (equal time)
+    3. Harmonic Law:         T² ∝ a³
+    
+    Habitable Zone: ♀ ← ⊕ → ♂
+    
+    ♫ Where liquid water can exist ♫
+    ♫ Goldilocks zone: not too hot, not too cold ♫
+            </div>
+            
+            <div class="planet-details" id="planet-details">
+                <div class="detail-title">Click a planet to explore</div>
+                <div class="detail-content" id="detail-content"></div>
+            </div>
+            
+            <div class="navigation">
+                <a href="/realms/cosmos/" class="nav-link">✦</a>
+                <a href="/" class="nav-link">◊</a>
+                <a href="/realms/mathematics/" class="nav-link">∑</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script src="/js/quantum-particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script>
+        // ♫ ☉ ∞
+        window.harmonics.init();
+        
+        // ψ ☉ ⊕
+        const quantumField = window.quantumParticles.init([
+            '☉', '☿', '♀', '⊕', '♂', '♃', '♄', '♅', '♆', '○', '◯', '●', '◉'
+        ]);
+        
+        // ○ ● ◉
+        initParticles(['☉', '☿', '♀', '⊕', '♂', '♃', '♄', '♅', '♆']);
+        
+        // Planet data
+        const planetData = {
+            mercury: {
+                name: 'Mercury ☿',
+                symbol: '☿',
+                distance: '0.39 AU',
+                period: '88 days',
+                diameter: '4,879 km',
+                mass: '0.055 ⊕',
+                temp: '427°C (day), -173°C (night)',
+                moons: '0',
+                composition: 'Iron core, thin atmosphere',
+                features: ['Closest to Sun', 'Extreme temperatures', 'No atmosphere', 'Heavily cratered'],
+                mythology: 'Roman messenger god'
+            },
+            venus: {
+                name: 'Venus ♀',
+                symbol: '♀',
+                distance: '0.72 AU',
+                period: '225 days',
+                diameter: '12,104 km',
+                mass: '0.815 ⊕',
+                temp: '462°C (surface)',
+                moons: '0',
+                composition: 'Dense CO₂ atmosphere, sulfuric acid clouds',
+                features: ['Hottest planet', 'Retrograde rotation', 'Greenhouse effect', 'Volcanic surface'],
+                mythology: 'Roman goddess of love'
+            },
+            earth: {
+                name: 'Earth ⊕',
+                symbol: '⊕',
+                distance: '1.00 AU',
+                period: '365.25 days',
+                diameter: '12,756 km',
+                mass: '1.000 ⊕',
+                temp: '15°C (average)',
+                moons: '1 (Luna ☽)',
+                composition: 'N₂, O₂ atmosphere, liquid water',
+                features: ['Only known life', 'Liquid water', 'Magnetic field', 'Plate tectonics'],
+                mythology: 'Our home world'
+            },
+            mars: {
+                name: 'Mars ♂',
+                symbol: '♂',
+                distance: '1.52 AU',
+                period: '687 days',
+                diameter: '6,792 km',
+                mass: '0.107 ⊕',
+                temp: '-65°C (average)',
+                moons: '2 (Phobos, Deimos)',
+                composition: 'Thin CO₂ atmosphere, iron oxide surface',
+                features: ['Red planet', 'Polar ice caps', 'Largest volcano', 'Evidence of water'],
+                mythology: 'Roman god of war'
+            },
+            jupiter: {
+                name: 'Jupiter ♃',
+                symbol: '♃',
+                distance: '5.20 AU',
+                period: '12 years',
+                diameter: '142,984 km',
+                mass: '317.8 ⊕',
+                temp: '-110°C (cloud tops)',
+                moons: '95+ (Io, Europa, Ganymede, Callisto)',
+                composition: 'Hydrogen, helium gas giant',
+                features: ['Largest planet', 'Great Red Spot', 'Many moons', 'Ring system'],
+                mythology: 'Roman king of gods'
+            },
+            saturn: {
+                name: 'Saturn ♄',
+                symbol: '♄',
+                distance: '9.58 AU',
+                period: '29 years',
+                diameter: '120,536 km',
+                mass: '95.2 ⊕',
+                temp: '-140°C (cloud tops)',
+                moons: '146+ (Titan, Enceladus)',
+                composition: 'Hydrogen, helium, less dense than water',
+                features: ['Prominent rings', 'Low density', 'Hexagonal storm', 'Moon Titan'],
+                mythology: 'Roman god of agriculture'
+            },
+            uranus: {
+                name: 'Uranus ♅',
+                symbol: '♅',
+                distance: '19.22 AU',
+                period: '84 years',
+                diameter: '51,118 km',
+                mass: '14.5 ⊕',
+                temp: '-195°C',
+                moons: '27 (Miranda, Ariel, Umbriel, Titania, Oberon)',
+                composition: 'Water, methane, ammonia ice',
+                features: ['Tilted 98°', 'Faint rings', 'Ice giant', 'Retrograde rotation'],
+                mythology: 'Greek god of the sky'
+            },
+            neptune: {
+                name: 'Neptune ♆',
+                symbol: '♆',
+                distance: '30.05 AU',
+                period: '165 years',
+                diameter: '49,528 km',
+                mass: '17.1 ⊕',
+                temp: '-200°C',
+                moons: '16 (Triton)',
+                composition: 'Water, methane, ammonia ice',
+                features: ['Windiest planet', 'Deep blue color', 'Faint rings', 'Moon Triton'],
+                mythology: 'Roman god of the sea'
+            }
+        };
+        
+        // Orbital system animation
+        function createOrbitalSystem() {
+            const container = document.getElementById('orbital-system');
+            container.innerHTML = '';
+            
+            container.style.cssText = `
+                width: 400px;
+                height: 400px;
+                margin: 2rem auto;
+                position: relative;
+                background: radial-gradient(circle at center, 
+                    rgba(255,255,0,0.1) 0%, 
+                    rgba(0,0,0,0.8) 20%, 
+                    transparent 40%);
+                border-radius: 50%;
+                overflow: hidden;
+            `;
+            
+            // Sun at center
+            const sun = document.createElement('div');
+            sun.innerHTML = '☉';
+            sun.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 2rem;
+                color: #ffff00;
+                text-shadow: 0 0 20px #ffff00;
+                z-index: 10;
+            `;
+            container.appendChild(sun);
+            
+            // Orbital paths and planets
+            const orbits = [
+                { planet: 'mercury', radius: 30, period: 2, symbol: '☿', color: '#8c7853' },
+                { planet: 'venus', radius: 45, period: 3, symbol: '♀', color: '#ffc649' },
+                { planet: 'earth', radius: 60, period: 4, symbol: '⊕', color: '#6b93d6' },
+                { planet: 'mars', radius: 75, period: 6, symbol: '♂', color: '#c1440e' },
+                { planet: 'jupiter', radius: 120, period: 12, symbol: '♃', color: '#d8ca9d' },
+                { planet: 'saturn', radius: 140, period: 16, symbol: '♄', color: '#fab27b' },
+                { planet: 'uranus', radius: 160, period: 20, symbol: '♅', color: '#4fd0e3' },
+                { planet: 'neptune', radius: 180, period: 24, symbol: '♆', color: '#4b70dd' }
+            ];
+            
+            orbits.forEach(orbit => {
+                // Orbital path
+                const path = document.createElement('div');
+                path.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: ${orbit.radius * 2}px;
+                    height: ${orbit.radius * 2}px;
+                    transform: translate(-50%, -50%);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 50%;
+                    pointer-events: none;
+                `;
+                container.appendChild(path);
+                
+                // Planet
+                const planet = document.createElement('div');
+                planet.innerHTML = orbit.symbol;
+                planet.className = 'orbiting-planet';
+                planet.dataset.planet = orbit.planet;
+                planet.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 1rem;
+                    color: ${orbit.color};
+                    text-shadow: 0 0 10px ${orbit.color};
+                    cursor: pointer;
+                    transform-origin: 0 0;
+                    animation: orbit-${orbit.planet} ${orbit.period}s linear infinite;
+                    z-index: 5;
+                `;
+                
+                // Add click event
+                planet.addEventListener('click', () => {
+                    showPlanetDetails(orbit.planet);
+                });
+                
+                container.appendChild(planet);
+                
+                // Create keyframe animation
+                const keyframes = `
+                    @keyframes orbit-${orbit.planet} {
+                        from {
+                            transform: translate(-50%, -50%) rotate(0deg) translateX(${orbit.radius}px) rotate(0deg);
+                        }
+                        to {
+                            transform: translate(-50%, -50%) rotate(360deg) translateX(${orbit.radius}px) rotate(-360deg);
+                        }
+                    }
+                `;
+                
+                const style = document.createElement('style');
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+            });
+        }
+        
+        // Planet symbol interactions
+        document.querySelectorAll('.planet-symbol').forEach(element => {
+            element.addEventListener('click', () => {
+                const planet = element.dataset.planet;
+                showPlanetDetails(planet);
+            });
+        });
+        
+        function showPlanetDetails(planetName) {
+            const planet = planetData[planetName];
+            if (!planet) return;
+            
+            const detailContent = document.getElementById('detail-content');
+            detailContent.innerHTML = `
+                <div class="planet-info">
+                    <h3>${planet.name}</h3>
+                    <div class="planet-stats">
+                        <div><strong>Distance:</strong> ${planet.distance}</div>
+                        <div><strong>Orbital Period:</strong> ${planet.period}</div>
+                        <div><strong>Diameter:</strong> ${planet.diameter}</div>
+                        <div><strong>Mass:</strong> ${planet.mass}</div>
+                        <div><strong>Temperature:</strong> ${planet.temp}</div>
+                        <div><strong>Moons:</strong> ${planet.moons}</div>
+                    </div>
+                    <div class="planet-composition">
+                        <strong>Composition:</strong> ${planet.composition}
+                    </div>
+                    <div class="planet-features">
+                        <strong>Features:</strong>
+                        <ul>
+                            ${planet.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="planet-mythology">
+                        <strong>Mythology:</strong> ${planet.mythology}
+                    </div>
+                </div>
+            `;
+            
+            // Highlight the planet symbol
+            document.querySelectorAll('.planet-symbol, .orbiting-planet').forEach(el => {
+                el.style.animation = '';
+                el.style.transform = '';
+            });
+            
+            const planetSymbol = document.querySelector(`[data-planet="${planetName}"]`);
+            if (planetSymbol) {
+                planetSymbol.style.animation = 'planet-highlight 2s ease-in-out infinite';
+            }
+        }
+        
+        // Keyboard interactions
+        document.addEventListener('keydown', (e) => {
+            const planetKeys = {
+                '1': 'mercury',
+                '2': 'venus',
+                '3': 'earth',
+                '4': 'mars',
+                '5': 'jupiter',
+                '6': 'saturn',
+                '7': 'uranus',
+                '8': 'neptune'
+            };
+            
+            if (planetKeys[e.key]) {
+                showPlanetDetails(planetKeys[e.key]);
+            }
+            
+            if (e.key === 'h' || e.key === 'H') {
+                showHabitabilityZone();
+            }
+            
+            if (e.key === 'k' || e.key === 'K') {
+                showKeplersLaws();
+            }
+        });
+        
+        function showHabitabilityZone() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.95);
+                color: white;
+                padding: 2rem;
+                border: 2px solid gold;
+                border-radius: 10px;
+                z-index: 1000;
+                font-family: monospace;
+                max-width: 500px;
+            `;
+            
+            modal.innerHTML = `
+                <h3>🌍 Habitable Zone 🌍</h3>
+                <div style="margin: 1rem 0;">
+                    <p>The habitable zone (or "Goldilocks zone") is the orbital distance where liquid water can exist on a planet's surface.</p>
+                    
+                    <pre style="margin: 1rem 0; text-align: center;">
+☿ (too hot)
+   ♀ (too hot)
+      ⊕ (just right) 🌍
+         ♂ (too cold/thin atmosphere)
+            ♃ (gas giant)
+    </pre>
+                    
+                    <div style="margin: 1rem 0;">
+                        <strong>For our Solar System:</strong>
+                        <ul style="margin-left: 1rem;">
+                            <li>Inner edge: ~0.95 AU</li>
+                            <li>Outer edge: ~1.37 AU</li>
+                            <li>Earth: 1.00 AU (perfect!)</li>
+                            <li>Mars: 1.52 AU (marginal)</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin: 1rem 0;">
+                        <strong>Factors affecting habitability:</strong>
+                        <ul style="margin-left: 1rem;">
+                            <li>Stellar luminosity</li>
+                            <li>Atmospheric composition</li>
+                            <li>Planetary mass</li>
+                            <li>Magnetic field</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
+                    ⌨ → ∅
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            const dismissHandler = () => {
+                modal.remove();
+                document.removeEventListener('keydown', dismissHandler);
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('keydown', dismissHandler);
+            }, 100);
+        }
+        
+        function showKeplersLaws() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,0.95);
+                color: white;
+                padding: 2rem;
+                border: 2px solid gold;
+                border-radius: 10px;
+                z-index: 1000;
+                font-family: monospace;
+                max-width: 600px;
+            `;
+            
+            modal.innerHTML = `
+                <h3>📐 Kepler's Laws of Planetary Motion 📐</h3>
+                <div style="margin: 1rem 0; line-height: 1.6;">
+                    
+                    <h4>1st Law: Law of Ellipses</h4>
+                    <p>Planets orbit the Sun in elliptical paths with the Sun at one focus.</p>
+                    <pre style="text-align: center;">
+        ◯ ← elliptical orbit
+       ╱ ╲
+      ╱   ╲
+     ☉     ● ← empty focus
+      ╲   ╱
+       ╲ ╱
+        ◯
+    </pre>
+                    
+                    <h4>2nd Law: Law of Equal Areas</h4>
+                    <p>A line joining a planet to the Sun sweeps equal areas in equal times.</p>
+                    <pre style="text-align: center;">
+Fast ←→ ☉ ←→ Slow
+   A₁ = A₂ = A₃
+    </pre>
+                    
+                    <h4>3rd Law: Harmonic Law</h4>
+                    <p>The square of the orbital period is proportional to the cube of the semi-major axis.</p>
+                    <pre style="text-align: center;">
+T² ∝ a³
+    
+Where:
+T = orbital period
+a = semi-major axis
+    </pre>
+                </div>
+                
+                <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
+                    ⌨ → ∅
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            const dismissHandler = () => {
+                modal.remove();
+                document.removeEventListener('keydown', dismissHandler);
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('keydown', dismissHandler);
+            }, 100);
+        }
+        
+        // Initialize
+        createOrbitalSystem();
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes planet-highlight {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.3); box-shadow: 0 0 20px gold; }
+            }
+            
+            .planet-symbol, .orbiting-planet {
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .planet-symbol:hover, .orbiting-planet:hover {
+                transform: scale(1.2);
+                text-shadow: 0 0 15px currentColor;
+            }
+            
+            .planet-details {
+                margin: 2rem 0;
+                padding: 1rem;
+                border: 1px solid rgba(255,255,255,0.2);
+                border-radius: 10px;
+                background: rgba(255,255,255,0.02);
+                min-height: 200px;
+            }
+            
+            .detail-title {
+                text-align: center;
+                color: gold;
+                margin-bottom: 1rem;
+            }
+            
+            .planet-info h3 {
+                color: gold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            
+            .planet-stats {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+            
+            .planet-composition, .planet-mythology {
+                margin: 1rem 0;
+            }
+            
+            .planet-features ul {
+                margin: 0.5rem 0;
+                padding-left: 1rem;
+            }
+            
+            .solar-system {
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .solar-system:hover {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Show welcome message
+        setTimeout(() => {
+            const welcome = document.createElement('div');
+            welcome.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 1rem;
+                border: 1px solid gold;
+                border-radius: 5px;
+                z-index: 1000;
+                font-family: monospace;
+                text-align: center;
+            `;
+            
+            welcome.innerHTML = `
+                <div>Click planets to explore | Press 1-8 for quick access</div>
+                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
+                    Press H for habitable zone | K for Kepler's laws
+                </div>
+            `;
+            
+            document.body.appendChild(welcome);
+            
+            setTimeout(() => welcome.remove(), 8000);
+        }, 1000);
+    </script>
+</body>
+</html>

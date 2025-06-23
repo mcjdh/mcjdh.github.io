@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>◊ ◊ ◊</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/pure-symbols.css">
+    <link rel="stylesheet" href="/css/harmonics.css">
+    <link rel="stylesheet" href="/css/spirals.css">
 </head>
 <body>
     <div class="container">
@@ -12,67 +18,225 @@
             <div class="ascii-art">
 ╔═══════════════════════════════════════╗
 ║                                       ║
-║            ◊ ◊ ◊ ◊ ◊ ◊              ║
+║            ◊ ◊ ◊ ◊ ◊              ║
 ║                                       ║
 ╚═══════════════════════════════════════╝
             </div>
             
-            <div class="symbol-grid">
-                <div class="symbol">◆</div>
-                <div class="symbol">◊</div>
-                <div class="symbol">○</div>
-                <div class="symbol">●</div>
-                <div class="symbol">□</div>
-                <div class="symbol">■</div>
-                <div class="symbol">△</div>
-                <div class="symbol">▽</div>
+            <div class="ascii-art mandala-spinner">
+                <div class="mandala-layer"></div>
+                <div class="mandala-layer"></div>
+                <div class="mandala-layer"></div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">☉</div>
+            </div>
+            
+            <div class="ascii-art">
+              ∴
+             ╱ ╲
+            ╱   ╲
+           ╱     ╲
+          ╱       ╲
+         ◊─────────◊
+         │         │
+         │    ☉    │
+         │         │
+         ◊─────────◊
+          ╲       ╱
+           ╲     ╱
+            ╲   ╱
+             ╲ ╱
+              ∵
+            </div>
+            
+            <div class="divider">• • • • • • • • • • • • • • • •</div>
+            
+            <div class="ascii-art" style="font-size: 1rem;">↓</div>
+            
+            <div class="symbol-grid golden-grid">
+                <a href="/realms/mathematics/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow constant-phi" 
+                   title="∑" 
+                   data-realm="mathematics" 
+                   data-frequency="432"
+                   data-connections="cosmos,glyphs,circuits">∑</a>
+                <a href="/realms/cosmos/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+ 
+                   data-realm="cosmos" 
+                   data-frequency="528"
+                   data-connections="mathematics,glyphs,circuits">✦</a>
+                <a href="/realms/glyphs/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+ 
+                   data-realm="glyphs" 
+                   data-frequency="741"
+                   data-connections="mathematics,cosmos,circuits">☥</a>
+                <a href="/realms/circuits/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+ 
+                   data-realm="circuits" 
+                   data-frequency="963"
+                   data-connections="mathematics,cosmos,glyphs">⌘</a>
             </div>
             
             <div class="divider">════════════════════════════════</div>
             
-            <div class="ascii-art">
-    ┌─┐ ┌─┐ ┌─┐
-    │ │ │ │ │ │
-    └─┘ └─┘ └─┘
+            <div class="ascii-art" style="font-size: 0.8rem; opacity: 0.5;">
+                <span class="infinity-loop">∞</span>
             </div>
-            
-            <div class="ascii-art">
-      /\_/\  
-     ( o.o ) 
-      > ^ <  
-            </div>
-            
-            <div class="divider">• • • • • • • • • • • • • • • •</div>
             
             <div class="blink">▮</div>
         </div>
     </div>
     
+    <script src="/js/particles.js"></script>
+    <script src="/js/quantum-particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script src="/js/resonance-effects.js"></script>
     <script>
-        // Simple interactive effect
-        document.body.addEventListener('click', function(e) {
-            const symbols = ['◆', '◊', '○', '●', '□', '■', '△', '▽', '※', '◉', '◈'];
-            const span = document.createElement('span');
-            span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            span.style.position = 'fixed';
-            span.style.left = e.clientX + 'px';
-            span.style.top = e.clientY + 'px';
-            span.style.pointerEvents = 'none';
-            span.style.fontSize = '2rem';
-            span.style.transition = 'all 1s ease-out';
-            span.style.transform = 'translate(-50%, -50%)';
+        // ♫ ≈ ♪
+        window.harmonics.init();
+        
+        // ψ ◊ ∞
+        const quantumField = window.quantumParticles.init([
+            '◆', '◊', '○', '●', '□', '■', '△', '▽', '※', '◉', '◈', 
+            '∑', '✦', '☥', '⌘', '∞', 'φ', 'π', 'ℯ'
+        ]);
+        
+        // ○ ● ◉
+        initParticles();
+        
+        // ♫ → ⚡
+        document.querySelectorAll('.harmonic-trigger').forEach(trigger => {
+            trigger.addEventListener('mouseenter', (e) => {
+                const frequency = parseFloat(e.target.dataset.frequency);
+                const realm = e.target.dataset.realm;
+                const connections = e.target.dataset.connections.split(',');
+                
+                // ♫ ≈ ∿
+                connections.forEach((connection, i) => {
+                    const connectedElement = document.querySelector(`[data-realm="${connection}"]`);
+                    if (connectedElement) {
+                        setTimeout(() => {
+                            window.harmonics.createResonance(trigger, connectedElement);
+                        }, i * 100);
+                    }
+                });
+                
+                // φ ∼ ↗
+                trigger.style.animation = `harmonic-pulse ${1.618}s ease-in-out infinite`;
+            });
             
-            document.body.appendChild(span);
-            
-            setTimeout(() => {
-                span.style.transform = 'translate(-50%, -50%) translateY(-100px) rotate(360deg) scale(0)';
-                span.style.opacity = '0';
-            }, 10);
-            
-            setTimeout(() => {
-                span.remove();
-            }, 1000);
+            trigger.addEventListener('mouseleave', (e) => {
+                e.target.style.animation = '';
+                // ∿ → ∅
+                document.querySelectorAll('.resonance-line').forEach(line => {
+                    line.style.opacity = '0';
+                    setTimeout(() => line.remove(), 618);
+                });
+            });
         });
+        
+        // ℱ → ◊
+        let clickSequence = [];
+        const fibSequence = [1, 1, 2, 3, 5, 8];
+        
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('symbol')) {
+                const now = Date.now();
+                clickSequence.push(now);
+                
+                // 6 ↭ ℱ ⧖
+                if (clickSequence.length >= 6) {
+                    const intervals = [];
+                    for (let i = 1; i < 6; i++) {
+                        intervals.push(clickSequence[clickSequence.length - i] - 
+                                     clickSequence[clickSequence.length - i - 1]);
+                    }
+                    
+                    // ⧖ → ≈
+                    const normalized = intervals.map(interval => 
+                        Math.round(interval / 100));
+                    
+                    // ℱ ≟ ✓
+                    let matches = 0;
+                    for (let i = 0; i < Math.min(normalized.length, fibSequence.length); i++) {
+                        if (Math.abs(normalized[i] - fibSequence[i]) <= 1) {
+                            matches++;
+                        }
+                    }
+                    
+                    if (matches >= 4) {
+                        // ℱ ◊ ✓!
+                        createFibonacciPortal();
+                    }
+                }
+                
+                // 10 ← ↺
+                clickSequence = clickSequence.slice(-10);
+            }
+        });
+        
+        function createFibonacciPortal() {
+            const portal = document.createElement('div');
+            portal.className = 'fibonacci-portal';
+            portal.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 10000;
+                    animation: portal-open 2.618s ease-in-out;
+                    font-size: 2rem;
+                    color: gold;
+                    text-shadow: 0 0 20px gold;
+                ">
+                    <pre>
+        φ
+       ╱ ╲
+      ╱   ╲
+     ╱  ∞  ╲
+    ╱_______╲
+        |
+      1.618
+                    </pre>
+                    <div style="text-align: center; font-size: 1rem; margin-top: 1rem;">
+                        φ ◊ ✓
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(portal);
+            
+            setTimeout(() => {
+                portal.style.opacity = '0';
+                setTimeout(() => portal.remove(), 618);
+            }, 2618);
+        }
+        
+        // π ⊙ ◊
+        const today = new Date();
+        if (today.getMonth() === 2 && today.getDate() === 14) {
+            document.body.classList.add('pi-day');
+            setTimeout(() => {
+                const piMessage = document.createElement('div');
+                piMessage.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 10px;
+                        right: 10px;
+                        background: rgba(0,0,0,0.8);
+                        color: white;
+                        padding: 1rem;
+                        border-radius: 10px;
+                        z-index: 1000;
+                    ">
+                        ∴ π ⊙! 
+                        <br>π = ${Math.PI.toFixed(15)}
+                    </div>
+                `;
+                document.body.appendChild(piMessage);
+                
+                setTimeout(() => piMessage.remove(), 3141);
+            }, 314);
+        }
     </script>
 </body>
 </html>

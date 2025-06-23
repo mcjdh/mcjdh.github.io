@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⌘ 01 ⌘</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+ ┌─[⌘]─[⟷]─[⌘]─┐
+ │                     │
+ │  010110100101001   │
+ │  0 ↔ 1 ↔ ∞ ↔ ψ      │
+ └─────────────────────┘
+            </div>
+            
+            <div class="ascii-art">
+     ┌─────┐
+  ───┤ ■ ├───
+     └──┬──┘
+        │
+   ┌────┴────┐
+   │    │    │
+┌──┴─┐┌─┴──┐┌┴───┐
+│ ■ ││ ◆ ││ ◉ │
+└────┘└────┘└────┘
+            </div>
+            
+            <div class="divider">━━━━━━━━━━━━━━━━━━━━━━━━</div>
+            
+            <div class="symbol-grid">
+                <a href="binary.html" class="symbol nav-link">01</a>
+                <a href="logic-gates.html" class="symbol nav-link">⊕</a>
+                <a href="quantum.html" class="symbol nav-link">⟨ψ⟩</a>
+                <a href="neural.html" class="symbol nav-link">⊗</a>
+                <a href="morse.html" class="symbol nav-link">•–</a>
+                <a href="hexadecimal.html" class="symbol nav-link">0x</a>
+                <a href="matrix.html" class="symbol nav-link">⊞</a>
+                <a href="encryption.html" class="symbol nav-link">🔐</a>
+            </div>
+            
+            <div class="ascii-art">
+ ╔═══╗ ╔═══╗ ╔═══╗
+ ║ 1 ║─║ 0 ║─║ 1 ║
+ ╚═══╝ ╚═══╝ ╚═══╝
+   │     │     │
+   └─────┴─────┘
+         │
+    [⧐⟷]
+            </div>
+            
+            <div class="navigation">
+                <a href="/realms/glyphs/" class="nav-link">☥</a>
+                <a href="/" class="nav-link">◊</a>
+                <a href="/realms/mathematics/" class="nav-link">∑</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['0', '1', '⊕', '⊗', '⌘', '◉', '◈', '▪']);
+        
+        // █ ░ ▓
+        setInterval(() => {
+            if (Math.random() > 0.98) {
+                const ascii = document.querySelectorAll('.ascii-art')[1];
+                const original = ascii.textContent;
+                ascii.textContent = original.replace(/[01]/g, () => Math.random() > 0.5 ? '1' : '0');
+                setTimeout(() => ascii.textContent = original, 100);
+            }
+        }, 100);
+    </script>
+</body>
+</html>

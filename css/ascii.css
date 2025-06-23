@@ -1,0 +1,27 @@
+.ascii-art {
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    line-height: 1.2;
+    white-space: pre;
+    margin: 2rem 0;
+}
+
+.border {
+    border: 1px solid #fff;
+    padding: 2rem;
+    margin: 1rem;
+}
+
+.divider {
+    margin: 2rem 0;
+    opacity: 0.5;
+}
+
+@media (max-width: 600px) {
+    .ascii-art {
+        font-size: 0.7rem;
+    }
+    .border {
+        padding: 1rem;
+        margin: 0.5rem;
+    }
+}

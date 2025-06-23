@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    0 1 0 1 0 1 0 1
+    1 0 1 0 1 0 1 0
+    0 1 0 1 0 1 0 1
+    1 0 1 0 1 0 1 0
+            </div>
+            
+            <div class="ascii-art">
+         ┌─┐
+    0 ───┤ ├─── 1
+         └─┘
+         ¬
+         
+    ┌─┐ ┌─┐ ┌─┐
+    │0├─┤∧├─┤0│
+    │1├─┘ └─┤ │
+    └─┘     └─┘
+         ∧
+            </div>
+            
+            <div class="divider">01010101010101010101010101</div>
+            
+            <div class="ascii-art">
+    ♠ = 00  ♥ = 01
+    ♦ = 10  ♣ = 11
+    
+    ♠♥♦♣ = 00011011
+            </div>
+            
+            <div class="ascii-art">
+    │0⟩ + │1⟩
+    ─────────
+        √2
+        
+      |ψ⟩
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">⌘</a>
+                <a href="logic-gates.html" class="nav-link">⊕</a>
+                <a href="morse.html" class="nav-link">•–</a>
+                <a href="quantum.html" class="nav-link">⟨ψ⟩</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['0', '1', '⊕', '⊗', '∧', '∨', '¬', '→']);
+        
+        // 01 ↓ ≈
+        setInterval(() => {
+            const binary = document.querySelectorAll('.ascii-art')[0];
+            let text = binary.textContent;
+            text = text.replace(/[01]/g, (match) => match === '0' ? '1' : '0');
+            binary.textContent = text;
+        }, 500);
+    </script>
+</body>
+</html>

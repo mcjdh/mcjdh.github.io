@@ -1,0 +1,326 @@
+/* Harmonic Resonance CSS */
+/* Based on golden ratio (φ = 1.618) and mathematical constants */
+
+:root {
+    /* Golden ratio scale */
+    --phi: 1.618;
+    --phi-2: 2.618;
+    --phi-3: 4.236;
+    --phi-inv: 0.618;
+    --phi-inv-2: 0.382;
+    
+    /* Timing based on golden ratio */
+    --time-base: 1s;
+    --time-phi: 1.618s;
+    --time-phi-2: 2.618s;
+    --time-phi-inv: 0.618s;
+    
+    /* Spacing based on Fibonacci sequence */
+    --space-1: 1px;
+    --space-2: 2px;
+    --space-3: 3px;
+    --space-5: 5px;
+    --space-8: 8px;
+    --space-13: 13px;
+    --space-21: 21px;
+    --space-34: 34px;
+    --space-55: 55px;
+    --space-89: 89px;
+    
+    /* Dynamic harmonic variables */
+    --mouse-x: 0.5;
+    --mouse-y: 0.5;
+    --harmonic: 0;
+}
+
+/* Golden ratio transitions */
+* {
+    transition-duration: var(--time-phi-inv);
+    transition-timing-function: cubic-bezier(0.382, 0.618, 0.618, 1);
+}
+
+/* Harmonic pulse animation */
+@keyframes harmonic-pulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    38.2% { /* φ^-2 */
+        opacity: 0.618;
+        transform: scale(1.0618);
+    }
+    61.8% { /* φ^-1 */
+        opacity: 0.382;
+        transform: scale(1.1618);
+    }
+}
+
+/* Sacred geometry transformations */
+@keyframes sacred-rotation {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(72deg); } /* Pentagon */
+    40% { transform: rotate(144deg); }
+    60% { transform: rotate(216deg); }
+    80% { transform: rotate(288deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Lissajous curve animation */
+@keyframes lissajous {
+    0% {
+        transform: 
+            translateX(calc(sin(0) * var(--space-34))) 
+            translateY(calc(cos(0) * var(--space-34)));
+    }
+    25% {
+        transform: 
+            translateX(calc(sin(90deg) * var(--space-34))) 
+            translateY(calc(cos(180deg) * var(--space-34)));
+    }
+    50% {
+        transform: 
+            translateX(calc(sin(180deg) * var(--space-34))) 
+            translateY(calc(cos(360deg) * var(--space-34)));
+    }
+    75% {
+        transform: 
+            translateX(calc(sin(270deg) * var(--space-34))) 
+            translateY(calc(cos(540deg) * var(--space-34)));
+    }
+    100% {
+        transform: 
+            translateX(calc(sin(360deg) * var(--space-34))) 
+            translateY(calc(cos(720deg) * var(--space-34)));
+    }
+}
+
+/* Hidden portal styles */
+.hidden-portal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    animation: portal-open var(--time-phi-2) ease-in-out;
+}
+
+@keyframes portal-open {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    38.2% {
+        transform: translate(-50%, -50%) scale(0.618) rotate(144deg);
+        opacity: 0.618;
+    }
+    61.8% {
+        transform: translate(-50%, -50%) scale(1) rotate(288deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.618) rotate(432deg);
+        opacity: 0;
+    }
+}
+
+/* Golden grid overlay */
+.golden-grid {
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent calc(100% * var(--phi-inv-2)),
+            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv-2)),
+            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv))
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent calc(100% * var(--phi-inv-2)),
+            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv-2)),
+            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv))
+        );
+}
+
+/* Prime number highlighting */
+.prime-number {
+    position: relative;
+    color: #ffd700;
+    text-shadow: 0 0 var(--space-3) #ffd700;
+    animation: prime-glow var(--time-phi) ease-in-out infinite;
+}
+
+.prime-number::after {
+    content: attr(data-prime);
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    font-size: 0.8em;
+    opacity: 0;
+    transition: all var(--time-phi-inv) ease-out;
+}
+
+.prime-number:hover::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+@keyframes prime-glow {
+    0%, 100% { text-shadow: 0 0 var(--space-3) #ffd700; }
+    50% { text-shadow: 0 0 var(--space-13) #ffd700, 0 0 var(--space-21) #fff; }
+}
+
+/* Resonance lines */
+.resonance-line {
+    mix-blend-mode: screen;
+    filter: blur(1px);
+}
+
+/* Pi day special effects */
+.pi-day {
+    background: radial-gradient(
+        circle at 31.4% 15.9%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 61.8%
+    );
+}
+
+.pi-spiral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: spiral-rotate calc(var(--time-base) * 31.4) linear infinite;
+}
+
+@keyframes spiral-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Golden viewport special styling */
+.golden-viewport .symbol {
+    width: calc(var(--space-34) * var(--phi));
+    height: var(--space-34);
+}
+
+/* Quantum uncertainty effect */
+.quantum-blur {
+    filter: blur(calc(var(--harmonic) * 2px));
+    transform: 
+        translateX(calc(var(--mouse-x) * var(--harmonic) * 10px))
+        translateY(calc(var(--mouse-y) * var(--harmonic) * 10px));
+}
+
+/* Mathematical hover effects */
+.symbol:hover {
+    animation: 
+        harmonic-pulse var(--time-phi) ease-in-out infinite,
+        sacred-rotation var(--time-phi-2) linear infinite;
+}
+
+/* Cross-realm portal indicators */
+.portal-ready {
+    position: relative;
+}
+
+.portal-ready::before {
+    content: '∞';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 0.8em;
+    opacity: 0;
+    animation: portal-indicator var(--time-phi) ease-in-out infinite;
+}
+
+@keyframes portal-indicator {
+    0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    50% { opacity: 0.618; transform: scale(1) rotate(180deg); }
+}
+
+/* Fibonacci spacing for navigation */
+.navigation {
+    gap: var(--space-21);
+}
+
+.symbol-grid {
+    gap: var(--space-13);
+    padding: var(--space-21);
+}
+
+/* Enhanced border with golden ratio */
+.border {
+    border-width: var(--space-2);
+    padding: var(--space-34);
+    margin: var(--space-21);
+    position: relative;
+    overflow: hidden;
+}
+
+.border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        transparent 38.2%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 61.8%
+    );
+    animation: border-shimmer var(--time-phi-2) linear infinite;
+}
+
+@keyframes border-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Sacred geometry for dividers */
+.divider {
+    position: relative;
+    margin: var(--space-34) 0;
+}
+
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.382) 38.2%,
+        rgba(255, 255, 255, 0.618) 50%,
+        rgba(255, 255, 255, 0.382) 61.8%,
+        transparent
+    );
+}
+
+/* Responsive golden ratio breakpoints */
+@media (max-width: 987px) { /* 610 * φ */
+    :root {
+        --space-multiplier: 0.809; /* φ^-1 */
+    }
+}
+
+@media (max-width: 610px) { /* 377 * φ */
+    :root {
+        --space-multiplier: 0.618; /* φ^-1 */
+    }
+}
+
+@media (max-width: 377px) { /* 233 * φ */
+    :root {
+        --space-multiplier: 0.5; /* φ^-2 */
+    }
+}
