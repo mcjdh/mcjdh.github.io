@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/harmonics.css">
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
@@ -48,11 +49,11 @@
                 <canvas id="galaxy-canvas" width="400" height="400"></canvas>
                 <div class="sim-controls">
                     <select id="galaxy-selector">
-                        <option value="spiral">Spiral Galaxy</option>
-                        <option value="elliptical">Elliptical Galaxy</option>
-                        <option value="irregular">Irregular Galaxy</option>
+                        <option value="spiral">🌀</option>
+                        <option value="elliptical">⬭</option>
+                        <option value="irregular">☈</option>
                     </select>
-                    <button onclick="regenerateGalaxy()">Generate New</button>
+                    <button onclick="regenerateGalaxy()">⚡</button>
                 </div>
             </div>
             
@@ -79,16 +80,11 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script>
         // ♫ 🌌 ∞
         window.harmonics.init();
         
-        // ψ 🌌 ✦
-        const quantumField = window.quantumParticles.init([
-            '🌌', '✦', '☆', '✧', '◉', '●', '○', '∴', '∞', '🌀'
-        ]);
         
         // ○ ● ◉
         initParticles(['🌌', '✦', '☆', '✧', '◉', '●', '○']);
@@ -448,9 +444,11 @@
             `;
             
             welcome.innerHTML = `
-                <div>Click galaxy types to learn | Change type and regenerate</div>
-                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Watch the stellar dance across cosmic time
+                <div style="text-align: center; font-size: 1.2rem;">
+                    🌌 → ⚡ → ∞
+                </div>
+                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; text-align: center;">
+                    ✦ ↔ 🌀 ↔ ∴
                 </div>
             `;
             

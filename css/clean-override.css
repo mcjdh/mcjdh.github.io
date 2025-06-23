@@ -1,0 +1,76 @@
+/* Clean minimalist override - pure black and white aesthetic */
+
+/* Remove all background colors and overlays */
+* {
+    background-color: transparent !important;
+    background-image: none !important;
+    background: transparent !important;
+}
+
+/* Ensure pure black background only on body */
+body {
+    background: #000 !important;
+    background-color: #000 !important;
+}
+
+/* Clean symbol styling */
+.symbol,
+.nav-link,
+.portal-entrance,
+.harmonic-trigger {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Clean hover states */
+.symbol:hover,
+.nav-link:hover,
+.portal-entrance:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-shadow: 0 0 5px #fff !important;
+    transform: scale(1.1) !important;
+}
+
+/* Remove grid backgrounds */
+.golden-grid,
+.symbol-grid {
+    background: transparent !important;
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+/* Clean border styling */
+.border {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid #fff !important;
+}
+
+/* Remove problematic pseudo-elements */
+.portal-entrance::before,
+.portal-entrance::after,
+.border::before,
+.border::after {
+    display: none !important;
+}
+
+/* Ensure canvas transparency */
+canvas {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Clean mandala styling */
+.mandala-spinner,
+.mandala-layer {
+    background: transparent !important;
+    background-color: transparent !important;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +54,7 @@
             75% { opacity: 0.7; transform: translateX(-1px); }
         }
     </style>
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
@@ -129,13 +130,8 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script>
-        // ψ → ⚡
-        const quantumField = window.quantumParticles.init([
-            'ψ', 'ℏ', '⟨', '⟩', '|', '∞', '≈', '◈', '◇', '●', '○'
-        ]);
         
         window.harmonics.init();
         
@@ -156,18 +152,11 @@
                 
                 switch(quantum) {
                     case 'entanglement':
-                        // ψ ↔ ψ
-                        const p1 = quantumField.createParticle(
-                            Math.random() * window.innerWidth,
-                            Math.random() * window.innerHeight,
-                            '◈'
-                        );
-                        const p2 = quantumField.createParticle(
-                            Math.random() * window.innerWidth,
-                            Math.random() * window.innerHeight,
-                            '◇'
-                        );
-                        p1.entangle(p2);
+                        // ψ ↔ ψ (quantum particle system removed)
+                        document.body.style.background = 'rgba(255,255,255,0.05)';
+                        setTimeout(() => {
+                            document.body.style.background = '';
+                        }, 500);
                         break;
                         
                     case 'superposition':
@@ -183,12 +172,11 @@
                         break;
                         
                     case 'wave-collapse':
-                        // ψ ↓ ●
-                        quantumField.observe(
-                            window.innerWidth / 2,
-                            window.innerHeight / 2,
-                            window.innerWidth
-                        );
+                        // ψ ↓ ● (quantum field observation removed)
+                        document.querySelectorAll('.quantum-symbol').forEach(sym => {
+                            sym.style.opacity = '0.3';
+                            setTimeout(() => sym.style.opacity = '1', 200);
+                        });
                         break;
                         
                     case 'tunneling':
@@ -225,10 +213,11 @@
                         break;
                         
                     case 'planck':
-                        // ℏ → ⚡
-                        quantumField.particles.forEach(p => {
-                            p.energy *= 2;
-                        });
+                        // ℏ → ⚡ (quantum particle energy boost removed)
+                        document.body.style.filter = 'brightness(1.5)';
+                        setTimeout(() => {
+                            document.body.style.filter = '';
+                        }, 1000);
                         break;
                 }
             });
@@ -270,7 +259,26 @@
                 `;
                 portal.onclick = () => {
                     const isAlive = Math.random() > 0.5;
-                    alert(isAlive ? '🐱 ✓!' : '💀 ✓!');
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: rgba(0,0,0,0.95);
+                        color: white;
+                        padding: 2rem;
+                        border: 2px solid gold;
+                        border-radius: 10px;
+                        z-index: 10001;
+                        font-family: monospace;
+                        text-align: center;
+                        font-size: 2rem;
+                    `;
+                    modal.innerHTML = isAlive ? '🐱 ◉!' : '💀 ◉!';
+                    modal.onclick = () => modal.remove();
+                    document.body.appendChild(modal);
+                    setTimeout(() => modal.remove(), 2000);
                     portal.remove();
                 };
                 document.body.appendChild(portal);

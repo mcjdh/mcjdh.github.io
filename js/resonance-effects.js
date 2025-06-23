@@ -27,7 +27,7 @@ class ResonanceField {
         this.canvas.style.height = '100%';
         this.canvas.style.pointerEvents = 'none';
         this.canvas.style.zIndex = '1';
-        this.canvas.style.opacity = '0.3';
+        this.canvas.style.opacity = '0.2';
         document.body.appendChild(this.canvas);
 
         this.ctx = this.canvas.getContext('2d');
@@ -46,31 +46,31 @@ class ResonanceField {
             this.mouseY = e.clientY;
         });
 
-        // Sacred geometry mode
+        // Sacred geometry mode (only activate on explicit request)
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'g') {
+            if (e.key === 'g' && e.shiftKey) {
                 this.activateGeometryMode();
             }
-            if (e.key === 's') {
+            if (e.key === 's' && e.shiftKey) {
                 this.activateSpiralMode();
             }
-            if (e.key === 'r') {
+            if (e.key === 'r' && e.shiftKey) {
                 this.activateResonanceMode();
             }
         });
     }
 
     generateParticles() {
-        const particleCount = 50;
+        const particleCount = 8; // Reduced for better performance
         for (let i = 0; i < particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                size: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.2,
+                vy: (Math.random() - 0.5) * 0.2,
+                size: Math.random() * 1.5 + 0.5,
                 angle: Math.random() * Math.PI * 2,
-                frequency: Math.random() * 0.02 + 0.01,
+                frequency: Math.random() * 0.01 + 0.005,
                 phase: Math.random() * Math.PI * 2
             });
         }
@@ -153,25 +153,8 @@ class ResonanceField {
     }
 
     drawConnections() {
-        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        this.ctx.lineWidth = 0.5;
-
-        this.particles.forEach((particle, i) => {
-            this.particles.slice(i + 1).forEach(otherParticle => {
-                const dx = particle.x - otherParticle.x;
-                const dy = particle.y - otherParticle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 80) {
-                    const opacity = (80 - distance) / 80;
-                    this.ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(particle.x, particle.y);
-                    this.ctx.lineTo(otherParticle.x, otherParticle.y);
-                    this.ctx.stroke();
-                }
-            });
-        });
+        // Removed shimmer connections for better performance and compatibility
+        return;
     }
 
     drawParticles() {
@@ -333,11 +316,17 @@ window.ResonanceEffects = {
     SacredGeometry
 };
 
-// Auto-initialize if DOM is ready
+// Auto-initialize with reduced effects for better performance
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        window.ResonanceEffects.init();
+        // Only initialize on larger screens
+        if (window.innerWidth > 768) {
+            window.ResonanceEffects.init();
+        }
     });
 } else {
-    window.ResonanceEffects.init();
+    // Only initialize on larger screens
+    if (window.innerWidth > 768) {
+        window.ResonanceEffects.init();
+    }
 }

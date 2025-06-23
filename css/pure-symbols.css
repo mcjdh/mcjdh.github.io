@@ -59,23 +59,7 @@
     overflow: hidden;
 }
 
-.portal-entrance::before {
-    content: "◊";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    transition: all 0.618s ease;
-    font-size: 3rem;
-    color: #fff;
-    text-shadow: 0 0 10px #fff;
-}
-
-.portal-entrance:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-}
+/* Removed portal overlays for clean aesthetic */
 
 /* Mandala rotation */
 .mandala-rotate {

@@ -11,7 +11,7 @@
 }
 
 .symbol:hover {
-    transform: scale(1.5) rotate(180deg);
+    transform: scale(1.1);
 }
 
 @keyframes blink {

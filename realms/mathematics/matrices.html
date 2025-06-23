@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/harmonics.css">
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║           ⊞ Linear Transformations ⊞         ║
+║           ⊞ ⊗ ∞ ⊞         ║
 ║                                               ║
 ║        A ⊗ B ≠ B ⊗ A (generally)           ║
 ╚═══════════════════════════════════════════════╝
@@ -58,17 +59,17 @@
                 <div class="matrix-display">
                     <div class="matrix-container">
                         <div class="matrix" id="matrix-a">
-                            <div class="matrix-title">Matrix A</div>
+                            <div class="matrix-title">⊞ A</div>
                             <div class="matrix-grid" id="grid-a"></div>
                         </div>
                         <div class="operation-symbol" id="operation">⊗</div>
                         <div class="matrix" id="matrix-b">
-                            <div class="matrix-title">Matrix B</div>
+                            <div class="matrix-title">⊞ B</div>
                             <div class="matrix-grid" id="grid-b"></div>
                         </div>
                         <div class="equals">=</div>
                         <div class="matrix" id="matrix-result">
-                            <div class="matrix-title">Result</div>
+                            <div class="matrix-title">⊞ =</div>
                             <div class="matrix-grid" id="grid-result"></div>
                         </div>
                     </div>
@@ -76,16 +77,16 @@
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Special Matrices:
+    ⊞ ∞:
     
-    Identity: I = ┌ 1  0  0 ┐    Zero: O = ┌ 0  0  0 ┐
+    1: I = ┌ 1  0  0 ┐    0: O = ┌ 0  0  0 ┐
                   │ 0  1  0 │             │ 0  0  0 │
                   └ 0  0  1 ┘             └ 0  0  0 ┘
     
-    Rotation: R(θ) = ┌ cos(θ) -sin(θ) ┐
+    ↻: R(θ) = ┌ cos(θ) -sin(θ) ┐
                      └ sin(θ)  cos(θ) ┘
     
-    Pauli Matrices:
+    Pauli ⊞:
     σₓ = ┌ 0  1 ┐  σᵧ = ┌ 0 -i ┐  σᵤ = ┌ 1  0 ┐
          └ 1  0 ┘       └ i  0 ┘       └ 0 -1 ┘
             </div>
@@ -99,16 +100,11 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script>
         // ♫ ⊞ ∞
         window.harmonics.init();
         
-        // ψ ⊞ ⊗
-        const quantumField = window.quantumParticles.init([
-            '⊞', '⊗', 'λ', 'det', 'tr', '▢', '▣', '◇', '◆', '□', '■'
-        ]);
         
         // ○ ● ◉
         initParticles(['⊞', '⊗', 'λ', 'det', 'tr']);
@@ -265,11 +261,54 @@
                     // Make matrix A and B editable
                     if (containerId === 'grid-a' || containerId === 'grid-b') {
                         cell.addEventListener('click', () => {
-                            const newValue = prompt(`Enter new value for [${i}][${j}]:`, matrix[i][j]);
-                            if (newValue !== null) {
-                                matrix[i][j] = parseFloat(newValue) || 0;
+                            const modal = document.createElement('div');
+                            modal.style.cssText = `
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: rgba(0,0,0,0.95);
+                                color: white;
+                                padding: 2rem;
+                                border: 2px solid gold;
+                                border-radius: 10px;
+                                z-index: 10000;
+                                font-family: monospace;
+                                text-align: center;
+                            `;
+                            modal.innerHTML = `
+                                <div style="margin-bottom: 1rem;">⊞[${i}][${j}] = ?</div>
+                                <input type="number" id="matrix-input" value="${matrix[i][j]}" 
+                                       style="background: rgba(255,255,255,0.1); 
+                                              color: white; 
+                                              border: 1px solid gold; 
+                                              padding: 0.5rem; 
+                                              border-radius: 5px; 
+                                              font-family: monospace;
+                                              text-align: center;">
+                                <div style="margin-top: 1rem;">
+                                    <button onclick="updateValue()" style="background: gold; color: black; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 0.5rem;">✓</button>
+                                    <button onclick="cancelEdit()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">✗</button>
+                                </div>
+                            `;
+                            
+                            window.updateValue = () => {
+                                const input = document.getElementById('matrix-input');
+                                matrix[i][j] = parseFloat(input.value) || 0;
                                 updateMatrices();
-                            }
+                                modal.remove();
+                                delete window.updateValue;
+                                delete window.cancelEdit;
+                            };
+                            
+                            window.cancelEdit = () => {
+                                modal.remove();
+                                delete window.updateValue;
+                                delete window.cancelEdit;
+                            };
+                            
+                            document.body.appendChild(modal);
+                            document.getElementById('matrix-input').focus();
                         });
                     }
                     
@@ -349,37 +388,37 @@
         
         function showTranspose() {
             const transposed = MatrixOps.transpose(matrixA);
-            showMatrixResult('Transpose of Matrix A', transposed);
+            showMatrixResult('ᵀ ⊞ A', transposed);
         }
         
         function showInverse() {
             // For simplicity, show message about inverse calculation
             const det = MatrixOps.determinant(matrixA);
             if (Math.abs(det) < 0.0001) {
-                showMatrixInfo('Matrix A is singular (det = 0)', 'No inverse exists');
+                showMatrixInfo('⊞ A ≈ ∅ (det = 0)', '⁻¹ ∄');
             } else {
-                showMatrixInfo('Matrix A is invertible', `det(A) = ${det.toFixed(4)}`);
+                showMatrixInfo('⊞ A → ⁻¹', `det(A) = ${det.toFixed(4)}`);
             }
         }
         
         function showDeterminant() {
             const det = MatrixOps.determinant(matrixA);
-            showMatrixInfo('Determinant of Matrix A', `det(A) = ${det.toFixed(4)}`);
+            showMatrixInfo('det ⊞ A', `det(A) = ${det.toFixed(4)}`);
         }
         
         function showTrace() {
             const tr = MatrixOps.trace(matrixA);
-            showMatrixInfo('Trace of Matrix A', `tr(A) = ${tr.toFixed(4)}`);
+            showMatrixInfo('tr ⊞ A', `tr(A) = ${tr.toFixed(4)}`);
         }
         
         function showEigenvalues() {
-            showMatrixInfo('Eigenvalues', 'Computing eigenvalues requires advanced algorithms...');
+            showMatrixInfo('λ ⊞ A', 'λ ≈ ∑ ∏ ∞...');
         }
         
         function showRotation() {
             const angle = Math.PI / 4; // 45 degrees
             const rotation = MatrixOps.rotation(angle);
-            showMatrixResult('Rotation Matrix (45°)', rotation);
+            showMatrixResult('↻ ⊞ (45°)', rotation);
         }
         
         function showMatrixResult(title, matrix) {
@@ -596,9 +635,9 @@
             `;
             
             welcome.innerHTML = `
-                <div>Click matrix elements to edit | Click symbols for operations</div>
+                <div>⊞ ← ⌨ | ◊ → ⊗</div>
                 <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Press N=new, I=identity, Z=zero, R=rotation
+                    N=∞, I=1, Z=0, R=↻
                 </div>
             `;
             

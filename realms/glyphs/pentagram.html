@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/harmonics.css">
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║               ⛤ Pentagram ⛤                  ║
+║               ⛤ φ ⛤                  ║
 ║                                               ║
-║         Five-pointed star of golden ratio    ║
+║         ⛤ → φ → ∞    ║
 ╚═══════════════════════════════════════════════╝
             </div>
             
@@ -55,21 +56,21 @@
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Mathematical Properties:
+    ∑ ∴:
     
-    • Every line segment divided by golden ratio φ ≈ 1.618
-    • Pentagon contains infinite nested pentagrams
-    • Sum of internal angles: 5 × 36° = 180°
-    • Each point: 36°, Each internal angle: 108°
+    • ⛤ / φ ≈ 1.618
+    • ⛤ ⊃ ∞ ⛤
+    • ∑ ∠: 5 × 36° = 180°
+    • ∠: 36°, ∠: 108°
     
-    Symbolic Meanings:
+    ◊ ∴:
     
-    ⛤ Five Elements: Fire, Water, Earth, Air, Spirit
-    ⛤ Human Form: Head, Arms, Legs (Vitruvian)  
-    ⛤ Venus Cycle: 8-year pattern traces pentagram
-    ⛤ Protection: Binding/banishing symbol
+    ⛤ 5 ∈: 🔥, 🌊, 🌍, 💨, ✨
+    ⛤ 👤: ○, ╱, ╲, ╱, ╲  
+    ⛤ ♀: 8↻ → ⛤
+    ⛤ 🛡: ↔ ∅
     
-    ♫ "The pentagram is the most perfect of figures" - Pythagoras ♫
+    ♫ "⛤ = ∞ ∴" - Π ♫
             </div>
             
             <div class="navigation">
@@ -81,16 +82,11 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script>
         // ♫ ⛤ φ
         window.harmonics.init();
         
-        // ψ ⛤ ✦
-        const quantumField = window.quantumParticles.init([
-            '⛤', '✦', '⭐', 'φ', '♀', '🔥', '🌊', '🌍', '💨', '✨'
-        ]);
         
         // ○ ● ◉
         initParticles(['⛤', '✦', '⭐', 'φ']);
@@ -217,9 +213,9 @@
         function showPentagramAspect(aspect, element) {
             const aspectData = {
                 golden: {
-                    name: 'Golden Ratio',
+                    name: 'φ ∴',
                     symbol: 'φ',
-                    description: 'Every line in the pentagram is divided by the golden ratio',
+                    description: '⛤ / φ ≈ 1.618',
                     details: [
                         'φ = (1 + √5) / 2 ≈ 1.618033988...',
                         'AC / CB = φ (where C is intersection)',
@@ -228,9 +224,9 @@
                     ]
                 },
                 elements: {
-                    name: 'Five Elements',
+                    name: '5 ∈',
                     symbol: '🔥',
-                    description: 'Each point represents a classical element',
+                    description: '⛤ → 5 ∈',
                     details: [
                         '🔥 Fire - Energy, passion, transformation',
                         '🌊 Water - Emotion, intuition, flow',
@@ -240,9 +236,9 @@
                     ]
                 },
                 human: {
-                    name: 'Human Form',
+                    name: '👤 ∴',
                     symbol: '👤',
-                    description: 'Vitruvian man fits perfectly in pentagram',
+                    description: '👤 ⊃ ⛤',
                     details: [
                         'Head at top point',
                         'Arms extended to side points',
@@ -252,9 +248,9 @@
                     ]
                 },
                 venus: {
-                    name: 'Venus Cycle',
+                    name: '♀ ↻',
                     symbol: '♀',
-                    description: 'Venus traces a pentagram in 8-year cycles',
+                    description: '♀ 8↻ → ⛤',
                     details: [
                         '8 Earth years = 13 Venus years',
                         '5 synodic periods trace pentagram',
@@ -264,9 +260,9 @@
                     ]
                 },
                 protection: {
-                    name: 'Protection Symbol',
+                    name: '🛡 ◊',
                     symbol: '🛡',
-                    description: 'Used for binding and banishing in many traditions',
+                    description: '⛤ ↔ ∅',
                     details: [
                         'Upright: Protection, positive energy',
                         'Inverted: Banishing, negative forces',
@@ -276,9 +272,9 @@
                     ]
                 },
                 sacred: {
-                    name: 'Sacred Geometry',
+                    name: '◊ ∑',
                     symbol: '⭐',
-                    description: 'Perfect mathematical harmony in nature',
+                    description: '⛤ ≈ ∞ ∑',
                     details: [
                         'Sum of angles: 180° (5 × 36°)',
                         'Each point: 36°, each internal: 108°',
@@ -288,9 +284,9 @@
                     ]
                 },
                 fibonacci: {
-                    name: 'Fibonacci Connection',
+                    name: '🌀 ↔',
                     symbol: '🌀',
-                    description: 'Related to Fibonacci sequence and spirals',
+                    description: 'φ ↔ 🌀',
                     details: [
                         'φ = lim(Fn+1/Fn) as n→∞',
                         'Pentagon sides follow Fibonacci ratios',
@@ -300,9 +296,9 @@
                     ]
                 },
                 harmony: {
-                    name: 'Musical Harmony',
+                    name: '♫ ≈',
                     symbol: '♫',
-                    description: 'Pentagram relates to musical intervals',
+                    description: '⛤ ≈ ♫',
                     details: [
                         'Five-fold symmetry in music theory',
                         'Perfect fifth intervals (3:2 ratio)',
@@ -479,9 +475,11 @@
             `;
             
             welcome.innerHTML = `
-                <div>Click pentagram aspects to explore | Click canvas for spiral</div>
-                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Discover the golden ratio hidden in sacred geometry
+                <div style="text-align: center; font-size: 1.2rem;">
+                    ⛤ → φ → ∞
+                </div>
+                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; text-align: center;">
+                    ✦ ↔ φ ↔ 🌀
                 </div>
             `;
             

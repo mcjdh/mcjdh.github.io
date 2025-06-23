@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/spirals.css">
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
@@ -80,15 +81,15 @@
             });
         }, 800);
         
-        // Electromagnetic field effect
+        // Gentle aurora glow effect
         setInterval(() => {
-            if (Math.random() > 0.9) {
-                document.body.style.filter = 'hue-rotate(90deg)';
+            if (Math.random() > 0.95) {
+                document.body.style.textShadow = '0 0 3px rgba(255,255,255,0.3)';
                 setTimeout(() => {
-                    document.body.style.filter = 'none';
-                }, 100);
+                    document.body.style.textShadow = 'none';
+                }, 200);
             }
-        }, 500);
+        }, 1000);
     </script>
 </body>
 </html>

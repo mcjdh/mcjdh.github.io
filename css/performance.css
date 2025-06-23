@@ -1,0 +1,48 @@
+/* Gentle performance optimizations - preserving visual beauty */
+
+/* Hardware acceleration for key animations only */
+.mandala-spinner,
+.golden-spiral,
+.infinity-loop {
+    will-change: transform;
+}
+
+/* Reduce motion for accessibility without breaking design */
+@media (prefers-reduced-motion: reduce) {
+    .mandala-spinner,
+    .golden-spiral,
+    .infinity-loop {
+        animation-duration: 3s !important;
+        animation-iteration-count: infinite !important;
+    }
+}
+
+/* Optimize canvas without breaking visual quality */
+canvas {
+    image-rendering: auto;
+}
+
+/* Preserve beautiful effects while optimizing */
+.portal-entrance::before,
+.prime-glow,
+.sacred-glow {
+    transition: all 0.3s ease;
+}
+
+/* Gentle mobile optimizations */
+@media (max-width: 768px) {
+    /* Reduce particle intensity on mobile */
+    canvas {
+        opacity: 0.3;
+    }
+    
+    /* Maintain visual hierarchy */
+    .mandala-layer {
+        opacity: 0.6;
+    }
+    
+    /* Keep symbols readable */
+    .portal-entrance {
+        font-size: 1.8rem;
+    }
+}

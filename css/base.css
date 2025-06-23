@@ -7,17 +7,22 @@
 body {
     background: #000;
     color: #fff;
-    font-family: monospace;
-    overflow: hidden;
-    height: 100vh;
+    font-family: 'Courier New', Courier, 'Lucida Console', Monaco, 'DejaVu Sans Mono', monospace;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: crosshair;
+    padding: 1rem 0;
 }
 
 .container {
     text-align: center;
     width: 90%;
     max-width: 800px;
+    margin: auto;
+    position: relative;
+    z-index: 10;
 }

@@ -123,23 +123,9 @@
     }
 }
 
-/* Golden grid overlay */
+/* Golden grid - clean geometric layout */
 .golden-grid {
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent calc(100% * var(--phi-inv-2)),
-            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv-2)),
-            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv))
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent calc(100% * var(--phi-inv-2)),
-            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv-2)),
-            rgba(255, 215, 0, 0.1) calc(100% * var(--phi-inv))
-        );
+    /* Removed background gradients for clean aesthetic */
 }
 
 /* Prime number highlighting */
@@ -261,26 +247,9 @@
     overflow: hidden;
 }
 
-.border::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(
-        45deg,
-        transparent 38.2%,
-        rgba(255, 255, 255, 0.1) 50%,
-        transparent 61.8%
-    );
-    animation: border-shimmer var(--time-phi-2) linear infinite;
-}
+/* Removed border shimmer effect for clean aesthetic */
 
-@keyframes border-shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
+/* Removed border-shimmer animation */
 
 /* Sacred geometry for dividers */
 .divider {

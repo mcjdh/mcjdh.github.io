@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="/css/pure-symbols.css">
     <link rel="stylesheet" href="/css/harmonics.css">
     <link rel="stylesheet" href="/css/spirals.css">
+    <link rel="stylesheet" href="/css/performance.css">
+    <link rel="stylesheet" href="/css/clean-override.css">
 </head>
 <body>
     <div class="container">
@@ -53,22 +55,21 @@
             <div class="ascii-art" style="font-size: 1rem;">↓</div>
             
             <div class="symbol-grid golden-grid">
-                <a href="/realms/mathematics/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow constant-phi" 
-                   title="∑" 
+                <a href="/realms/mathematics/" class="symbol nav-link harmonic-trigger portal-entrance" 
                    data-realm="mathematics" 
                    data-frequency="432"
                    data-connections="cosmos,glyphs,circuits">∑</a>
-                <a href="/realms/cosmos/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+                <a href="/realms/cosmos/" class="symbol nav-link harmonic-trigger portal-entrance" 
  
                    data-realm="cosmos" 
                    data-frequency="528"
                    data-connections="mathematics,glyphs,circuits">✦</a>
-                <a href="/realms/glyphs/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+                <a href="/realms/glyphs/" class="symbol nav-link harmonic-trigger portal-entrance" 
  
                    data-realm="glyphs" 
                    data-frequency="741"
                    data-connections="mathematics,cosmos,circuits">☥</a>
-                <a href="/realms/circuits/" class="symbol nav-link harmonic-trigger portal-entrance sacred-glow" 
+                <a href="/realms/circuits/" class="symbol nav-link harmonic-trigger portal-entrance" 
  
                    data-realm="circuits" 
                    data-frequency="963"
@@ -86,18 +87,10 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
-    <script src="/js/resonance-effects.js"></script>
     <script>
         // ♫ ≈ ♪
         window.harmonics.init();
-        
-        // ψ ◊ ∞
-        const quantumField = window.quantumParticles.init([
-            '◆', '◊', '○', '●', '□', '■', '△', '▽', '※', '◉', '◈', 
-            '∑', '✦', '☥', '⌘', '∞', 'φ', 'π', 'ℯ'
-        ]);
         
         // ○ ● ◉
         initParticles();

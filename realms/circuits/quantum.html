@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/harmonics.css">
+    <link rel="stylesheet" href="/css/performance.css">
 </head>
 <body>
     <div class="container">
@@ -85,9 +86,9 @@
                     <!-- Circuit will be generated here -->
                 </div>
                 <div class="circuit-controls">
-                    <button class="circuit-btn" onclick="runCircuit()">Run Circuit</button>
-                    <button class="circuit-btn" onclick="resetCircuit()">Reset</button>
-                    <button class="circuit-btn" onclick="addRandomGate()">Random Gate</button>
+                    <button class="circuit-btn" onclick="runCircuit()">▶</button>
+                    <button class="circuit-btn" onclick="resetCircuit()">↺</button>
+                    <button class="circuit-btn" onclick="addRandomGate()">⚡</button>
                 </div>
             </div>
             
@@ -100,16 +101,11 @@
     </div>
     
     <script src="/js/particles.js"></script>
-    <script src="/js/quantum-particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script>
         // ♫ ⟨ψ⟩ ∞
         window.harmonics.init();
         
-        // ψ ⟨ψ⟩ ∿
-        const quantumField = window.quantumParticles.init([
-            '⟨ψ⟩', '|0⟩', '|1⟩', '|+⟩', '|-⟩', 'H', 'X', 'Y', 'Z', '⊕', 'α', 'β', '∞'
-        ]);
         
         // ○ ● ◉
         initParticles(['⟨ψ⟩', '|0⟩', '|1⟩', 'H', 'X', 'Y', 'Z', '⊕']);
@@ -309,10 +305,9 @@
             `;
             
             resultDiv.innerHTML = `
-                <div>Measurement Result</div>
                 <div style="margin: 1rem 0; color: gold;">|${result}⟩</div>
-                <div style="font-size: 1rem; opacity: 0.7;">
-                    Qubit collapsed to ${result === 0 ? '|0⟩' : '|1⟩'} state
+                <div style="font-size: 1.5rem;">
+                    ⟨ψ⟩ → |${result}⟩
                 </div>
             `;
             
@@ -520,30 +515,25 @@
             `;
             
             modal.innerHTML = `
-                <h3>⟨ψ⟩ Quantum Computing Principles ⟨ψ⟩</h3>
-                <div style="margin: 1rem 0; line-height: 1.6;">
-                    <p><strong>Superposition:</strong> Qubits can exist in multiple states simultaneously</p>
-                    <p><strong>Entanglement:</strong> Quantum correlation between particles</p>
-                    <p><strong>Interference:</strong> Quantum amplitudes can add constructively or destructively</p>
-                    
-                    <h4>Key Differences from Classical Computing:</h4>
-                    <ul style="margin-left: 1rem;">
-                        <li>Classical bit: 0 OR 1</li>
-                        <li>Quantum bit: α|0⟩ + β|1⟩ (superposition)</li>
-                        <li>Classical gates: deterministic</li>
-                        <li>Quantum gates: unitary transformations</li>
-                        <li>Classical measurement: read without changing</li>
-                        <li>Quantum measurement: collapses superposition</li>
-                    </ul>
-                    
-                    <h4>Applications:</h4>
-                    <ul style="margin-left: 1rem;">
-                        <li>Cryptography (Shor's algorithm)</li>
-                        <li>Search (Grover's algorithm)</li>
-                        <li>Simulation of quantum systems</li>
-                        <li>Optimization problems</li>
-                        <li>Machine learning</li>
-                    </ul>
+                <div style="text-align: center; font-size: 2rem; margin: 1rem 0; color: gold;">
+                    ⟨ψ⟩ ⚡ ∞
+                </div>
+                <div style="margin: 1rem 0; line-height: 1.6; font-family: monospace;">
+                    <div style="text-align: center; margin: 1rem 0;">
+                        |ψ⟩ = α|0⟩ + β|1⟩
+                    </div>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        ○ ↔ ● ↔ ◐ ↔ ◑
+                    </div>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        H: |0⟩ → (|0⟩ + |1⟩)/√2
+                    </div>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        X: |0⟩ ↔ |1⟩
+                    </div>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        M: ⟨ψ⟩ → |0⟩ ∨ |1⟩
+                    </div>
                 </div>
                 
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
@@ -699,9 +689,11 @@
             `;
             
             welcome.innerHTML = `
-                <div>Click gates to apply | Watch qubit evolve on Bloch sphere</div>
-                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    H=Hadamard, X/Y/Z=Pauli, M=Measure, R=Reset, Q=Info
+                <div style="text-align: center; font-size: 1.2rem;">
+                    ⟨ψ⟩ → ⚡ → ◉
+                </div>
+                <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; text-align: center;">
+                    H=◐ | X/Y/Z=↔ | M=⟨ψ⟩→|n⟩ | R=↺ | Q=?
                 </div>
             `;
             
