@@ -16,9 +16,9 @@
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║            ☉ Planetary System ☉              ║
+║            ☉ ☉ ⊕ ☉ ☉              ║
 ║                                               ║
-║        Worlds dancing around stars           ║
+║        🌍 ↻ ★           ║
 ╚═══════════════════════════════════════════════╝
             </div>
             
@@ -49,20 +49,20 @@
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Kepler's Laws:
+    K ∴:
     
-    1. Elliptical Orbits:    ○ → ◯ → ⬯
-    2. Equal Areas:          A₁ = A₂ = A₃ (equal time)
-    3. Harmonic Law:         T² ∝ a³
+    1. ◯ ↻:    ○ → ◯ → ⬯
+    2. A = A:          A₁ = A₂ = A₃ (T)
+    3. ♫:         T² ∝ a³
     
-    Habitable Zone: ♀ ← ⊕ → ♂
+    💧 ☉: ♀ ← ⊕ → ♂
     
-    ♫ Where liquid water can exist ♫
-    ♫ Goldilocks zone: not too hot, not too cold ♫
+    ♫ H₂O ∈ ♫
+    ♫ 🌡 = ≈ ♫
             </div>
             
             <div class="planet-details" id="planet-details">
-                <div class="detail-title">Click a planet to explore</div>
+                <div class="detail-title">◊ → ∞</div>
                 <div class="detail-content" id="detail-content"></div>
             </div>
             
@@ -87,17 +87,17 @@
         // Planet data
         const planetData = {
             mercury: {
-                name: 'Mercury ☿',
+                name: '☿',
                 symbol: '☿',
                 distance: '0.39 AU',
-                period: '88 days',
+                period: '88d',
                 diameter: '4,879 km',
                 mass: '0.055 ⊕',
-                temp: '427°C (day), -173°C (night)',
+                temp: '427°C → -173°C',
                 moons: '0',
-                composition: 'Iron core, thin atmosphere',
-                features: ['Closest to Sun', 'Extreme temperatures', 'No atmosphere', 'Heavily cratered'],
-                mythology: 'Roman messenger god'
+                composition: 'Fe ♠, ∅ atm',
+                features: ['★ → 1', '🌡 ±∞', '∅ 💨', '● ● ●'],
+                mythology: '📨 ⛊'
             },
             venus: {
                 name: 'Venus ♀',
@@ -315,24 +315,24 @@
                 <div class="planet-info">
                     <h3>${planet.name}</h3>
                     <div class="planet-stats">
-                        <div><strong>Distance:</strong> ${planet.distance}</div>
-                        <div><strong>Orbital Period:</strong> ${planet.period}</div>
-                        <div><strong>Diameter:</strong> ${planet.diameter}</div>
-                        <div><strong>Mass:</strong> ${planet.mass}</div>
-                        <div><strong>Temperature:</strong> ${planet.temp}</div>
-                        <div><strong>Moons:</strong> ${planet.moons}</div>
+                        <div><strong>◈:</strong> ${planet.distance}</div>
+                        <div><strong>T:</strong> ${planet.period}</div>
+                        <div><strong>∅:</strong> ${planet.diameter}</div>
+                        <div><strong>M:</strong> ${planet.mass}</div>
+                        <div><strong>🌡:</strong> ${planet.temp}</div>
+                        <div><strong>☽:</strong> ${planet.moons}</div>
                     </div>
                     <div class="planet-composition">
-                        <strong>Composition:</strong> ${planet.composition}
+                        <strong>⚙:</strong> ${planet.composition}
                     </div>
                     <div class="planet-features">
-                        <strong>Features:</strong>
+                        <strong>☆:</strong>
                         <ul>
                             ${planet.features.map(feature => `<li>${feature}</li>`).join('')}
                         </ul>
                     </div>
                     <div class="planet-mythology">
-                        <strong>Mythology:</strong> ${planet.mythology}
+                        <strong>⛊:</strong> ${planet.mythology}
                     </div>
                 </div>
             `;
@@ -600,9 +600,9 @@ a = semi-major axis
             `;
             
             welcome.innerHTML = `
-                <div>Click planets to explore | Press 1-8 for quick access</div>
+                <div>◊ 🌍 → ∞ | 1-8 → 🌍</div>
                 <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Press H for habitable zone | K for Kepler's laws
+                    H → 💧 | K → ∴
                 </div>
             `;
             

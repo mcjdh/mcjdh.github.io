@@ -13,41 +13,69 @@
     <link rel="stylesheet" href="/css/spirals.css">
     <link rel="stylesheet" href="/css/performance.css">
     <link rel="stylesheet" href="/css/clean-override.css">
+    <link rel="stylesheet" href="/css/dimensional-gateway.css">
+    <link rel="stylesheet" href="/css/realm-resonance.css">
 </head>
 <body>
     <div class="container">
         <div class="border">
-            <div class="ascii-art">
-╔═══════════════════════════════════════╗
-║                                       ║
-║            ◊ ◊ ◊ ◊ ◊              ║
-║                                       ║
-╚═══════════════════════════════════════╝
-            </div>
-            
-            <div class="ascii-art mandala-spinner">
-                <div class="mandala-layer"></div>
-                <div class="mandala-layer"></div>
-                <div class="mandala-layer"></div>
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem;">☉</div>
-            </div>
-            
-            <div class="ascii-art">
-              ∴
-             ╱ ╲
-            ╱   ╲
-           ╱     ╲
-          ╱       ╲
-         ◊─────────◊
-         │         │
-         │    ☉    │
-         │         │
-         ◊─────────◊
-          ╲       ╱
-           ╲     ╱
-            ╲   ╱
-             ╲ ╱
-              ∵
+            <div id="dimensional-gateway" class="dimensional-gateway">
+                <div class="ascii-art gateway-frame">
+╔═══════════════════════════════════════════════════╗
+║                                                   ║
+║                   ∞ 5D ∞                         ║
+║                                                   ║
+║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
+║   ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉         ║
+║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
+║   ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉         ║
+║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
+║                                                   ║
+║                  ◊ ⚡ ∞ ⚡ ◊                     ║
+║                                                   ║
+╚═══════════════════════════════════════════════════╝
+                </div>
+                
+                <div class="matrix-grid" id="matrix-grid">
+                    <!-- 5x5 dimensional matrix -->
+                    <div class="matrix-row">
+                        <span class="matrix-cell" data-dim="1" data-pos="0,0">◊</span>
+                        <span class="matrix-cell" data-dim="2" data-pos="0,1">○</span>
+                        <span class="matrix-cell" data-dim="3" data-pos="0,2">△</span>
+                        <span class="matrix-cell" data-dim="4" data-pos="0,3">✦</span>
+                        <span class="matrix-cell" data-dim="5" data-pos="0,4">∞</span>
+                    </div>
+                    <div class="matrix-row">
+                        <span class="matrix-cell" data-dim="2" data-pos="1,0">●</span>
+                        <span class="matrix-cell" data-dim="3" data-pos="1,1">◐</span>
+                        <span class="matrix-cell" data-dim="4" data-pos="1,2">▽</span>
+                        <span class="matrix-cell" data-dim="5" data-pos="1,3">✧</span>
+                        <span class="matrix-cell" data-dim="1" data-pos="1,4">☉</span>
+                    </div>
+                    <div class="matrix-row">
+                        <span class="matrix-cell" data-dim="3" data-pos="2,0">◊</span>
+                        <span class="matrix-cell" data-dim="4" data-pos="2,1">○</span>
+                        <span class="matrix-cell" data-dim="5" data-pos="2,2">△</span>
+                        <span class="matrix-cell" data-dim="1" data-pos="2,3">✦</span>
+                        <span class="matrix-cell" data-dim="2" data-pos="2,4">∞</span>
+                    </div>
+                    <div class="matrix-row">
+                        <span class="matrix-cell" data-dim="4" data-pos="3,0">●</span>
+                        <span class="matrix-cell" data-dim="5" data-pos="3,1">◐</span>
+                        <span class="matrix-cell" data-dim="1" data-pos="3,2">▽</span>
+                        <span class="matrix-cell" data-dim="2" data-pos="3,3">✧</span>
+                        <span class="matrix-cell" data-dim="3" data-pos="3,4">☉</span>
+                    </div>
+                    <div class="matrix-row">
+                        <span class="matrix-cell" data-dim="5" data-pos="4,0">◊</span>
+                        <span class="matrix-cell" data-dim="1" data-pos="4,1">○</span>
+                        <span class="matrix-cell" data-dim="2" data-pos="4,2">△</span>
+                        <span class="matrix-cell" data-dim="3" data-pos="4,3">✦</span>
+                        <span class="matrix-cell" data-dim="4" data-pos="4,4">∞</span>
+                    </div>
+                </div>
+                
+                <div class="resonance-field" id="resonance-field"></div>
             </div>
             
             <div class="divider">• • • • • • • • • • • • • • • •</div>
@@ -86,11 +114,547 @@
         </div>
     </div>
     
+    <!-- Resonance Threads & Memory Integration -->
+    <div class="resonance-threads" id="resonance-threads"></div>
+    <div class="harmonic-field" id="harmonic-field"></div>
+    <div class="sacred-pattern"></div>
+    
+    <!-- Floating Memory Fragments -->
+    <div class="memory-fragments" id="memory-fragments"></div>
+    
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
+    <script src="/js/universal-modal.js"></script>
     <script>
         // ♫ ≈ ♪
         window.harmonics.init();
+        
+        // 5D Matrix Gateway System
+        class DimensionalGateway {
+            constructor() {
+                this.gateway = document.getElementById('dimensional-gateway');
+                this.matrixGrid = document.getElementById('matrix-grid');
+                this.resonanceField = document.getElementById('resonance-field');
+                this.matrixCells = document.querySelectorAll('.matrix-cell');
+                this.resonanceLevel = 0;
+                this.activeNodes = new Set();
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.generateResonanceWaves();
+                this.startDimensionalCycle();
+                this.setDimensionalBaseOpacity();
+            }
+            
+            setDimensionalBaseOpacity() {
+                // Set CSS variables for base opacity based on dimension
+                this.matrixCells.forEach(cell => {
+                    const dim = cell.dataset.dim;
+                    const opacity = dim / 5;
+                    cell.style.setProperty('--base-opacity', opacity);
+                });
+            }
+            
+            bindEvents() {
+                // Matrix cell interactions
+                this.matrixCells.forEach((cell, index) => {
+                    cell.addEventListener('click', (e) => {
+                        this.activateCell(cell, index);
+                    });
+                    
+                    cell.addEventListener('mouseenter', (e) => {
+                        this.resonateCell(cell);
+                    });
+                    
+                    cell.addEventListener('mouseleave', (e) => {
+                        this.dampResonance(cell);
+                    });
+                });
+                
+                // Gateway activation
+                this.gateway.addEventListener('click', (e) => {
+                    if (e.target === this.gateway || e.target.classList.contains('gateway-frame')) {
+                        this.activateGateway();
+                    }
+                });
+            }
+            
+            activateCell(cell, index) {
+                // Add to active nodes
+                this.activeNodes.add(cell);
+                
+                // Energy burst effect
+                cell.style.transform = 'scale(1.5) rotateZ(360deg)';
+                cell.style.background = 'rgba(255, 255, 255, 0.3)';
+                cell.style.textShadow = '0 0 20px #fff, 0 0 40px #fff';
+                cell.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+                
+                // Dimensional resonance
+                const dimension = cell.dataset.dim;
+                const position = cell.dataset.pos;
+                this.triggerMatrixResonance(dimension, position);
+                
+                setTimeout(() => {
+                    cell.style.transform = '';
+                    cell.style.background = '';
+                    cell.style.textShadow = '';
+                    cell.style.borderColor = '';
+                    this.activeNodes.delete(cell);
+                }, 1000);
+            }
+            
+            resonateCell(cell) {
+                // Subtle resonance effect
+                const dimension = parseInt(cell.dataset.dim);
+                const intensity = dimension / 5;
+                
+                cell.style.background = `rgba(255, 255, 255, ${0.05 + intensity * 0.1})`;
+                cell.style.textShadow = `0 0 ${5 + intensity * 10}px #fff`;
+                cell.style.borderColor = `rgba(255, 255, 255, ${0.2 + intensity * 0.3})`;
+            }
+            
+            dampResonance(cell) {
+                if (!this.activeNodes.has(cell)) {
+                    cell.style.background = '';
+                    cell.style.textShadow = '';
+                    cell.style.borderColor = '';
+                }
+            }
+            
+            triggerMatrixResonance(dimension, position) {
+                // Create ripple effect through matrix
+                const [row, col] = position.split(',').map(Number);
+                
+                this.matrixCells.forEach((cell, index) => {
+                    const cellDim = parseInt(cell.dataset.dim);
+                    const [cellRow, cellCol] = cell.dataset.pos.split(',').map(Number);
+                    
+                    // Calculate distance in matrix space
+                    const distance = Math.abs(cellRow - row) + Math.abs(cellCol - col);
+                    const dimDistance = Math.abs(cellDim - dimension);
+                    const totalDistance = distance + dimDistance;
+                    
+                    const delay = totalDistance * 100;
+                    
+                    setTimeout(() => {
+                        cell.style.animation = 'dimensional-pulse 1s ease-out';
+                        setTimeout(() => {
+                            cell.style.animation = '';
+                        }, 1000);
+                    }, delay);
+                });
+            }
+            
+            generateResonanceWaves() {
+                // Create dynamic resonance waves
+                for (let i = 0; i < 3; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'resonance-wave';
+                    wave.style.cssText = `
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: ${100 + i * 100}px;
+                        height: ${100 + i * 100}px;
+                        border: 1px solid rgba(255,255,255,0.1);
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                        animation: resonance-wave ${8 + i * 2}s ease-in-out infinite;
+                        animation-delay: ${-i * 2}s;
+                        pointer-events: none;
+                    `;
+                    this.resonanceField.appendChild(wave);
+                }
+            }
+            
+            activateGateway() {
+                // Full matrix gateway activation sequence
+                this.gateway.style.animation = 'gateway-activation 3s ease-in-out';
+                
+                // Sequential matrix cell activation in dimensional order
+                const cellsByDimension = {};
+                this.matrixCells.forEach(cell => {
+                    const dim = cell.dataset.dim;
+                    if (!cellsByDimension[dim]) cellsByDimension[dim] = [];
+                    cellsByDimension[dim].push(cell);
+                });
+                
+                // Activate by dimension layers
+                for (let dim = 1; dim <= 5; dim++) {
+                    if (cellsByDimension[dim]) {
+                        cellsByDimension[dim].forEach((cell, index) => {
+                            setTimeout(() => {
+                                this.activateCell(cell, index);
+                            }, (dim - 1) * 500 + index * 100);
+                        });
+                    }
+                }
+                
+                // Gateway portal effect
+                setTimeout(() => {
+                    this.createPortalEffect();
+                }, 2000);
+                
+                setTimeout(() => {
+                    this.gateway.style.animation = '';
+                }, 4000);
+            }
+            
+            createPortalEffect() {
+                const portal = document.createElement('div');
+                portal.innerHTML = '◊ ∞ ◊ 5D ◊ ∞ ◊';
+                portal.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 2rem;
+                    color: #fff;
+                    text-shadow: 0 0 30px #fff, 0 0 60px #fff;
+                    animation: portal-open 3s ease-out;
+                    pointer-events: none;
+                    z-index: 100;
+                    text-align: center;
+                    white-space: nowrap;
+                `;
+                
+                this.gateway.appendChild(portal);
+                
+                setTimeout(() => {
+                    portal.remove();
+                }, 3000);
+            }
+            
+            startDimensionalCycle() {
+                // Continuous dimensional energy cycling through matrix
+                setInterval(() => {
+                    const randomIndex = Math.floor(Math.random() * this.matrixCells.length);
+                    const randomCell = this.matrixCells[randomIndex];
+                    this.activateCell(randomCell, randomIndex);
+                }, 12000);
+            }
+        }
+        
+        // Initialize dimensional gateway
+        const dimensionalGateway = new DimensionalGateway();
+        
+        // Realm Memory & Resonance Integration System
+        class RealmResonance {
+            constructor() {
+                this.memoryPool = {
+                    mathematics: ['∑', '∏', 'π', 'φ', '∞', '∂', '∫', '≈', '≠', '≤', '≥', 'λ', 'Δ', '∇'],
+                    cosmos: ['✦', '☉', '☽', '⋆', '✧', '☆', '◉', '●', '○', '◐', '◑', '◒', '◓', '🌌'],
+                    glyphs: ['☥', '☯', '⛤', '✡', '☪', '✝', '♾', 'ॐ', '☮', '⚕', '♀', '♂', '⚯', '☿'],
+                    circuits: ['⌘', '⚡', '⟨', '⟩', '|', '⊕', '⊗', '⊞', '⊠', '⊡', '⌬', '⌭', '⌮', '⌯']
+                };
+                this.activeMemories = new Set();
+                this.resonanceThreads = [];
+                this.mousePosition = { x: 0.5, y: 0.5 };
+                this.init();
+            }
+            
+            init() {
+                this.bindEvents();
+                this.generateResonanceThreads();
+                this.startMemoryFlow();
+                this.createHarmonicField();
+            }
+            
+            bindEvents() {
+                // Track mouse for harmonic field
+                document.addEventListener('mousemove', (e) => {
+                    this.mousePosition.x = e.clientX / window.innerWidth;
+                    this.mousePosition.y = e.clientY / window.innerHeight;
+                    this.updateHarmonicField();
+                });
+                
+                // Portal hover resonance
+                document.querySelectorAll('.portal-entrance').forEach(portal => {
+                    portal.addEventListener('mouseenter', (e) => {
+                        const realm = e.target.dataset.realm;
+                        this.activateRealmResonance(realm);
+                    });
+                    
+                    portal.addEventListener('mouseleave', () => {
+                        this.dampResonance();
+                    });
+                });
+            }
+            
+            generateResonanceThreads() {
+                const threadsContainer = document.getElementById('resonance-threads');
+                const portals = document.querySelectorAll('.portal-entrance');
+                
+                // Create connecting threads between all portals
+                portals.forEach((portal1, i) => {
+                    portals.forEach((portal2, j) => {
+                        if (i < j) { // Avoid duplicate connections
+                            const thread = this.createThread(portal1, portal2);
+                            threadsContainer.appendChild(thread);
+                            this.resonanceThreads.push(thread);
+                        }
+                    });
+                });
+            }
+            
+            createThread(portal1, portal2) {
+                const thread = document.createElement('div');
+                thread.className = 'resonance-thread';
+                
+                // Calculate thread position and angle
+                const rect1 = portal1.getBoundingClientRect();
+                const rect2 = portal2.getBoundingClientRect();
+                
+                const x1 = rect1.left + rect1.width / 2;
+                const y1 = rect1.top + rect1.height / 2;
+                const x2 = rect2.left + rect2.width / 2;
+                const y2 = rect2.top + rect2.height / 2;
+                
+                const distance = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+                const angle = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
+                
+                thread.style.cssText = `
+                    left: ${x1}px;
+                    top: ${y1}px;
+                    width: ${distance}px;
+                    transform: rotate(${angle}deg);
+                    animation-delay: ${Math.random() * 4}s;
+                `;
+                
+                return thread;
+            }
+            
+            startMemoryFlow() {
+                setInterval(() => {
+                    this.spawnMemoryFragment();
+                }, 3000 + Math.random() * 4000);
+            }
+            
+            spawnMemoryFragment() {
+                const realms = Object.keys(this.memoryPool);
+                const randomRealm = realms[Math.floor(Math.random() * realms.length)];
+                const symbols = this.memoryPool[randomRealm];
+                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                const fragment = document.createElement('div');
+                fragment.className = `memory-fragment ${randomRealm}`;
+                fragment.textContent = randomSymbol;
+                
+                // Random starting position
+                fragment.style.cssText = `
+                    left: ${Math.random() * 100}vw;
+                    top: 100vh;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                
+                document.getElementById('memory-fragments').appendChild(fragment);
+                this.activeMemories.add(fragment);
+                
+                // Clean up after animation
+                setTimeout(() => {
+                    if (fragment.parentNode) {
+                        fragment.parentNode.removeChild(fragment);
+                    }
+                    this.activeMemories.delete(fragment);
+                }, 20000);
+            }
+            
+            activateRealmResonance(realm) {
+                // Enhance realm-specific memory flow
+                const realmSymbols = this.memoryPool[realm];
+                
+                // Spawn burst of realm memories
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const symbol = realmSymbols[Math.floor(Math.random() * realmSymbols.length)];
+                        const fragment = document.createElement('div');
+                        fragment.className = `memory-fragment ${realm} dimensional-sync`;
+                        fragment.textContent = symbol;
+                        
+                        fragment.style.cssText = `
+                            left: ${this.mousePosition.x * 100}vw;
+                            top: ${this.mousePosition.y * 100}vh;
+                            animation-duration: 8s;
+                        `;
+                        
+                        document.getElementById('memory-fragments').appendChild(fragment);
+                        
+                        setTimeout(() => {
+                            if (fragment.parentNode) {
+                                fragment.parentNode.removeChild(fragment);
+                            }
+                        }, 8000);
+                    }, i * 200);
+                }
+                
+                // Activate resonance threads
+                this.resonanceThreads.forEach(thread => {
+                    thread.style.animationDuration = '2s';
+                    thread.style.opacity = '0.4';
+                });
+            }
+            
+            dampResonance() {
+                // Reset thread animations
+                this.resonanceThreads.forEach(thread => {
+                    thread.style.animationDuration = '8s';
+                    thread.style.opacity = '0.1';
+                });
+            }
+            
+            updateHarmonicField() {
+                const field = document.getElementById('harmonic-field');
+                field.style.setProperty('--mouse-x', `${this.mousePosition.x * 100}%`);
+                field.style.setProperty('--mouse-y', `${this.mousePosition.y * 100}%`);
+            }
+            
+            createHarmonicField() {
+                // Create floating harmonic nodes
+                const field = document.getElementById('harmonic-field');
+                
+                for (let i = 0; i < 12; i++) {
+                    const node = document.createElement('div');
+                    node.className = 'memory-thread';
+                    node.style.cssText = `
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        animation-delay: ${i * 0.5}s;
+                    `;
+                    field.appendChild(node);
+                }
+            }
+        }
+        
+        // Cross-Realm Knowledge Integration System
+        class KnowledgeWeaver {
+            constructor() {
+                this.connections = {
+                    'π-φ': 'Mathematics ↔ Sacred Geometry',
+                    '∞-☉': 'Infinity ↔ Cosmic Cycles', 
+                    '⚡-∑': 'Circuits ↔ Mathematical Series',
+                    '☥-⛤': 'Ancient Wisdom ↔ Sacred Symbols'
+                };
+                this.discoveredConnections = new Set();
+                this.init();
+            }
+            
+            init() {
+                this.bindDiscoveryEvents();
+                this.createKnowledgeThreads();
+            }
+            
+            bindDiscoveryEvents() {
+                // Track symbol combinations for knowledge discovery
+                let recentSymbols = [];
+                
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('matrix-cell') || 
+                        e.target.classList.contains('portal-entrance')) {
+                        
+                        const symbol = e.target.textContent.trim();
+                        recentSymbols.push(symbol);
+                        
+                        // Keep only last 3 symbols
+                        if (recentSymbols.length > 3) {
+                            recentSymbols.shift();
+                        }
+                        
+                        this.checkForConnections(recentSymbols);
+                    }
+                });
+            }
+            
+            checkForConnections(symbols) {
+                // Check for meaningful symbol combinations
+                const combinations = [
+                    ['π', 'φ'], ['∞', '☉'], ['⚡', '∑'], ['☥', '⛤'],
+                    ['∑', '✦'], ['◊', '∞'], ['△', '○'], ['⌘', '☥']
+                ];
+                
+                combinations.forEach(combo => {
+                    if (combo.every(s => symbols.includes(s))) {
+                        this.discoverConnection(combo);
+                    }
+                });
+            }
+            
+            discoverConnection(combo) {
+                const connectionKey = combo.join('-');
+                if (!this.discoveredConnections.has(connectionKey)) {
+                    this.discoveredConnections.add(connectionKey);
+                    this.revealKnowledge(combo);
+                }
+            }
+            
+            revealKnowledge(symbols) {
+                // Create knowledge revelation effect
+                const revelation = document.createElement('div');
+                revelation.innerHTML = `${symbols.join(' ⟷ ')}`;
+                revelation.style.cssText = `
+                    position: fixed;
+                    top: 20%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 1.5rem;
+                    color: rgba(255,255,255,0.9);
+                    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+                    animation: knowledge-reveal 4s ease-out forwards;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                
+                document.body.appendChild(revelation);
+                
+                setTimeout(() => {
+                    revelation.remove();
+                }, 4000);
+            }
+            
+            createKnowledgeThreads() {
+                // Add knowledge revelation animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes knowledge-reveal {
+                        0% { 
+                            opacity: 0; 
+                            transform: translateX(-50%) scale(0.5); 
+                        }
+                        50% { 
+                            opacity: 1; 
+                            transform: translateX(-50%) scale(1.2); 
+                        }
+                        100% { 
+                            opacity: 0; 
+                            transform: translateX(-50%) scale(0.8) translateY(-50px); 
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
+        // Initialize resonance systems
+        const realmResonance = new RealmResonance();
+        const knowledgeWeaver = new KnowledgeWeaver();
+        
+        // Add gateway-specific CSS animations
+        const gatewayStyle = document.createElement('style');
+        gatewayStyle.textContent = `
+            @keyframes gateway-activation {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); filter: brightness(1.5); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes portal-open {
+                0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+                50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(gatewayStyle);
         
         // ○ ● ◉
         initParticles();

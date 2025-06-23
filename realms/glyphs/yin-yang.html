@@ -16,9 +16,9 @@
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║                ☯ Yin Yang ☯                  ║
+║                ☯ ◐ ☯                  ║
 ║                                               ║
-║            Balance in Duality                ║
+║            ≈ ∈ ◑                ║
 ╚═══════════════════════════════════════════════╝
             </div>
             
@@ -39,11 +39,11 @@
             <div class="interactive-yinyang" id="yinyang-interactive">
                 <div class="yin-side" id="yin">
                     <div class="yin-dot">○</div>
-                    <div class="yin-label">Yin</div>
+                    <div class="yin-label">○</div>
                 </div>
                 <div class="yang-side" id="yang">
                     <div class="yang-dot">●</div>
-                    <div class="yang-label">Yang</div>
+                    <div class="yang-label">●</div>
                 </div>
             </div>
             
@@ -61,29 +61,29 @@
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Taijitu (☯) represents:
+    ☯ ∴:
     
-    ● Yang: Light, Active, Masculine, Heaven, Positive
-    ○ Yin:  Dark, Passive, Feminine, Earth, Negative
+    ●: ☉ ↑ ♂ ↑ +
+    ○: ☽ ↓ ♀ ↓ -
     
-    Key Principles:
-    • Complementarity: Neither can exist without the other
-    • Interdependence: Each contains the seed of the other
-    • Dynamic Balance: Constant flow and transformation
-    • Unity in Duality: Two aspects of one whole
+    ◊ ∴:
+    • ↔: ○ ↔ ●
+    • ∞: ○ ∃ ● ∃ ○
+    • ∿: → ← ⇄
+    • ⊗: ○ + ● = ☯
     
-    ∿ "When one reaches the extreme, it transforms into its opposite" ∿
+    ∿ "∞ → ↔" ∿
             </div>
             
             <div class="balance-meter" id="balance-meter">
-                <div class="meter-label">Universal Balance</div>
+                <div class="meter-label">∞ ≈ ∞</div>
                 <div class="meter-bar">
                     <div class="meter-fill" id="meter-fill"></div>
                     <div class="meter-center">☯</div>
                 </div>
                 <div class="meter-labels">
-                    <span>Yin</span>
-                    <span>Yang</span>
+                    <span>○</span>
+                    <span>●</span>
                 </div>
             </div>
             
@@ -97,6 +97,7 @@
     
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
+    <script src="/js/universal-modal.js"></script>
     <script>
         // ♫ ☯ ∞
         window.harmonics.init();
@@ -105,63 +106,63 @@
         // ○ ● ◉
         initParticles(['☯', '●', '○', '◉', '◎', '☀', '☽']);
         
-        // Duality concepts data
+        // ◑ ∴ ◐
         const dualityData = {
             'light-dark': {
-                name: 'Light & Dark',
-                yin: 'Darkness, Moon, Night, Rest, Introspection',
-                yang: 'Light, Sun, Day, Activity, Expression',
+                name: '☀☽',
+                yin: '☽ 🌙 🌃 ⭕ 🤔',
+                yang: '☀ ☉ 🌅 ⚡ 📢',
                 symbol: '☀☽',
-                meaning: 'The eternal cycle of illumination and shadow'
+                meaning: '∞ ↻ ☉ ↔ ☽'
             },
             'active-passive': {
-                name: 'Active & Passive',
-                yin: 'Receptive, Yielding, Stillness, Patience',
-                yang: 'Assertive, Driving, Movement, Action',
+                name: '⚡🕯',
+                yin: '⬇ ⤴ ⏸ ⏳',
+                yang: '⬆ ⤵ ▶ ⚡',
                 symbol: '⚡🕯',
-                meaning: 'The dance between doing and being'
+                meaning: '⚡ ↔ 🧘'
             },
             'male-female': {
-                name: 'Masculine & Feminine',
-                yin: 'Feminine, Nurturing, Intuitive, Receptive',
-                yang: 'Masculine, Protecting, Logical, Assertive',
+                name: '♂♀',
+                yin: '♀ 🤱 💜 ⬇',
+                yang: '♂ 🛡 🧠 ⬆',
                 symbol: '♂♀',
-                meaning: 'Complementary energies in all beings'
+                meaning: '↔ ⚡ ∀ 🧬'
             },
             'creation-destruction': {
-                name: 'Creation & Destruction',
-                yin: 'Dissolution, Decay, Ending, Transformation',
-                yang: 'Birth, Growth, Beginning, Formation',
+                name: '🌱💀',
+                yin: '💧 🍂 ⭕ 🔄',
+                yang: '🌱 📈 ▶ 🏗',
                 symbol: '🌱💀',
-                meaning: 'The endless cycle of renewal'
+                meaning: '∞ ↻ 🔄'
             },
             'order-chaos': {
-                name: 'Order & Chaos',
-                yin: 'Randomness, Spontaneity, Flexibility, Flow',
-                yang: 'Structure, Pattern, Stability, Form',
+                name: '📐🌀',
+                yin: '🎲 🌀 〰 🌊',
+                yang: '📐 🔲 ⬜ 🏗',
                 symbol: '📐🌀',
-                meaning: 'Structure emerges from chaos, returns to chaos'
+                meaning: '🏗 ← 🌀 → 🏗'
             },
             'positive-negative': {
-                name: 'Positive & Negative',
-                yin: 'Negative, Absorbing, Contracting, Magnetic',
-                yang: 'Positive, Radiating, Expanding, Electric',
+                name: '+−',
+                yin: '− ⬇ ↘ 🧲',
+                yang: '+ ⬆ ↗ ⚡',
                 symbol: '+−',
-                meaning: 'Fundamental forces of attraction and repulsion'
+                meaning: '⚡ ↔ 🧲'
             },
             'expansion-contraction': {
-                name: 'Expansion & Contraction',
-                yin: 'Contraction, Condensation, Inward, Compression',
-                yang: 'Expansion, Dilation, Outward, Extension',
+                name: '↗↘',
+                yin: '↘ 💧 ⬇ 🗜',
+                yang: '↗ 💨 ⬆ 📏',
                 symbol: '↗↘',
-                meaning: 'The breathing of the universe'
+                meaning: '🌌 💨 ↔ 💧'
             },
             'being-void': {
-                name: 'Being & Void',
-                yin: 'Emptiness, Potential, Silence, Space',
-                yang: 'Manifestation, Actuality, Sound, Matter',
+                name: '∃∅',
+                yin: '∅ ⚡ 🤫 ⬜',
+                yang: '∃ 📱 🔊 ⬛',
                 symbol: '∃∅',
-                meaning: 'Form arises from emptiness, returns to emptiness'
+                meaning: '⬛ ← ⬜ → ⬛'
             }
         };
         
@@ -210,48 +211,34 @@
             const data = dualityData[concept];
             if (!data) return;
             
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 500px;
-            `;
-            
-            modal.innerHTML = `
-                <h3>${data.symbol} ${data.name}</h3>
+            const modalContent = `
+                <h3>${data.symbol}</h3>
                 <div style="margin: 1.5rem 0;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                         <div class="yin-aspect">
-                            <h4 style="color: #888;">Yin Aspect ○</h4>
+                            <h4 style="color: #888;">○</h4>
                             <p>${data.yin}</p>
                         </div>
                         <div class="yang-aspect">
-                            <h4 style="color: #fff;">Yang Aspect ●</h4>
+                            <h4 style="color: #fff;">●</h4>
                             <p>${data.yang}</p>
                         </div>
                     </div>
                 </div>
                 <div style="margin: 1.5rem 0; text-align: center; font-style: italic; color: gold;">
-                    "${data.meaning}"
+                    ${data.meaning}
                 </div>
                 <div style="text-align: center; margin: 1rem 0;">
                     <div class="demo-yinyang">☯</div>
                 </div>
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(modal);
+            const modal = createModal(modalContent, {
+                customCSS: 'max-width: 500px;'
+            });
             
             // Animate the demo yin-yang
             const demoYinyang = modal.querySelector('.demo-yinyang');
@@ -264,15 +251,12 @@
             // Animate the clicked element
             element.style.animation = 'duality-pulse 2s ease-in-out infinite';
             
-            const dismissHandler = () => {
-                modal.remove();
+            // Clean up animation when modal is dismissed
+            const originalDismiss = modal.dismiss;
+            modal.dismiss = () => {
                 element.style.animation = '';
-                document.removeEventListener('keydown', dismissHandler);
+                if (originalDismiss) originalDismiss.call(modal);
             };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
         }
         
         // Mouse interaction for balance
@@ -302,146 +286,98 @@
         });
         
         function showTaoismInfo() {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 600px;
-            `;
-            
-            modal.innerHTML = `
-                <h3>☯ Taoism & the Yin-Yang ☯</h3>
+            const modalContent = `
+                <h3>☯ 天 ☯</h3>
                 <div style="margin: 1rem 0; line-height: 1.6;">
-                    <p><strong>Tao (道):</strong> The Way, the source and order of the universe</p>
+                    <p><strong>道:</strong> ∞ → ◊ → ∀</p>
                     
-                    <p><strong>Wu Wei (無為):</strong> Non-action, effortless action in harmony with natural flow</p>
+                    <p><strong>無為:</strong> ∅ ⚡ ≈ 🌊</p>
                     
-                    <p><strong>Taijitu (太極圖):</strong> Supreme ultimate diagram, representing the Tao</p>
+                    <p><strong>太極圖:</strong> ☯ = 道</p>
                     
                     <div style="margin: 1.5rem 0; text-align: center;">
                         <pre>
-    "The Tao gives birth to One.
-     One gives birth to Two.
-     Two gives birth to Three.
-     Three gives birth to all things.
+    道 → 1
+     1 → 2
+     2 → 3
+     3 → ∀
      
-     All things carry yin and embrace yang.
-     They achieve harmony by combining these forces."
-     
-                        - Tao Te Ching, Chapter 42
+     ∀ ⊃ ○ ∧ ●
+     ≈ = ○ + ●
                         </pre>
                     </div>
                     
-                    <p><strong>Key Principles:</strong></p>
+                    <p><strong>∴:</strong></p>
                     <ul style="margin-left: 1rem;">
-                        <li>Everything contains both yin and yang</li>
-                        <li>Yin and yang are interdependent</li>
-                        <li>Yin and yang continuously transform into each other</li>
-                        <li>The balance of yin and yang creates harmony</li>
+                        <li>∀ ⊃ (○ ∧ ●)</li>
+                        <li>○ ↔ ●</li>
+                        <li>○ ↻ ●</li>
+                        <li>○ + ● = ≈</li>
                     </ul>
                 </div>
                 
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(modal);
-            
-            const dismissHandler = () => {
-                modal.remove();
-                document.removeEventListener('keydown', dismissHandler);
-            };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
+            createModal(modalContent, {
+                customCSS: 'max-width: 600px;'
+            });
         }
         
         function showFiveElements() {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 600px;
-            `;
-            
-            modal.innerHTML = `
-                <h3>🔥 Five Elements (Wu Xing) 🌊</h3>
+            const modalContent = `
+                <h3>🔥 五行 🌊</h3>
                 <div style="margin: 1rem 0; line-height: 1.6;">
-                    <p>The Five Elements represent the fundamental forces of nature:</p>
+                    <p>5 ⚡ = 自然</p>
                     
                     <div style="text-align: center; margin: 1rem 0;">
                         <pre>
-         🔥 Fire
-         ╱    ╲
-    🌳 Wood    🏔️ Earth
-       ╱          ╲
-    🌊 Water ←→ ⚗️ Metal
+         🔥
+         ╱  ╲
+    🌳      🏔️
+       ╱      ╲
+    🌊  ←→  ⚗️
                         </pre>
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                         <div>
-                            <strong>Generating Cycle:</strong>
+                            <strong>→ ↻:</strong>
                             <ul style="margin-left: 1rem; font-size: 0.9rem;">
-                                <li>Wood feeds Fire</li>
-                                <li>Fire creates Earth (ash)</li>
-                                <li>Earth contains Metal</li>
-                                <li>Metal enriches Water</li>
-                                <li>Water nourishes Wood</li>
+                                <li>🌳 → 🔥</li>
+                                <li>🔥 → 🏔️</li>
+                                <li>🏔️ → ⚗️</li>
+                                <li>⚗️ → 🌊</li>
+                                <li>🌊 → 🌳</li>
                             </ul>
                         </div>
                         <div>
-                            <strong>Overcoming Cycle:</strong>
+                            <strong>× ↻:</strong>
                             <ul style="margin-left: 1rem; font-size: 0.9rem;">
-                                <li>Wood depletes Earth</li>
-                                <li>Earth absorbs Water</li>
-                                <li>Water extinguishes Fire</li>
-                                <li>Fire melts Metal</li>
-                                <li>Metal cuts Wood</li>
+                                <li>🌳 × 🏔️</li>
+                                <li>🏔️ × 🌊</li>
+                                <li>🌊 × 🔥</li>
+                                <li>🔥 × ⚗️</li>
+                                <li>⚗️ × 🌳</li>
                             </ul>
                         </div>
                     </div>
                     
                     <p style="text-align: center; font-style: italic; color: gold;">
-                        "The Five Elements show how yin and yang manifest in the material world"
+                        五行 = ○ + ● → 🌍
                     </p>
                 </div>
                 
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(modal);
-            
-            const dismissHandler = () => {
-                modal.remove();
-                document.removeEventListener('keydown', dismissHandler);
-            };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
+            createModal(modalContent, {
+                customCSS: 'max-width: 600px;'
+            });
         }
         
         function toggleBalance() {
@@ -457,34 +393,19 @@
                     balance = 0.5;
                     
                     // Show balance achieved message
-                    const message = document.createElement('div');
-                    message.style.cssText = `
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        background: rgba(0,0,0,0.9);
-                        color: gold;
-                        padding: 2rem;
-                        border: 2px solid gold;
-                        border-radius: 10px;
-                        z-index: 1000;
-                        font-family: monospace;
-                        text-align: center;
-                        font-size: 1.5rem;
-                    `;
-                    
-                    message.innerHTML = `
+                    const messageContent = `
                         <div>☯</div>
-                        <div style="margin: 1rem 0;">Perfect Balance Achieved</div>
+                        <div style="margin: 1rem 0;">∞ ≈ ∞ ✓</div>
                         <div style="font-size: 1rem; opacity: 0.7;">
-                            "When yin and yang are in harmony, the Tao flows freely"
+                            ○ + ● = ≈ → 道 🌊
                         </div>
                     `;
                     
-                    document.body.appendChild(message);
+                    const message = createModal(messageContent, {
+                        customCSS: 'text-align: center; font-size: 1.5rem; color: gold;'
+                    });
                     
-                    setTimeout(() => message.remove(), 3000);
+                    setTimeout(() => modalSystem.dismiss(message), 3000);
                 }
             };
             
@@ -633,9 +554,9 @@
             `;
             
             welcome.innerHTML = `
-                <div>Move mouse to affect balance | Click symbols to explore</div>
+                <div>→ ↔ ≈ | ◊ → ∞</div>
                 <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Press T=Taoism, F=Five Elements, B=Perfect Balance
+                    T=天, F=🔥🌊🌳🏎️✨, B=≈
                 </div>
             `;
             

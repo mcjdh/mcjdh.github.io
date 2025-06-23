@@ -18,16 +18,16 @@
 ╔══════════════════════════════════════════════╗
 ║              ℯ^(iπ) + 1 = 0                ║
 ║                                              ║
-║    "Most beautiful equation in mathematics"  ║
+║                  ∴ ♫ ◊ ♫ ∴                  ║
 ╚══════════════════════════════════════════════╝
             </div>
             
             <div class="ascii-art">
-                   ℯ
-                  ╱ ╲
-                 ╱   ╲
-                ╱  i  ╲
-               ╱   π   ╲
+              ℯ
+              ╱ ╲
+              ╱   ╲
+              ╱  i  ╲
+              ╱   π   ╲
               ╱_________╲
               │    +    │
               │    1    │
@@ -41,8 +41,8 @@
     ✦  ℯ ≈ 2.718281828459045...  ✦
     ✦  π ≈ 3.141592653589793...  ✦
     ✦  i² = -1                   ✦
-    ✦  1 = multiplicative identity ✦
-    ✦  0 = additive identity     ✦
+    ✦  1 = ⊗                     ✦
+    ✦  0 = ⊕                     ✦
     ≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋≋
             </div>
             
@@ -62,8 +62,8 @@
             <div class="complex-plane" id="complex-plane">
                 <canvas id="euler-canvas" width="300" height="300"></canvas>
                 <div class="plane-labels">
-                    <div class="real-axis">Real</div>
-                    <div class="imaginary-axis">Imaginary</div>
+                    <div class="real-axis">ℜ</div>
+                    <div class="imaginary-axis">ℑ</div>
                 </div>
             </div>
             
@@ -75,12 +75,12 @@
     
     Therefore: ℯ^(iπ) + 1 = -1 + 1 = 0
     
-    ♫ The most beautiful equation connects: ♫
-    ♫ - ℯ (exponential growth)           ♫
-    ♫ - π (circles and geometry)         ♫
-    ♫ - i (imaginary numbers)            ♫
-    ♫ - 1 (multiplicative identity)      ♫
-    ♫ - 0 (additive identity)            ♫
+    ♫ ∞ → ◊ ← ∞ ♫
+    ♫ ℯ ↔ ∂/∂x ♫
+    ♫ π ↔ ○ ♫  
+    ♫ i ↔ √-1 ♫
+    ♫ 1 ↔ ⊗ ♫
+    ♫ 0 ↔ ⊕ ♫
             </div>
             
             <div class="navigation">
@@ -93,6 +93,7 @@
     
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
+    <script src="/js/universal-modal.js"></script>
     <script>
         // ♫ ℯ ∞
         window.harmonics.init();
@@ -214,8 +215,8 @@
                 ctx.fillStyle = 'white';
                 ctx.font = '12px monospace';
                 ctx.fillText(`θ = ${angle.toFixed(2)}`, 10, 20);
-                ctx.fillText(`cos(θ) = ${x.toFixed(3)}`, 10, 35);
-                ctx.fillText(`sin(θ) = ${y.toFixed(3)}`, 10, 50);
+                ctx.fillText(`ℜ = ${x.toFixed(3)}`, 10, 35);
+                ctx.fillText(`ℑ = ${y.toFixed(3)}`, 10, 50);
                 ctx.fillText(`ℯ^(iθ) = ${x.toFixed(3)} + ${y.toFixed(3)}i`, 10, 65);
                 
                 // Highlight when we reach π
@@ -306,23 +307,7 @@
             const componentInfo = info[component];
             if (!componentInfo) return;
             
-            const infoDiv = document.createElement('div');
-            infoDiv.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 400px;
-            `;
-            
-            infoDiv.innerHTML = `
+            const infoContent = `
                 <h3>${componentInfo.name}</h3>
                 <div style="margin: 1rem 0;">
                     <strong>Value:</strong> ${componentInfo.value}
@@ -337,24 +322,25 @@
                     </ul>
                 </div>
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(infoDiv);
+            const modal = createModal(infoContent, {
+                customCSS: 'max-width: 400px;'
+            });
             
             // Add pulse animation to the clicked element
             element.style.animation = 'euler-pulse 2s ease-in-out infinite';
             
-            const dismissHandler = () => {
-                infoDiv.remove();
-                element.style.animation = '';
-                document.removeEventListener('keydown', dismissHandler);
+            // Clean up animation when modal is dismissed
+            const originalDismiss = modalSystem.dismiss;
+            modalSystem.dismiss = (targetModal) => {
+                if (targetModal === modal) {
+                    element.style.animation = '';
+                }
+                originalDismiss.call(modalSystem, targetModal);
             };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
         }
         
         // Keyboard interactions
@@ -374,24 +360,7 @@
         });
         
         function showEulerProof() {
-            const proof = document.createElement('div');
-            proof.style.cssText = `
-                position: fixed;
-                top: 5%;
-                left: 5%;
-                width: 90%;
-                height: 90%;
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                overflow: auto;
-            `;
-            
-            proof.innerHTML = `
+            const proofContent = `
                 <h2>Proof of Euler's Identity</h2>
                 <div style="line-height: 1.6;">
                     <h3>1. Taylor Series Expansion</h3>
@@ -445,20 +414,13 @@ sin(π) = 0
                 </div>
                 
                 <div style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(proof);
-            
-            const dismissHandler = () => {
-                proof.remove();
-                document.removeEventListener('keydown', dismissHandler);
-            };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
+            createModal(proofContent, {
+                customCSS: 'width: 90%; height: 90%; overflow: auto; top: 5%; left: 5%; transform: none;'
+            });
         }
         
         // Add custom CSS animations
@@ -532,9 +494,9 @@ sin(π) = 0
             `;
             
             welcome.innerHTML = `
-                <div>Press 'A' to animate | 'P' for proof | 'R' to reset</div>
+                <div>A ↔ ∞ | P ↔ ∴ | R ↔ ○</div>
                 <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Click symbols to explore
+                    ◊ → ∞
                 </div>
             `;
             

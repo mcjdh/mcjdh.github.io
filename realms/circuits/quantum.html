@@ -16,9 +16,9 @@
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║            ⟨ψ⟩ Quantum Computing ⟨ψ⟩          ║
+║            ⟨ψ⟩ ∞ ◊ ∞ ⟨ψ⟩          ║
 ║                                               ║
-║      Where bits become qubits, logic becomes probability ║
+║      0/1 → ⟨ψ⟩, ∧/∨ → P(•) ║
 ╚═══════════════════════════════════════════════╝
             </div>
             
@@ -43,7 +43,7 @@
             
             <div class="quantum-gates">
                 <div class="gate-section">
-                    <h3>Quantum Gates</h3>
+                    <h3>⊕ ⊞ ∧</h3>
                     <div class="symbol-grid">
                         <div class="symbol gate-symbol" data-gate="hadamard">H</div>
                         <div class="symbol gate-symbol" data-gate="pauli-x">X</div>
@@ -58,7 +58,7 @@
             </div>
             
             <div class="qubit-visualizer" id="qubit-viz">
-                <div class="qubit-title">Qubit State Visualization</div>
+                <div class="qubit-title">⟨ψ⟩ ↔ ○</div>
                 <div class="bloch-sphere" id="bloch-sphere">
                     <canvas id="bloch-canvas" width="200" height="200"></canvas>
                 </div>
@@ -68,20 +68,20 @@
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Quantum Phenomena:
+    ⟨ψ⟩ ∞:
     
-    Superposition: |ψ⟩ = α|0⟩ + β|1⟩    (qubit in both states)
-    Entanglement:  |Φ⁺⟩ = (|00⟩ + |11⟩)/√2  (correlated qubits)
-    Interference:  Amplitudes add, probabilities interfere
+    ◐: |ψ⟩ = α|0⟩ + β|1⟩    (○ ∧ ●)
+    ∞: |Φ⁺⟩ = (|00⟩ + |11⟩)/√2  (◊ ↔ ◊)
+    ≈:  α±β → P(•)
     
-    Measurement:   P(0) = |α|²,  P(1) = |β|²
-    No-Cloning:    Cannot copy arbitrary quantum state
+    M:   P(0) = |α|²,  P(1) = |β|²
+    ∅×:    ⟨ψ⟩ ≠ ⟨ψ'⟩
     
-    ♫ "Nature isn't classical, dammit!" - Richard Feynman ♫
+    ♫ "∘ ≠ □" ♫
             </div>
             
             <div class="quantum-circuit" id="quantum-circuit">
-                <div class="circuit-title">Interactive Quantum Circuit</div>
+                <div class="circuit-title">◊ ⟨ψ⟩ ⊕</div>
                 <div class="circuit-board" id="circuit-board">
                     <!-- Circuit will be generated here -->
                 </div>
@@ -102,6 +102,7 @@
     
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
+    <script src="/js/universal-modal.js"></script>
     <script>
         // ♫ ⟨ψ⟩ ∞
         window.harmonics.init();
@@ -304,16 +305,18 @@
                 font-size: 1.5rem;
             `;
             
-            resultDiv.innerHTML = `
+            const resultContent = `
                 <div style="margin: 1rem 0; color: gold;">|${result}⟩</div>
                 <div style="font-size: 1.5rem;">
                     ⟨ψ⟩ → |${result}⟩
                 </div>
             `;
             
-            document.body.appendChild(resultDiv);
+            const resultModal = createModal(resultContent, {
+                customCSS: 'text-align: center; font-size: 1.5rem;'
+            });
             
-            setTimeout(() => resultDiv.remove(), 3000);
+            setTimeout(() => modalSystem.dismiss(resultModal), 3000);
             
             element.style.animation = 'measurement-flash 0.5s ease-in-out';
             setTimeout(() => {
@@ -324,33 +327,33 @@
         function showGateInfo(gateName) {
             const gateInfo = {
                 hadamard: {
-                    name: 'Hadamard Gate (H)',
-                    effect: 'Creates superposition: |0⟩ → (|0⟩ + |1⟩)/√2',
+                    name: 'H',
+                    effect: '◐: |0⟩ → (|0⟩ + |1⟩)/√2',
                     matrix: '1/√2 [[1,1],[1,-1]]'
                 },
                 'pauli-x': {
-                    name: 'Pauli-X Gate (X)',
-                    effect: 'Bit flip: |0⟩ ↔ |1⟩',
+                    name: 'X',
+                    effect: '↔: |0⟩ ↔ |1⟩',
                     matrix: '[[0,1],[1,0]]'
                 },
                 'pauli-y': {
-                    name: 'Pauli-Y Gate (Y)',
-                    effect: 'Bit and phase flip',
+                    name: 'Y',
+                    effect: '↔ + φ',
                     matrix: '[[0,-i],[i,0]]'
                 },
                 'pauli-z': {
-                    name: 'Pauli-Z Gate (Z)',
-                    effect: 'Phase flip: |1⟩ → -|1⟩',
+                    name: 'Z',
+                    effect: 'φ: |1⟩ → -|1⟩',
                     matrix: '[[1,0],[0,-1]]'
                 },
                 phase: {
-                    name: 'Phase Gate (S)',
-                    effect: 'Adds π/2 phase to |1⟩',
+                    name: 'S',
+                    effect: '+π/2 → |1⟩',
                     matrix: '[[1,0],[0,i]]'
                 },
                 't-gate': {
-                    name: 'T Gate',
-                    effect: 'Adds π/4 phase to |1⟩',
+                    name: 'T',
+                    effect: '+π/4 → |1⟩',
                     matrix: '[[1,0],[0,e^(iπ/4)]]'
                 }
             };
@@ -358,31 +361,17 @@
             const info = gateInfo[gateName];
             if (!info) return;
             
-            const infoDiv = document.createElement('div');
-            infoDiv.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0,0,0,0.8);
-                color: white;
-                padding: 1rem;
-                border: 1px solid gold;
-                border-radius: 5px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 300px;
-            `;
-            
-            infoDiv.innerHTML = `
+            const infoContent = `
                 <div style="font-weight: bold; margin-bottom: 0.5rem;">${info.name}</div>
                 <div style="margin-bottom: 0.5rem;">${info.effect}</div>
                 <div style="font-size: 0.8rem; opacity: 0.7;">${info.matrix}</div>
             `;
             
-            document.body.appendChild(infoDiv);
+            const infoModal = createModal(infoContent, {
+                customCSS: 'max-width: 300px; position: fixed; bottom: 20px; top: auto;'
+            });
             
-            setTimeout(() => infoDiv.remove(), 3000);
+            setTimeout(() => modalSystem.dismiss(infoModal), 3000);
         }
         
         function updateVisualization() {
@@ -498,23 +487,7 @@
         });
         
         function showQuantumInfo() {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0,0,0,0.95);
-                color: white;
-                padding: 2rem;
-                border: 2px solid gold;
-                border-radius: 10px;
-                z-index: 1000;
-                font-family: monospace;
-                max-width: 600px;
-            `;
-            
-            modal.innerHTML = `
+            const modalContent = `
                 <div style="text-align: center; font-size: 2rem; margin: 1rem 0; color: gold;">
                     ⟨ψ⟩ ⚡ ∞
                 </div>
@@ -537,20 +510,13 @@
                 </div>
                 
                 <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7; text-align: center;">
-                    ⌨ → ∅
+                    ESC → ∅
                 </div>
             `;
             
-            document.body.appendChild(modal);
-            
-            const dismissHandler = () => {
-                modal.remove();
-                document.removeEventListener('keydown', dismissHandler);
-            };
-            
-            setTimeout(() => {
-                document.addEventListener('keydown', dismissHandler);
-            }, 100);
+            createModal(modalContent, {
+                customCSS: 'max-width: 600px;'
+            });
         }
         
         // Initialize

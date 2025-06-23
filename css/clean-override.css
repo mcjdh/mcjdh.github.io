@@ -74,3 +74,22 @@ canvas {
     background: transparent !important;
     background-color: transparent !important;
 }
+
+/* Hide debug data attributes from display */
+.matrix-cell::before,
+.matrix-cell::after {
+    display: none !important;
+}
+
+/* Ensure data attributes don't leak into visual display */
+.matrix-cell[data-dim]::before,
+.matrix-cell[data-pos]::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Pure symbol display only */
+.matrix-cell {
+    font-family: monospace !important;
+    line-height: 1 !important;
+}

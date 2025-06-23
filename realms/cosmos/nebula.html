@@ -16,9 +16,9 @@
         <div class="border">
             <div class="ascii-art">
 ╔═══════════════════════════════════════════════╗
-║            ◉ Stellar Nurseries ◉             ║
+║            ◉ ⚡ → ☆ ◉             ║
 ║                                               ║
-║        Where stars are born from dust        ║
+║        ☆ ← ▒ → ★        ║
 ╚═══════════════════════════════════════════════╝
             </div>
             
@@ -50,18 +50,18 @@
             <div class="nebula-simulation" id="nebula-sim">
                 <canvas id="nebula-canvas" width="400" height="300"></canvas>
                 <div class="sim-controls">
-                    <div class="control-info">Press SPACE to create stellar wind</div>
+                    <div class="control-info">␣ → ★ 💨</div>
                 </div>
             </div>
             
             <div class="ascii-art" style="font-size: 0.8rem;">
-    Famous Nebulae:
+★ ⋆:
     
-    Orion (M42):     ◉ ∿ ☆    |  Trapezium cluster
-    Eagle (M16):     ⟐ ≈ ☉    |  Pillars of Creation  
-    Horsehead:       ● ∿ ◉    |  Dark nebula
-    Ring (M57):      ○ ⊙ ○    |  Planetary nebula
-    Rosette (NGC 2237): ◉ ∿ ◉ |  Emission nebula
+    M42:     ◉ ∿ ☆    |  ⛊
+    M16:     ⟐ ≈ ☉    |  ⛰  
+    🐎:       ● ∿ ◉    |  ●
+    M57:      ○ ⊙ ○    |  ⊙
+    NGC2237: ◉ ∿ ◉ |  ◉
     
     ♫ T ~ 10-100 K  |  ρ ~ 10⁻²¹ kg/m³  |  λ ~ pc ♫
             </div>
@@ -228,68 +228,68 @@
         function showNebulaInfo(type, element) {
             const nebulaInfo = {
                 emission: {
-                    name: 'Emission Nebula',
+                    name: '◉',
                     symbol: '◉',
-                    description: 'Glows from ionized hydrogen',
-                    temp: '8,000-10,000 K',
-                    color: 'Red (Hα)',
-                    example: 'Orion Nebula (M42)'
+                    description: '⚡ H⁺ → 🔴',
+                    temp: '8-10k K',
+                    color: '🔴 Hα',
+                    example: 'M42'
                 },
                 reflection: {
-                    name: 'Reflection Nebula',
+                    name: '◎',
                     symbol: '◎',
-                    description: 'Reflects starlight from dust',
+                    description: '★ → ▒ → 🔵',
                     temp: '~100 K',
-                    color: 'Blue',
-                    example: 'Pleiades'
+                    color: '🔵',
+                    example: '⛊'
                 },
                 planetary: {
-                    name: 'Planetary Nebula',
+                    name: '⊙',
                     symbol: '⊙',
-                    description: 'Shell around dying star',
-                    temp: '30,000-100,000 K',
-                    color: 'Various',
-                    example: 'Ring Nebula (M57)'
+                    description: '⊙ ← ★ †',
+                    temp: '30-100k K',
+                    color: '🌈',
+                    example: 'M57'
                 },
                 dark: {
-                    name: 'Dark Nebula',
+                    name: '●',
                     symbol: '●',
-                    description: 'Blocks background light',
+                    description: '● × ★',
                     temp: '10-20 K',
-                    color: 'Dark silhouette',
-                    example: 'Horsehead Nebula'
+                    color: '●',
+                    example: '🐎'
                 },
                 supernova: {
-                    name: 'Supernova Remnant',
+                    name: '✦',
                     symbol: '✦',
-                    description: 'Explosion aftermath',
-                    temp: '1,000,000 K',
-                    color: 'X-ray bright',
-                    example: 'Crab Nebula (M1)'
+                    description: '💥 → ∿',
+                    temp: '1M K',
+                    color: 'Xγ',
+                    example: 'M1'
                 },
                 molecular: {
-                    name: 'Molecular Cloud',
+                    name: '☁',
                     symbol: '☁',
-                    description: 'Star formation region',
+                    description: '▒ → ★ 🔥',
                     temp: '10-50 K',
-                    color: 'Infrared',
-                    example: 'Eagle Nebula (M16)'
+                    color: 'IR',
+                    example: 'M16'
                 },
                 hii: {
-                    name: 'HII Region',
+                    name: '☉',
                     symbol: '☉',
-                    description: 'Ionized hydrogen',
-                    temp: '8,000 K',
-                    color: 'Red',
-                    example: 'Rosette Nebula'
+                    description: 'H⁺ ⚡',
+                    temp: '8k K',
+                    color: '🔴',
+                    example: 'NGC2237'
                 },
                 spiral: {
-                    name: 'Spiral Arms',
+                    name: '🌀',
                     symbol: '🌀',
-                    description: 'Galactic structure',
-                    temp: 'Various',
-                    color: 'Blue-white',
-                    example: 'Milky Way arms'
+                    description: '🌌 ⦿',
+                    temp: '🌈',
+                    color: '🔵⚪',
+                    example: '🌌'
                 }
             };
             
@@ -467,9 +467,9 @@
             `;
             
             welcome.innerHTML = `
-                <div>Click nebula symbols to learn | Click canvas for stellar wind</div>
+                <div>◊ → ∞ | ◊ → ★ 💨</div>
                 <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                    Press SPACE for central wind | N for new nebula
+                    ␣ → ★ 💨 | N → ◉
                 </div>
             `;
             

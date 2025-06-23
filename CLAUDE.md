@@ -3,6 +3,7 @@
 ## Core Philosophy
 ```
 simplicity × meaning = ∞
+use pure math and glyph symbolism for visible ui. this lets all languages tune instead of just english, perhaps.
 ```
 
 ## ASCII Art Principles
