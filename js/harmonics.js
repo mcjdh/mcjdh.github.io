@@ -1,42 +1,28 @@
 // Harmonic Resonance System
-// Mathematical constants and relationships
-const PHI = (1 + Math.sqrt(5)) / 2; // Golden ratio
-const TAU = Math.PI * 2; // Full circle
-const E = Math.E; // Euler's number
-const PLANCK = 6.62607015e-34; // For quantum effects
+// Note: cosmic-constants.js must be loaded first for COSMIC_CONSTANTS
 
-// Sacred geometry patterns
+// Legacy constants for backward compatibility
+const PHI = COSMIC_CONSTANTS.φ;
+const TAU = COSMIC_CONSTANTS.τ;
+const E = COSMIC_CONSTANTS.e;
+const PLANCK = 6.62607015e-34; // Quantum constant
+
+// Sacred geometry patterns using universal constants
 const SACRED_ANGLES = {
-    triangle: TAU / 3,
-    square: TAU / 4,
-    pentagon: TAU / 5,
-    hexagon: TAU / 6,
-    octagon: TAU / 8
+    triangle: UNIVERSAL_MATH.sacredAngle(3),
+    square: UNIVERSAL_MATH.sacredAngle(4),
+    pentagon: UNIVERSAL_MATH.sacredAngle(5),
+    hexagon: UNIVERSAL_MATH.sacredAngle(6),
+    octagon: UNIVERSAL_MATH.sacredAngle(8)
 };
 
-// Fibonacci sequence generator
-function* fibonacci() {
-    let [a, b] = [0, 1];
-    while (true) {
-        yield a;
-        [a, b] = [b, a + b];
-    }
-}
+// Use universal math functions
+const fibonacci = UNIVERSAL_MATH.fibonacciSequence;
+const isPrime = UNIVERSAL_MATH.isPrime;
 
-// Prime number checker
-function isPrime(n) {
-    if (n <= 1) return false;
-    if (n <= 3) return true;
-    if (n % 2 === 0 || n % 3 === 0) return false;
-    for (let i = 5; i * i <= n; i += 6) {
-        if (n % i === 0 || n % (i + 2) === 0) return false;
-    }
-    return true;
-}
-
-// Generate harmonic frequencies
+// Enhanced harmonic frequency using cosmic constants
 function harmonicFrequency(base, n) {
-    return base * Math.pow(PHI, n);
+    return base * Math.pow(COSMIC_CONSTANTS.φ, n);
 }
 
 // Cross-realm portal system
@@ -370,36 +356,16 @@ function highlightPrime(num) {
         `<span class="prime-glow">${num}</span>`);
 }
 
-// Fibonacci sequence generator
-function fibonacci(n) {
-    if (n <= 1) return n;
-    let a = 0, b = 1, temp;
-    for (let i = 2; i <= n; i++) {
-        temp = a + b;
-        a = b;
-        b = temp;
-    }
-    return b;
-}
-
-// Prime number checker
-function isPrime(n) {
-    if (n < 2) return false;
-    if (n === 2) return true;
-    if (n % 2 === 0) return false;
-    for (let i = 3; i <= Math.sqrt(n); i += 2) {
-        if (n % i === 0) return false;
-    }
-    return true;
-}
-
-// Export functions
+// Export functions (using universal constants)
 window.harmonics = {
     init: initHarmonics,
-    PHI,
-    TAU,
-    fibonacci,
-    isPrime,
+    PHI: COSMIC_CONSTANTS.φ,
+    TAU: COSMIC_CONSTANTS.τ,
+    fibonacci: UNIVERSAL_MATH.fibonacci,
+    fibonacciSequence: UNIVERSAL_MATH.fibonacciSequence,
+    isPrime: UNIVERSAL_MATH.isPrime,
     harmonicFrequency,
-    createResonance
+    createResonance,
+    COSMIC_CONSTANTS,
+    UNIVERSAL_MATH
 };

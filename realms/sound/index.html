@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/symbol-harmonics.css">
+    <link rel="stylesheet" href="/css/living-ascii.css">
     <style>
         .frequency-display {
             text-align: center;
@@ -54,20 +55,20 @@
 <body>
     <div class="container">
         <div class="border">
-            <h1 class="ascii-art">
-╔═══════════════════════════════╗
-║         ∿  ∞  ∿              ║
-║       ♫ Hz ♫                 ║
-╚═══════════════════════════════╝
+            <h1 class="ascii-art breathing-border">
+<span class="sacred-pulse">╔═══════════════════════════════╗</span>
+<span class="sacred-pulse">║</span>         <span class="wave-char">∿</span>  <span class="infinity-flow">∞</span>  <span class="wave-char">∿</span>              <span class="sacred-pulse">║</span>
+<span class="sacred-pulse">║</span>       <span class="sacred-pulse">♫</span> Hz <span class="sacred-pulse">♫</span>                 <span class="sacred-pulse">║</span>
+<span class="sacred-pulse">╚═══════════════════════════════╝</span>
             </h1>
             
-            <div class="ascii-art" id="main-wave">
-     ∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿∿
-    ∿                     ∿
-   ∿                       ∿
-  ∿                         ∿
- ∿                           ∿
-∿                             ∿
+            <div class="ascii-art live-waveform" id="main-wave">
+     <span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span>
+    <span class="wave-char">∿</span>                     <span class="wave-char">∿</span>
+   <span class="wave-char">∿</span>                       <span class="wave-char">∿</span>
+  <span class="wave-char">∿</span>                         <span class="wave-char">∿</span>
+ <span class="wave-char">∿</span>                           <span class="wave-char">∿</span>
+<span class="wave-char">∿</span>                             <span class="wave-char">∿</span>
             </div>
             
             <div class="frequency-display">
@@ -100,13 +101,13 @@
             
             <div class="ascii-art" id="cymatics-pattern">
 ╭─────────────────────────────╮
-│        ♫ ≈ ⚚               │
+│        <span class="sacred-pulse">♫</span> <span class="wave-char">≈</span> <span class="sacred-pulse">⚚</span>               │
 │                             │
-│         ·   ·   ·          │
-│       ·   ╳   ·            │
-│     ·   ╳   ╳   ·          │
-│       ·   ╳   ·            │
-│         ·   ·   ·          │
+│         <span class="cymatics-node">·</span>   <span class="cymatics-node">·</span>   <span class="cymatics-node">·</span>          │
+│       <span class="cymatics-node">·</span>   <span class="cymatics-node">╳</span>   <span class="cymatics-node">·</span>            │
+│     <span class="cymatics-node">·</span>   <span class="cymatics-node">╳</span>   <span class="cymatics-node">╳</span>   <span class="cymatics-node">·</span>          │
+│       <span class="cymatics-node">·</span>   <span class="cymatics-node">╳</span>   <span class="cymatics-node">·</span>            │
+│         <span class="cymatics-node">·</span>   <span class="cymatics-node">·</span>   <span class="cymatics-node">·</span>          │
 │                             │
 ╰─────────────────────────────╯
             </div>
@@ -137,6 +138,7 @@
     <script src="/js/harmonics.js"></script>
     <script src="/js/symbol-harmonics.js"></script>
     <script src="/js/universal-language.js"></script>
+    <script src="/js/living-ascii.js"></script>
     <script>
         // Initialize particles with sound symbols
         initParticles(['∿', '≈', '∼', '♫', '♪', '♩', 'Hz', '))', '◉']);

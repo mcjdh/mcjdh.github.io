@@ -1,42 +1,20 @@
 // Symbol Harmonic Resonance System
 // Universal language through mathematical relationships
 
-const SYMBOL_FREQUENCIES = {
-    // Mathematics realm
-    '∑': 432,      // Sum - base harmonic frequency
-    '∏': 528,      // Product - solfeggio frequency
-    '∞': 999,      // Infinity - completion frequency
-    'π': 314.159,  // Pi frequency
-    'φ': 161.8,    // Golden ratio frequency
-    '∫': 360,      // Integral - circle frequency
-    
-    // Cosmos realm  
-    '☉': 126.22,   // Sun - solar frequency
-    '☽': 210.42,   // Moon - lunar frequency
-    '✦': 272.2,    // Star - cosmic frequency
-    '◉': 136.1,    // Black hole - Om frequency
-    
-    // Glyphs realm
-    '☥': 528,      // Ankh - life frequency
-    'ॐ': 136.1,    // Om - universal frequency  
-    '☯': 432,      // Yin-yang - balance frequency
-    '✡': 639,      // Star of David - connection frequency
-    
-    // Circuits realm
-    '⌘': 256,      // Command - binary frequency
-    '◊': 1618,     // Gateway - golden frequency
-    '○': 0,        // Void - silence
-    '●': 1,        // Matter - fundamental
-};
+// Use universal symbol harmonics from cosmic-constants.js
+const SYMBOL_FREQUENCIES = SYMBOL_HARMONICS;
 
-// Harmonic relationships between symbols
+// Enhanced harmonic relationships using cosmic constants
 const HARMONIC_RATIOS = {
     octave: 2,
     fifth: 3/2,
     fourth: 4/3,
     majorThird: 5/4,
     minorThird: 6/5,
-    golden: (1 + Math.sqrt(5)) / 2
+    golden: COSMIC_CONSTANTS.φ,
+    tau: COSMIC_CONSTANTS.τ,
+    e: COSMIC_CONSTANTS.e,
+    phi_squared: COSMIC_CONSTANTS.φ²
 };
 
 // Symbol combination discoveries
@@ -256,17 +234,16 @@ class SymbolResonance {
     }
     
     getResonancePattern(symbol1, symbol2) {
-        const patterns = [
-            '∿∿∿∿∿',
-            '≈≈≈≈≈',
-            '∼∼∼∼∼',
-            '～～～',
-            '⋯⋯⋯⋯'
-        ];
+        // Use cosmic constants for pattern generation
+        const φ = COSMIC_CONSTANTS.φ;
+        const waveSymbols = ['∿', '≈', '∼', '～', '⋯'];
         
-        // Select pattern based on symbol combination
-        const hash = (symbol1.charCodeAt(0) + symbol2.charCodeAt(0)) % patterns.length;
-        return patterns[hash];
+        // Mathematical pattern selection using golden ratio
+        const charSum = symbol1.charCodeAt(0) + symbol2.charCodeAt(0);
+        const goldenIndex = Math.floor((charSum / φ) % waveSymbols.length);
+        const patternLength = Math.floor(φ * 3); // ~4.85, rounds to 5
+        
+        return waveSymbols[goldenIndex].repeat(patternLength);
     }
     
     checkCombination(sequence) {

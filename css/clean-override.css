@@ -1,95 +1,37 @@
-/* Clean minimalist override - pure black and white aesthetic */
+/* ◊ Harmonic CSS Reset ◊ */
+/* Minimal intervention - preserve existing harmony */
 
-/* Remove all background colors and overlays */
-* {
-    background-color: transparent !important;
-    background-image: none !important;
-    background: transparent !important;
-}
-
-/* Ensure pure black background only on body */
+/* Core foundation: pure void and light */
 body {
-    background: #000 !important;
-    background-color: #000 !important;
+    background: #000;
+    color: #fff;
 }
 
-/* Clean symbol styling */
-.symbol,
-.nav-link,
-.portal-entrance,
-.harmonic-trigger {
-    background: transparent !important;
-    background-color: transparent !important;
-    background-image: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-}
-
-/* Clean hover states */
-.symbol:hover,
-.nav-link:hover,
-.portal-entrance:hover {
-    background: transparent !important;
-    background-color: transparent !important;
-    background-image: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    text-shadow: 0 0 5px #fff !important;
-    transform: scale(1.1) !important;
-}
-
-/* Remove grid backgrounds */
-.golden-grid,
-.symbol-grid {
-    background: transparent !important;
-    background-image: none !important;
-    background-color: transparent !important;
-}
-
-/* Clean border styling */
-.border {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 1px solid #fff !important;
-}
-
-/* Remove problematic pseudo-elements */
-.portal-entrance::before,
-.portal-entrance::after,
-.border::before,
-.border::after {
-    display: none !important;
-}
-
-/* Ensure canvas transparency */
-canvas {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-/* Clean mandala styling */
-.mandala-spinner,
-.mandala-layer {
-    background: transparent !important;
-    background-color: transparent !important;
-}
-
-/* Hide debug data attributes from display */
-.matrix-cell::before,
-.matrix-cell::after {
-    display: none !important;
-}
-
-/* Ensure data attributes don't leak into visual display */
+/* Disable conflicting backgrounds only where necessary */
 .matrix-cell[data-dim]::before,
 .matrix-cell[data-pos]::before {
-    content: none !important;
-    display: none !important;
+    content: none;
+    display: none;
 }
 
-/* Pure symbol display only */
-.matrix-cell {
-    font-family: monospace !important;
-    line-height: 1 !important;
+/* Ensure transparent overlays don't accumulate */
+.transparent-overlay {
+    background: transparent;
+}
+
+/* Preserve essential portal energy animations */
+.portal-energy::before {
+    /* Allow the energy sweep to function */
+}
+
+/* Clean debug artifacts */
+.debug-artifact {
+    display: none;
+}
+
+/* Mathematical constants for consistent spacing */
+:root {
+    --void: transparent;
+    --light: #fff;
+    --darkness: #000;
 }

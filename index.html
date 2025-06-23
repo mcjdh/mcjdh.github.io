@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>◊ Portal Gateway ◊</title>
+    <title>◊ ⟷ ◊</title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/ascii.css">
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/symbol-harmonics.css">
+    <link rel="stylesheet" href="/css/living-ascii.css">
     <style>
-        /* Central Gateway Design */
+        /* Central Gateway Design - Viewport Optimized */
         .gateway-container {
             min-height: 100vh;
+            width: 100vw;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: clamp(10px, 3vw, 20px);
+            overflow: visible;
+            position: relative;
         }
         
         .central-portal {
@@ -48,8 +52,8 @@
         
         .realm-portal {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: clamp(120px, 15vw, 150px);
+            height: clamp(120px, 15vw, 150px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             flex-direction: column;
@@ -60,6 +64,7 @@
             transition: all 0.3s;
             font-family: monospace;
             background: rgba(0, 0, 0, 0.5);
+            overflow: visible;
         }
         
         .realm-portal:hover {
@@ -76,8 +81,8 @@
         
         .center-nexus {
             grid-area: center;
-            width: 200px;
-            height: 200px;
+            width: clamp(150px, 20vw, 200px);
+            height: clamp(150px, 20vw, 200px);
             border: 2px solid white;
             border-radius: 50%;
             display: flex;
@@ -85,7 +90,7 @@
             justify-content: center;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
         
         .realm-symbol {
@@ -196,17 +201,17 @@
 <body>
     <div class="gateway-container">
         <div class="central-portal">
-            <h1 class="portal-title">◊ GATEWAY ◊</h1>
+            <h1 class="portal-title">◊ ⟷ ◊</h1>
             
-            <div class="ascii-art" style="margin: 20px 0;">
-╭─────────────────────────────────────────╮
-│              ∞ ◊ ∞                      │
-│                                         │
-│         ∀ ◊ = ⟶                         │
-│        ∀ ⟶ = ⚖                         │
-│        ∀ ⚖ = ∞                         │
-│                                         │
-╰─────────────────────────────────────────╯
+            <div class="ascii-art breathing-border equation-flow" style="margin: 20px 0;">
+<span class="sacred-pulse">╭─────────────────────────────────────────╮</span>
+<span class="sacred-pulse">│</span>              <span class="infinity-flow">∞</span> <span class="sacred-pulse">◊</span> <span class="infinity-flow">∞</span>                      <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">│</span>                                         <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">│</span>         <span class="symbol">∀</span> <span class="symbol">◊</span> <span class="symbol">=</span> <span class="symbol">⟶</span>                         <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">│</span>        <span class="symbol">∀</span> <span class="symbol">⟶</span> <span class="symbol">=</span> <span class="symbol">⚖</span>                         <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">│</span>        <span class="symbol">∀</span> <span class="symbol">⚖</span> <span class="symbol">=</span> <span class="symbol">∞</span>                         <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">│</span>                                         <span class="sacred-pulse">│</span>
+<span class="sacred-pulse">╰─────────────────────────────────────────╯</span>
             </div>
             
             <div class="realm-portals">
@@ -217,13 +222,13 @@
                     <div class="realm-symbol">∑</div>
                     <div class="realm-name">∑</div>
                     <div class="realm-frequency">432 Hz</div>
-                    <div class="portal-ascii">
+                    <div class="portal-ascii sacred-geometry">
                         <pre style="font-size: 0.6rem; margin: 10px 0;">
-  1.618
- ╱     ╲
-π  ∞  φ
- ╲     ╱
-   e^i
+  <span class="sacred-pulse">1.618</span>
+ <span class="constellation-node">╱</span>     <span class="constellation-node">╲</span>
+<span class="infinity-flow">π</span>  <span class="infinity-flow">∞</span>  <span class="sacred-pulse">φ</span>
+ <span class="constellation-node">╲</span>     <span class="constellation-node">╱</span>
+   <span class="sacred-pulse">e^i</span>
                         </pre>
                     </div>
                 </a>
@@ -235,20 +240,20 @@
                     <div class="realm-symbol">✦</div>
                     <div class="realm-name">✦</div>
                     <div class="realm-frequency">528 Hz</div>
-                    <div class="portal-ascii">
+                    <div class="portal-ascii constellation-field">
                         <pre style="font-size: 0.6rem; margin: 10px 0;">
-   ☉
- ·   ·
-☽  ✦  ★
- ·   ·
-   ◉
+   <span class="constellation-node">☉</span>
+ <span class="constellation-node">·</span>   <span class="constellation-node">·</span>
+<span class="constellation-node">☽</span>  <span class="sacred-pulse">✦</span>  <span class="constellation-node">★</span>
+ <span class="constellation-node">·</span>   <span class="constellation-node">·</span>
+   <span class="constellation-node">◉</span>
                         </pre>
                     </div>
                 </a>
                 
                 <!-- Central Nexus -->
-                <div class="center-nexus">
-                    <div class="nexus-symbol">◊</div>
+                <div class="center-nexus portal-energy">
+                    <div class="nexus-symbol golden-rotate">◊</div>
                     <div class="connection-lines" id="connection-lines"></div>
                 </div>
                 
@@ -259,11 +264,11 @@
                     <div class="realm-symbol">∿</div>
                     <div class="realm-name">∿</div>
                     <div class="realm-frequency">111 Hz</div>
-                    <div class="portal-ascii">
+                    <div class="portal-ascii live-waveform">
                         <pre style="font-size: 0.6rem; margin: 10px 0;">
-∿∿∿∿∿
-≈≈≈≈≈
-∼∼∼∼∼
+<span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span><span class="wave-char">∿</span>
+<span class="wave-char">≈</span><span class="wave-char">≈</span><span class="wave-char">≈</span><span class="wave-char">≈</span><span class="wave-char">≈</span>
+<span class="wave-char">∼</span><span class="wave-char">∼</span><span class="wave-char">∼</span><span class="wave-char">∼</span><span class="wave-char">∼</span>
                         </pre>
                     </div>
                 </a>
@@ -275,11 +280,11 @@
                     <div class="realm-symbol">☥</div>
                     <div class="realm-name">☥</div>
                     <div class="realm-frequency">741 Hz</div>
-                    <div class="portal-ascii">
+                    <div class="portal-ascii sacred-symbols">
                         <pre style="font-size: 0.6rem; margin: 10px 0;">
-  ☥
-ॐ ☯ ✡
-  ☪
+  <span class="sacred-pulse">☥</span>
+<span class="sacred-pulse">ॐ</span> <span class="yin-yang-flow">☯</span> <span class="sacred-pulse">✡</span>
+  <span class="sacred-pulse">☪</span>
                         </pre>
                     </div>
                 </a>
@@ -291,11 +296,11 @@
                     <div class="realm-symbol">⌘</div>
                     <div class="realm-name">⌘</div>
                     <div class="realm-frequency">963 Hz</div>
-                    <div class="portal-ascii">
+                    <div class="portal-ascii binary-stream">
                         <pre style="font-size: 0.6rem; margin: 10px 0;">
- 101
-─┤├─
- 010
+ <span class="bit">1</span><span class="bit">0</span><span class="bit">1</span>
+<span class="constellation-node">─</span><span class="constellation-node">┤</span><span class="constellation-node">├</span><span class="constellation-node">─</span>
+ <span class="bit">0</span><span class="bit">1</span><span class="bit">0</span>
                         </pre>
                     </div>
                 </a>
@@ -324,24 +329,44 @@
         </div>
     </div>
     
+    <script src="/js/cosmic-constants.js"></script>
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
     <script src="/js/symbol-harmonics.js"></script>
     <script src="/js/universal-language.js"></script>
+    <script src="/js/living-ascii.js"></script>
     <script>
-        // Initialize particles
-        initParticles(['◊', '∞', '○', '●', '△', '▽', '✦', '☥', '∿', '⌘', '∑']);
-        
-        // Initialize harmonic system
-        if (window.harmonics) {
-            window.harmonics.init();
+        // Initialize particles with error handling
+        try {
+            if (typeof initParticles === 'function') {
+                initParticles(['◊', '∞', '○', '●', '△', '▽', '✦', '☥', '∿', '⌘', '∑']);
+            }
+        } catch (error) {
+            console.warn('◊ ⚠ ∅:', error);
         }
         
-        // Create connection lines between realms
+        // Initialize harmonic system with null checks
+        try {
+            if (window.harmonics && typeof window.harmonics.init === 'function') {
+                window.harmonics.init();
+            }
+        } catch (error) {
+            console.warn('∿ ⚠ ∅:', error);
+        }
+        
+        // Create connection lines between realms - Viewport Aware
         function createConnectionLines() {
-            const container = document.getElementById('connection-lines');
-            const realms = document.querySelectorAll('.realm-portal');
-            const nexus = document.querySelector('.center-nexus');
+            try {
+                const container = document.getElementById('connection-lines');
+                if (!container) return;
+                
+                // Clear existing lines safely
+                container.innerHTML = '';
+                
+                const realms = document.querySelectorAll('.realm-portal');
+                const nexus = document.querySelector('.center-nexus');
+                if (!nexus || realms.length === 0) return;
+            
             const nexusRect = nexus.getBoundingClientRect();
             const nexusCenterX = nexusRect.left + nexusRect.width / 2;
             const nexusCenterY = nexusRect.top + nexusRect.height / 2;
@@ -358,15 +383,35 @@
                 
                 const line = document.createElement('div');
                 line.className = 'connection-line';
-                line.style.width = distance + 'px';
-                line.style.left = '50%';
-                line.style.top = '50%';
-                line.style.transform = `rotate(${angle}deg)`;
-                line.style.animationDelay = Math.random() * 4 + 's';
+                line.style.cssText = `
+                    position: absolute;
+                    height: 1px;
+                    background: rgba(255, 255, 255, 0.1);
+                    transform-origin: left center;
+                    animation: pulse-line 4s ease-in-out infinite;
+                    width: ${distance}px;
+                    left: 50%;
+                    top: 50%;
+                    transform: rotate(${angle}deg);
+                    animation-delay: ${Math.random() * 4}s;
+                    pointer-events: none;
+                `;
                 
                 container.appendChild(line);
-            });
+                });
+            } catch (error) {
+                console.warn('─ ⚠ ∅:', error);
+            }
         }
+        
+        // Recreate lines on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                createConnectionLines();
+            }, 250);
+        });
         
         // Portal hover effects
         document.querySelectorAll('.realm-portal').forEach(portal => {
@@ -466,7 +511,7 @@
                     border: 1px solid white;
                     z-index: 1000;
                 ">
-                    <h2>◊ QUANTUM REALM UNLOCKED ◊</h2>
+                    <h2>◊ ⟨ψ⟩ ∞ ◊</h2>
                     <pre>
      ╱─────╲
     │   ∞   │
@@ -475,7 +520,7 @@
     │╱    ╲│
     ────────
                     </pre>
-                    <p>Entering in 3...</p>
+                    <p>⟶ 3...2...1...</p>
                 </div>
             `;
             document.body.appendChild(portal);
