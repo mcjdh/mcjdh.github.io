@@ -81,7 +81,7 @@ function initHiddenPaths() {
         konamiSequence = konamiSequence.slice(-10);
         
         if (konamiSequence.join(',') === konamiCode.join(',')) {
-            activateHiddenPortal();
+            activateHiddenPortal(realmModifier);
         }
     });
     
@@ -361,6 +361,36 @@ function initHarmonics() {
         document.documentElement.style.setProperty('--mouse-y', y);
         document.documentElement.style.setProperty('--harmonic', Math.sin(x * TAU) * Math.cos(y * TAU));
     });
+}
+
+// Highlight prime numbers
+function highlightPrime(num) {
+    const regex = new RegExp(`\\b${num}\\b`, 'g');
+    document.body.innerHTML = document.body.innerHTML.replace(regex, 
+        `<span class="prime-glow">${num}</span>`);
+}
+
+// Fibonacci sequence generator
+function fibonacci(n) {
+    if (n <= 1) return n;
+    let a = 0, b = 1, temp;
+    for (let i = 2; i <= n; i++) {
+        temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+}
+
+// Prime number checker
+function isPrime(n) {
+    if (n < 2) return false;
+    if (n === 2) return true;
+    if (n % 2 === 0) return false;
+    for (let i = 3; i <= Math.sqrt(n); i += 2) {
+        if (n % i === 0) return false;
+    }
+    return true;
 }
 
 // Export functions

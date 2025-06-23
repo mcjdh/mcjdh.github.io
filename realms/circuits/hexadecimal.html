@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0x</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/spirals.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    0 1 2 3 4 5 6 7 8 9 A B C D E F
+    │ │ │ │ │ │ │ │ │ │ │ │ │ │ │ │
+    0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+            </div>
+            
+            <div class="ascii-art">
+    ┌─────────────────┐
+    │ 0xFF = 255     │
+    │ 0x10 = 16      │
+    │ 0xA0 = 160     │
+    │ 0xDEADBEEF     │
+    │ 0xCAFEBABE     │
+    └─────────────────┘
+            </div>
+            
+            <div class="divider">0x 0x 0x 0x 0x 0x 0x 0x 0x</div>
+            
+            <div class="ascii-art">
+    16⁰ = 1    │ F
+    16¹ = 16   │ E
+    16² = 256  │ D
+    16³ = 4096 │ C
+               │ B
+    0xFEDCBA   │ A
+               │ 9
+               │ 8
+               │ 7
+               │ 6
+               │ 5
+               │ 4
+               │ 3
+               │ 2
+               │ 1
+               │ 0
+            </div>
+            
+            <div class="ascii-art">
+    ○ ○ ○ ○  = 0x0
+    ● ○ ○ ○  = 0x1
+    ○ ● ○ ○  = 0x2
+    ● ● ○ ○  = 0x3
+    ○ ○ ● ○  = 0x4
+    ● ○ ● ○  = 0x5
+    ○ ● ● ○  = 0x6
+    ● ● ● ○  = 0x7
+    ○ ○ ○ ●  = 0x8
+    ● ○ ○ ●  = 0x9
+    ○ ● ○ ●  = 0xA
+    ● ● ○ ●  = 0xB
+    ○ ○ ● ●  = 0xC
+    ● ○ ● ●  = 0xD
+    ○ ● ● ●  = 0xE
+    ● ● ● ●  = 0xF
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">⌘</a>
+                <a href="binary.html" class="nav-link">01</a>
+                <a href="morse.html" class="nav-link">•–</a>
+                <a href="neural.html" class="nav-link">⊗</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']);
+        
+        // Hexadecimal counting animation
+        let hexValue = 0;
+        setInterval(() => {
+            const display = document.querySelectorAll('.ascii-art')[1];
+            if (display) {
+                const hex = '0x' + hexValue.toString(16).toUpperCase().padStart(4, '0');
+                let content = display.innerHTML;
+                content = content.replace(/0x[0-9A-F]{4}/g, hex);
+                display.innerHTML = content;
+                hexValue = (hexValue + 1) % 65536; // 0x0000 to 0xFFFF
+            }
+        }, 200);
+        
+        // Binary representation animation
+        setInterval(() => {
+            const binary = document.querySelectorAll('.ascii-art')[4];
+            if (binary && Math.random() > 0.8) {
+                let content = binary.innerHTML;
+                // Random bit flip
+                content = content.replace(/[●○]/g, (match) => {
+                    return Math.random() > 0.5 ? '●' : '○';
+                });
+                binary.innerHTML = content;
+            }
+        }, 500);
+        
+        // Color code easter egg
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'c') {
+                // Show hex color codes
+                const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.style.borderColor = randomColor;
+                setTimeout(() => {
+                    document.body.style.borderColor = '#fff';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⊗</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/spirals.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    ○ ─── ⊗ ─── ○
+    │     │     │
+    ○ ─── ⊗ ─── ○
+    │     │     │
+    ○ ─── ⊗ ─── ○
+    │     │     │
+    ○ ─── ⊗ ─── ○
+            </div>
+            
+            <div class="ascii-art">
+         ⊗
+        ╱│╲
+       ╱ │ ╲
+      ○  ⊗  ○
+     ╱│  │  │╲
+    ○ ⊗ ⊗ ⊗ ○
+     ╲│  │  │╱
+      ○  ⊗  ○
+       ╲ │ ╱
+        ╲│╱
+         ⊗
+         
+    Σ(wᵢxᵢ) + b
+            </div>
+            
+            <div class="divider">⊗ ○ ⊗ ○ ⊗ ○ ⊗ ○ ⊗ ○ ⊗</div>
+            
+            <div class="ascii-art">
+    ┌───────────────┐
+    │ f(x) = σ(Wx+b)│
+    │               │
+    │ ○→⊗→○ = y    │
+    │ ↗ ↗ ↗        │
+    │ x₁x₂x₃       │
+    └───────────────┘
+            </div>
+            
+            <div class="ascii-art">
+    ∇ ← ⊗ → ∇
+    ↑   │   ↓
+    ○   ⊗   ○
+    ↑   │   ↓
+    ∇ ← ⊗ → ∇
+    
+    ∂E/∂w = δx
+            </div>
+            
+            <div class="ascii-art">
+    0.1 ○───⊗───○ 0.9
+        │   │   │
+    0.3 ○───⊗───○ 0.7
+        │   │   │
+    0.5 ○───⊗───○ 0.5
+        
+       ReLU(x) = max(0,x)
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">⌘</a>
+                <a href="quantum.html" class="nav-link">⟨ψ⟩</a>
+                <a href="binary.html" class="nav-link">01</a>
+                <a href="logic-gates.html" class="nav-link">⊕</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['⊗', '○', '∇', 'Σ', 'δ', '∂', 'w', 'x']);
+        
+        // Neural activation animation
+        setInterval(() => {
+            const neurons = document.querySelectorAll('.ascii-art ⊗');
+            neurons.forEach(neuron => {
+                if (Math.random() > 0.8) {
+                    neuron.style.textShadow = '0 0 10px #fff';
+                    neuron.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        neuron.style.textShadow = 'none';
+                        neuron.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        }, 500);
+        
+        // Backpropagation wave
+        let propagationStep = 0;
+        setInterval(() => {
+            const networks = document.querySelectorAll('.ascii-art')[4];
+            if (networks) {
+                const gradients = networks.querySelectorAll('∇') || [];
+                gradients.forEach((grad, i) => {
+                    if (i === propagationStep % gradients.length) {
+                        grad.style.textShadow = '0 0 8px #fff';
+                    } else {
+                        grad.style.textShadow = 'none';
+                    }
+                });
+                propagationStep++;
+            }
+        }, 800);
+    </script>
+</body>
+</html>

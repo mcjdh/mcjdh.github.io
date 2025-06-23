@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ᚱ</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/spirals.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+    ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ
+    ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ
+    ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ
+            </div>
+            
+            <div class="ascii-art">
+    ᚱ   ᚢ   ᚾ   ᛖ   ᛊ
+    │   │   │   │   │
+    ╰─┬─╯   ╰─┬─╯   │
+      │       │     │
+      ╰───┬───╯     │
+          │         │
+          ╰─────────╯
+          
+       ∞ ↔ ᚹ ↔ ∞
+            </div>
+            
+            <div class="divider">ᛟ ᛞ ᛁ ᚾ ᛟ ᛞ ᛁ ᚾ ᛟ ᛞ</div>
+            
+            <div class="ascii-art">
+    ┌─────────────┐
+    │ ᚠ → ● ← ᚢ │
+    │ │       │ │
+    │ ᚦ → ◊ ← ᚨ │
+    │ │       │ │
+    │ ᚱ → ∞ ← ᚲ │
+    └─────────────┘
+            </div>
+            
+            <div class="ascii-art">
+       ᛟ
+      ╱│╲
+     ╱ │ ╲
+    ᚾ  ○  ᛁ
+     ╲ │ ╱
+      ╲│╱
+       ᛞ
+       
+    ○ ᚹ ○ ᚺ ○
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">☥</a>
+                <a href="hamsa.html" class="nav-link">🪬</a>
+                <a href="yin-yang.html" class="nav-link">☯</a>
+                <a href="om.html" class="nav-link">ॐ</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['ᚱ', 'ᚢ', 'ᚾ', 'ᛖ', 'ᛊ', 'ᚠ', 'ᚦ', 'ᚨ']);
+        
+        // Elder Futhark animation
+        const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛊ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛜ', 'ᛞ', 'ᛟ'];
+        
+        setInterval(() => {
+            const runeGrid = document.querySelectorAll('.ascii-art')[0];
+            if (runeGrid && Math.random() > 0.8) {
+                let content = runeGrid.textContent;
+                const randomRune = runes[Math.floor(Math.random() * runes.length)];
+                const randomIndex = Math.floor(Math.random() * content.length);
+                content = content.substring(0, randomIndex) + randomRune + content.substring(randomIndex + 1);
+                runeGrid.textContent = content;
+            }
+        }, 1000);
+        
+        // Mystical glow effect
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                document.querySelectorAll('.ascii-art').forEach(art => {
+                    art.style.textShadow = '0 0 8px #fff';
+                    setTimeout(() => {
+                        art.style.textShadow = 'none';
+                    }, 200);
+                });
+            }
+        }, 200);
+    </script>
+</body>
+</html>

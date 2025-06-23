@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☘</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/spirals.css">
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <div class="ascii-art">
+       ╭─╮
+      ╱   ╲
+     ╱     ╲
+    ╱   ○   ╲
+   ╱ ╱─╲ ╱─╲ ╲
+  ╱ ╱   ╲╱   ╲ ╲
+ │ │     ○     │ │
+  ╲ ╲   ╱╲   ╱ ╱
+   ╲ ╲_╱ ○ ╲_╱ ╱
+    ╲         ╱
+     ╲_______╱
+            </div>
+            
+            <div class="ascii-art">
+    ○ ═══ ○ ═══ ○
+    ║ ╲   │   ╱ ║
+    ║  ╲  ○  ╱  ║
+    ║   ╲ │ ╱   ║
+    ║    ╲│╱    ║
+    ○ ═══ ○ ═══ ○
+    ║    ╱│╲    ║
+    ║   ╱ │ ╲   ║
+    ║  ╱  ○  ╲  ║
+    ║ ╱   │   ╲ ║
+    ○ ═══ ○ ═══ ○
+            </div>
+            
+            <div class="divider">☘ ∞ ☘ ∞ ☘ ∞ ☘ ∞ ☘ ∞</div>
+            
+            <div class="ascii-art">
+       3
+      ╱ ╲
+     ╱   ╲
+    1─────2
+     ╲   ╱
+      ╲ ╱
+       ○
+       
+    ∞ + ∞ + ∞ = 1
+            </div>
+            
+            <div class="ascii-art">
+    ◊ ◊ ◊
+     ╲│╱
+      ○
+     ╱│╲
+    ◊ ◊ ◊
+    
+    ☘ ↔ ☯ ↔ ☥
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">☥</a>
+                <a href="runes.html" class="nav-link">ᚱ</a>
+                <a href="pentagram.html" class="nav-link">⛤</a>
+                <a href="yin-yang.html" class="nav-link">☯</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script>
+        initParticles(['☘', '○', '◊', '∞', '1', '2', '3', '△']);
+        
+        // Trinity rotation
+        let angle = 0;
+        setInterval(() => {
+            angle += 2;
+            const triquetra = document.querySelectorAll('.ascii-art')[0];
+            if (triquetra) {
+                triquetra.style.transform = `rotate(${angle}deg)`;
+            }
+        }, 100);
+        
+        // Three-fold manifestation
+        const nodes = ['1', '2', '3'];
+        let activeNode = 0;
+        
+        setInterval(() => {
+            const trinity = document.querySelectorAll('.ascii-art')[2];
+            if (trinity) {
+                let content = trinity.innerHTML;
+                nodes.forEach((node, i) => {
+                    if (i === activeNode) {
+                        content = content.replace(node, `<span style="text-shadow: 0 0 8px #fff">${node}</span>`);
+                    }
+                });
+                trinity.innerHTML = content;
+                activeNode = (activeNode + 1) % nodes.length;
+            }
+        }, 1333); // 1.333 seconds for trinity timing
+    </script>
+</body>
+</html>
