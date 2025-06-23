@@ -3,797 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>◊ ◊ ◊</title>
+    <title>◊ Portal Gateway ◊</title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/ascii.css">
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
-    <link rel="stylesheet" href="/css/pure-symbols.css">
-    <link rel="stylesheet" href="/css/harmonics.css">
-    <link rel="stylesheet" href="/css/spirals.css">
-    <link rel="stylesheet" href="/css/performance.css">
-    <link rel="stylesheet" href="/css/clean-override.css">
-    <link rel="stylesheet" href="/css/dimensional-gateway.css">
-    <link rel="stylesheet" href="/css/realm-resonance.css">
+    <link rel="stylesheet" href="/css/symbol-harmonics.css">
+    <style>
+        /* Central Gateway Design */
+        .gateway-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .central-portal {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .portal-title {
+            font-family: monospace;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            letter-spacing: 0.5em;
+        }
+        
+        /* Realm Portal Grid */
+        .realm-portals {
+            display: grid;
+            grid-template-areas:
+                ". cosmos ."
+                "math center sound"
+                ". glyphs ."
+                ". circuits .";
+            gap: 40px;
+            margin: 40px 0;
+            align-items: center;
+            justify-items: center;
+        }
+        
+        .realm-portal {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .realm-portal:hover {
+            border-color: white;
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .realm-portal.mathematics { grid-area: math; }
+        .realm-portal.cosmos { grid-area: cosmos; }
+        .realm-portal.glyphs { grid-area: glyphs; }
+        .realm-portal.circuits { grid-area: circuits; }
+        .realm-portal.sound { grid-area: sound; }
+        
+        .center-nexus {
+            grid-area: center;
+            width: 200px;
+            height: 200px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .realm-symbol {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .realm-name {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: lowercase;
+            letter-spacing: 0.2em;
+        }
+        
+        .realm-frequency {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
+        
+        /* Connection Lines */
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            transform-origin: left center;
+            animation: pulse-line 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Central Nexus Animation */
+        .nexus-symbol {
+            font-size: 4rem;
+            animation: rotate-slow 20s linear infinite;
+        }
+        
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Instructions */
+        .gateway-instructions {
+            text-align: center;
+            margin: 30px 0;
+            font-family: monospace;
+            opacity: 0.7;
+            max-width: 600px;
+        }
+        
+        .symbol-hints {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+        
+        .discovery-hints {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            text-align: right;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .realm-portals {
+                grid-template-areas:
+                    "cosmos"
+                    "math"
+                    "center"
+                    "sound"
+                    "glyphs"
+                    "circuits";
+                gap: 20px;
+            }
+            
+            .realm-portal {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .center-nexus {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="border">
-            <div id="dimensional-gateway" class="dimensional-gateway">
-                <div class="ascii-art gateway-frame">
-╔═══════════════════════════════════════════════════╗
-║                                                   ║
-║                   ∞ 5D ∞                         ║
-║                                                   ║
-║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
-║   ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉         ║
-║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
-║   ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉    ● ◐ ▽ ✧ ☉         ║
-║   ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞    ◊ ○ △ ✦ ∞         ║
-║                                                   ║
-║                  ◊ ⚡ ∞ ⚡ ◊                     ║
-║                                                   ║
-╚═══════════════════════════════════════════════════╝
-                </div>
-                
-                <div class="matrix-grid" id="matrix-grid">
-                    <!-- 5x5 dimensional matrix -->
-                    <div class="matrix-row">
-                        <span class="matrix-cell" data-dim="1" data-pos="0,0">◊</span>
-                        <span class="matrix-cell" data-dim="2" data-pos="0,1">○</span>
-                        <span class="matrix-cell" data-dim="3" data-pos="0,2">△</span>
-                        <span class="matrix-cell" data-dim="4" data-pos="0,3">✦</span>
-                        <span class="matrix-cell" data-dim="5" data-pos="0,4">∞</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span class="matrix-cell" data-dim="2" data-pos="1,0">●</span>
-                        <span class="matrix-cell" data-dim="3" data-pos="1,1">◐</span>
-                        <span class="matrix-cell" data-dim="4" data-pos="1,2">▽</span>
-                        <span class="matrix-cell" data-dim="5" data-pos="1,3">✧</span>
-                        <span class="matrix-cell" data-dim="1" data-pos="1,4">☉</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span class="matrix-cell" data-dim="3" data-pos="2,0">◊</span>
-                        <span class="matrix-cell" data-dim="4" data-pos="2,1">○</span>
-                        <span class="matrix-cell" data-dim="5" data-pos="2,2">△</span>
-                        <span class="matrix-cell" data-dim="1" data-pos="2,3">✦</span>
-                        <span class="matrix-cell" data-dim="2" data-pos="2,4">∞</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span class="matrix-cell" data-dim="4" data-pos="3,0">●</span>
-                        <span class="matrix-cell" data-dim="5" data-pos="3,1">◐</span>
-                        <span class="matrix-cell" data-dim="1" data-pos="3,2">▽</span>
-                        <span class="matrix-cell" data-dim="2" data-pos="3,3">✧</span>
-                        <span class="matrix-cell" data-dim="3" data-pos="3,4">☉</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span class="matrix-cell" data-dim="5" data-pos="4,0">◊</span>
-                        <span class="matrix-cell" data-dim="1" data-pos="4,1">○</span>
-                        <span class="matrix-cell" data-dim="2" data-pos="4,2">△</span>
-                        <span class="matrix-cell" data-dim="3" data-pos="4,3">✦</span>
-                        <span class="matrix-cell" data-dim="4" data-pos="4,4">∞</span>
-                    </div>
-                </div>
-                
-                <div class="resonance-field" id="resonance-field"></div>
+    <div class="gateway-container">
+        <div class="central-portal">
+            <h1 class="portal-title">◊ GATEWAY ◊</h1>
+            
+            <div class="ascii-art" style="margin: 20px 0;">
+╭─────────────────────────────────────────╮
+│              ∞ ◊ ∞                      │
+│                                         │
+│         ∀ ◊ = ⟶                         │
+│        ∀ ⟶ = ⚖                         │
+│        ∀ ⚖ = ∞                         │
+│                                         │
+╰─────────────────────────────────────────╯
             </div>
             
-            <div class="divider">• • • • • • • • • • • • • • • •</div>
-            
-            <div class="ascii-art" style="font-size: 1rem;">↓</div>
-            
-            <div class="symbol-grid golden-grid">
-                <a href="/realms/mathematics/" class="symbol nav-link harmonic-trigger portal-entrance" 
+            <div class="realm-portals">
+                <!-- Mathematics Realm -->
+                <a href="/realms/mathematics/" class="realm-portal mathematics" 
                    data-realm="mathematics" 
-                   data-frequency="432"
-                   data-connections="cosmos,glyphs,circuits">∑</a>
-                <a href="/realms/cosmos/" class="symbol nav-link harmonic-trigger portal-entrance" 
- 
-                   data-realm="cosmos" 
-                   data-frequency="528"
-                   data-connections="mathematics,glyphs,circuits">✦</a>
-                <a href="/realms/glyphs/" class="symbol nav-link harmonic-trigger portal-entrance" 
- 
-                   data-realm="glyphs" 
-                   data-frequency="741"
-                   data-connections="mathematics,cosmos,circuits">☥</a>
-                <a href="/realms/circuits/" class="symbol nav-link harmonic-trigger portal-entrance" 
- 
-                   data-realm="circuits" 
-                   data-frequency="963"
-                   data-connections="mathematics,cosmos,glyphs">⌘</a>
+                   data-frequency="432">
+                    <div class="realm-symbol">∑</div>
+                    <div class="realm-name">∑</div>
+                    <div class="realm-frequency">432 Hz</div>
+                    <div class="portal-ascii">
+                        <pre style="font-size: 0.6rem; margin: 10px 0;">
+  1.618
+ ╱     ╲
+π  ∞  φ
+ ╲     ╱
+   e^i
+                        </pre>
+                    </div>
+                </a>
+                
+                <!-- Cosmos Realm -->
+                <a href="/realms/cosmos/" class="realm-portal cosmos"
+                   data-realm="cosmos"
+                   data-frequency="528">
+                    <div class="realm-symbol">✦</div>
+                    <div class="realm-name">✦</div>
+                    <div class="realm-frequency">528 Hz</div>
+                    <div class="portal-ascii">
+                        <pre style="font-size: 0.6rem; margin: 10px 0;">
+   ☉
+ ·   ·
+☽  ✦  ★
+ ·   ·
+   ◉
+                        </pre>
+                    </div>
+                </a>
+                
+                <!-- Central Nexus -->
+                <div class="center-nexus">
+                    <div class="nexus-symbol">◊</div>
+                    <div class="connection-lines" id="connection-lines"></div>
+                </div>
+                
+                <!-- Sound Realm -->
+                <a href="/realms/sound/" class="realm-portal sound"
+                   data-realm="sound"
+                   data-frequency="111">
+                    <div class="realm-symbol">∿</div>
+                    <div class="realm-name">∿</div>
+                    <div class="realm-frequency">111 Hz</div>
+                    <div class="portal-ascii">
+                        <pre style="font-size: 0.6rem; margin: 10px 0;">
+∿∿∿∿∿
+≈≈≈≈≈
+∼∼∼∼∼
+                        </pre>
+                    </div>
+                </a>
+                
+                <!-- Glyphs Realm -->
+                <a href="/realms/glyphs/" class="realm-portal glyphs"
+                   data-realm="glyphs"
+                   data-frequency="741">
+                    <div class="realm-symbol">☥</div>
+                    <div class="realm-name">☥</div>
+                    <div class="realm-frequency">741 Hz</div>
+                    <div class="portal-ascii">
+                        <pre style="font-size: 0.6rem; margin: 10px 0;">
+  ☥
+ॐ ☯ ✡
+  ☪
+                        </pre>
+                    </div>
+                </a>
+                
+                <!-- Circuits Realm -->
+                <a href="/realms/circuits/" class="realm-portal circuits"
+                   data-realm="circuits"
+                   data-frequency="963">
+                    <div class="realm-symbol">⌘</div>
+                    <div class="realm-name">⌘</div>
+                    <div class="realm-frequency">963 Hz</div>
+                    <div class="portal-ascii">
+                        <pre style="font-size: 0.6rem; margin: 10px 0;">
+ 101
+─┤├─
+ 010
+                        </pre>
+                    </div>
+                </a>
             </div>
             
-            <div class="divider">════════════════════════════════</div>
-            
-            <div class="ascii-art" style="font-size: 0.8rem; opacity: 0.5;">
-                <span class="infinity-loop">∞</span>
+            <div class="gateway-instructions">
+                <p>◊ → ⟶ ∞</p>
+                <p>∿ → ≈ ♫</p>
+                <p>◊ + ◊ = ?</p>
             </div>
-            
-            <div class="blink">▮</div>
+        </div>
+        
+        <!-- Hidden Features Guide -->
+        <div class="symbol-hints">
+            <div>∅ ⟶:</div>
+            <div>↑↑↓↓←→←→BA</div>
+            <div>1,1,2,3,5...</div>
+            <div>π ★</div>
+        </div>
+        
+        <div class="discovery-hints">
+            <div>◊ ⟷ ◊:</div>
+            <div>○ + ● = ?</div>
+            <div>△ + ▽ = ?</div>
+            <div>☥ + ॐ = ?</div>
         </div>
     </div>
     
-    <!-- Resonance Threads & Memory Integration -->
-    <div class="resonance-threads" id="resonance-threads"></div>
-    <div class="harmonic-field" id="harmonic-field"></div>
-    <div class="sacred-pattern"></div>
-    
-    <!-- Floating Memory Fragments -->
-    <div class="memory-fragments" id="memory-fragments"></div>
-    
     <script src="/js/particles.js"></script>
     <script src="/js/harmonics.js"></script>
-    <script src="/js/universal-modal.js"></script>
+    <script src="/js/symbol-harmonics.js"></script>
+    <script src="/js/universal-language.js"></script>
     <script>
-        // ♫ ≈ ♪
-        window.harmonics.init();
+        // Initialize particles
+        initParticles(['◊', '∞', '○', '●', '△', '▽', '✦', '☥', '∿', '⌘', '∑']);
         
-        // 5D Matrix Gateway System
-        class DimensionalGateway {
-            constructor() {
-                this.gateway = document.getElementById('dimensional-gateway');
-                this.matrixGrid = document.getElementById('matrix-grid');
-                this.resonanceField = document.getElementById('resonance-field');
-                this.matrixCells = document.querySelectorAll('.matrix-cell');
-                this.resonanceLevel = 0;
-                this.activeNodes = new Set();
-                this.init();
-            }
+        // Initialize harmonic system
+        if (window.harmonics) {
+            window.harmonics.init();
+        }
+        
+        // Create connection lines between realms
+        function createConnectionLines() {
+            const container = document.getElementById('connection-lines');
+            const realms = document.querySelectorAll('.realm-portal');
+            const nexus = document.querySelector('.center-nexus');
+            const nexusRect = nexus.getBoundingClientRect();
+            const nexusCenterX = nexusRect.left + nexusRect.width / 2;
+            const nexusCenterY = nexusRect.top + nexusRect.height / 2;
             
-            init() {
-                this.bindEvents();
-                this.generateResonanceWaves();
-                this.startDimensionalCycle();
-                this.setDimensionalBaseOpacity();
-            }
+            realms.forEach(realm => {
+                const realmRect = realm.getBoundingClientRect();
+                const realmCenterX = realmRect.left + realmRect.width / 2;
+                const realmCenterY = realmRect.top + realmRect.height / 2;
+                
+                const deltaX = realmCenterX - nexusCenterX;
+                const deltaY = realmCenterY - nexusCenterY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+                
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                line.style.width = distance + 'px';
+                line.style.left = '50%';
+                line.style.top = '50%';
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.animationDelay = Math.random() * 4 + 's';
+                
+                container.appendChild(line);
+            });
+        }
+        
+        // Portal hover effects
+        document.querySelectorAll('.realm-portal').forEach(portal => {
+            portal.addEventListener('mouseenter', function() {
+                const frequency = parseInt(this.dataset.frequency);
+                const symbol = this.querySelector('.realm-symbol').textContent;
+                
+                // Create resonance effect
+                if (window.symbolResonance) {
+                    window.symbolResonance.createResonanceRipple(
+                        this.getBoundingClientRect().left + 75,
+                        this.getBoundingClientRect().top + 75,
+                        frequency
+                    );
+                }
+                
+                // Vibrate symbol
+                this.querySelector('.realm-symbol').style.animation = 'pulse 0.5s ease-in-out infinite';
+            });
             
-            setDimensionalBaseOpacity() {
-                // Set CSS variables for base opacity based on dimension
-                this.matrixCells.forEach(cell => {
-                    const dim = cell.dataset.dim;
-                    const opacity = dim / 5;
-                    cell.style.setProperty('--base-opacity', opacity);
-                });
-            }
+            portal.addEventListener('mouseleave', function() {
+                this.querySelector('.realm-symbol').style.animation = '';
+            });
+        });
+        
+        // Central nexus interactions
+        const nexus = document.querySelector('.center-nexus');
+        nexus.addEventListener('click', function() {
+            // Create portal burst effect
+            const burst = document.createElement('div');
+            burst.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border: 2px solid white;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+            `;
+            this.appendChild(burst);
             
-            bindEvents() {
-                // Matrix cell interactions
-                this.matrixCells.forEach((cell, index) => {
-                    cell.addEventListener('click', (e) => {
-                        this.activateCell(cell, index);
-                    });
-                    
-                    cell.addEventListener('mouseenter', (e) => {
-                        this.resonateCell(cell);
-                    });
-                    
-                    cell.addEventListener('mouseleave', (e) => {
-                        this.dampResonance(cell);
-                    });
-                });
-                
-                // Gateway activation
-                this.gateway.addEventListener('click', (e) => {
-                    if (e.target === this.gateway || e.target.classList.contains('gateway-frame')) {
-                        this.activateGateway();
-                    }
-                });
-            }
+            burst.animate([
+                { width: '0', height: '0', opacity: 1 },
+                { width: '300px', height: '300px', opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            }).onfinish = () => burst.remove();
             
-            activateCell(cell, index) {
-                // Add to active nodes
-                this.activeNodes.add(cell);
-                
-                // Energy burst effect
-                cell.style.transform = 'scale(1.5) rotateZ(360deg)';
-                cell.style.background = 'rgba(255, 255, 255, 0.3)';
-                cell.style.textShadow = '0 0 20px #fff, 0 0 40px #fff';
-                cell.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-                
-                // Dimensional resonance
-                const dimension = cell.dataset.dim;
-                const position = cell.dataset.pos;
-                this.triggerMatrixResonance(dimension, position);
-                
+            // Activate all realm connections briefly
+            document.querySelectorAll('.connection-line').forEach(line => {
+                line.style.background = 'white';
+                line.style.opacity = '0.8';
                 setTimeout(() => {
-                    cell.style.transform = '';
-                    cell.style.background = '';
-                    cell.style.textShadow = '';
-                    cell.style.borderColor = '';
-                    this.activeNodes.delete(cell);
+                    line.style.background = 'rgba(255, 255, 255, 0.1)';
+                    line.style.opacity = '';
                 }, 1000);
-            }
-            
-            resonateCell(cell) {
-                // Subtle resonance effect
-                const dimension = parseInt(cell.dataset.dim);
-                const intensity = dimension / 5;
-                
-                cell.style.background = `rgba(255, 255, 255, ${0.05 + intensity * 0.1})`;
-                cell.style.textShadow = `0 0 ${5 + intensity * 10}px #fff`;
-                cell.style.borderColor = `rgba(255, 255, 255, ${0.2 + intensity * 0.3})`;
-            }
-            
-            dampResonance(cell) {
-                if (!this.activeNodes.has(cell)) {
-                    cell.style.background = '';
-                    cell.style.textShadow = '';
-                    cell.style.borderColor = '';
-                }
-            }
-            
-            triggerMatrixResonance(dimension, position) {
-                // Create ripple effect through matrix
-                const [row, col] = position.split(',').map(Number);
-                
-                this.matrixCells.forEach((cell, index) => {
-                    const cellDim = parseInt(cell.dataset.dim);
-                    const [cellRow, cellCol] = cell.dataset.pos.split(',').map(Number);
-                    
-                    // Calculate distance in matrix space
-                    const distance = Math.abs(cellRow - row) + Math.abs(cellCol - col);
-                    const dimDistance = Math.abs(cellDim - dimension);
-                    const totalDistance = distance + dimDistance;
-                    
-                    const delay = totalDistance * 100;
-                    
-                    setTimeout(() => {
-                        cell.style.animation = 'dimensional-pulse 1s ease-out';
-                        setTimeout(() => {
-                            cell.style.animation = '';
-                        }, 1000);
-                    }, delay);
-                });
-            }
-            
-            generateResonanceWaves() {
-                // Create dynamic resonance waves
-                for (let i = 0; i < 3; i++) {
-                    const wave = document.createElement('div');
-                    wave.className = 'resonance-wave';
-                    wave.style.cssText = `
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        width: ${100 + i * 100}px;
-                        height: ${100 + i * 100}px;
-                        border: 1px solid rgba(255,255,255,0.1);
-                        border-radius: 50%;
-                        transform: translate(-50%, -50%);
-                        animation: resonance-wave ${8 + i * 2}s ease-in-out infinite;
-                        animation-delay: ${-i * 2}s;
-                        pointer-events: none;
-                    `;
-                    this.resonanceField.appendChild(wave);
-                }
-            }
-            
-            activateGateway() {
-                // Full matrix gateway activation sequence
-                this.gateway.style.animation = 'gateway-activation 3s ease-in-out';
-                
-                // Sequential matrix cell activation in dimensional order
-                const cellsByDimension = {};
-                this.matrixCells.forEach(cell => {
-                    const dim = cell.dataset.dim;
-                    if (!cellsByDimension[dim]) cellsByDimension[dim] = [];
-                    cellsByDimension[dim].push(cell);
-                });
-                
-                // Activate by dimension layers
-                for (let dim = 1; dim <= 5; dim++) {
-                    if (cellsByDimension[dim]) {
-                        cellsByDimension[dim].forEach((cell, index) => {
-                            setTimeout(() => {
-                                this.activateCell(cell, index);
-                            }, (dim - 1) * 500 + index * 100);
-                        });
-                    }
-                }
-                
-                // Gateway portal effect
-                setTimeout(() => {
-                    this.createPortalEffect();
-                }, 2000);
-                
-                setTimeout(() => {
-                    this.gateway.style.animation = '';
-                }, 4000);
-            }
-            
-            createPortalEffect() {
-                const portal = document.createElement('div');
-                portal.innerHTML = '◊ ∞ ◊ 5D ◊ ∞ ◊';
-                portal.style.cssText = `
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    font-size: 2rem;
-                    color: #fff;
-                    text-shadow: 0 0 30px #fff, 0 0 60px #fff;
-                    animation: portal-open 3s ease-out;
-                    pointer-events: none;
-                    z-index: 100;
-                    text-align: center;
-                    white-space: nowrap;
-                `;
-                
-                this.gateway.appendChild(portal);
-                
-                setTimeout(() => {
-                    portal.remove();
-                }, 3000);
-            }
-            
-            startDimensionalCycle() {
-                // Continuous dimensional energy cycling through matrix
-                setInterval(() => {
-                    const randomIndex = Math.floor(Math.random() * this.matrixCells.length);
-                    const randomCell = this.matrixCells[randomIndex];
-                    this.activateCell(randomCell, randomIndex);
-                }, 12000);
-            }
-        }
-        
-        // Initialize dimensional gateway
-        const dimensionalGateway = new DimensionalGateway();
-        
-        // Realm Memory & Resonance Integration System
-        class RealmResonance {
-            constructor() {
-                this.memoryPool = {
-                    mathematics: ['∑', '∏', 'π', 'φ', '∞', '∂', '∫', '≈', '≠', '≤', '≥', 'λ', 'Δ', '∇'],
-                    cosmos: ['✦', '☉', '☽', '⋆', '✧', '☆', '◉', '●', '○', '◐', '◑', '◒', '◓', '🌌'],
-                    glyphs: ['☥', '☯', '⛤', '✡', '☪', '✝', '♾', 'ॐ', '☮', '⚕', '♀', '♂', '⚯', '☿'],
-                    circuits: ['⌘', '⚡', '⟨', '⟩', '|', '⊕', '⊗', '⊞', '⊠', '⊡', '⌬', '⌭', '⌮', '⌯']
-                };
-                this.activeMemories = new Set();
-                this.resonanceThreads = [];
-                this.mousePosition = { x: 0.5, y: 0.5 };
-                this.init();
-            }
-            
-            init() {
-                this.bindEvents();
-                this.generateResonanceThreads();
-                this.startMemoryFlow();
-                this.createHarmonicField();
-            }
-            
-            bindEvents() {
-                // Track mouse for harmonic field
-                document.addEventListener('mousemove', (e) => {
-                    this.mousePosition.x = e.clientX / window.innerWidth;
-                    this.mousePosition.y = e.clientY / window.innerHeight;
-                    this.updateHarmonicField();
-                });
-                
-                // Portal hover resonance
-                document.querySelectorAll('.portal-entrance').forEach(portal => {
-                    portal.addEventListener('mouseenter', (e) => {
-                        const realm = e.target.dataset.realm;
-                        this.activateRealmResonance(realm);
-                    });
-                    
-                    portal.addEventListener('mouseleave', () => {
-                        this.dampResonance();
-                    });
-                });
-            }
-            
-            generateResonanceThreads() {
-                const threadsContainer = document.getElementById('resonance-threads');
-                const portals = document.querySelectorAll('.portal-entrance');
-                
-                // Create connecting threads between all portals
-                portals.forEach((portal1, i) => {
-                    portals.forEach((portal2, j) => {
-                        if (i < j) { // Avoid duplicate connections
-                            const thread = this.createThread(portal1, portal2);
-                            threadsContainer.appendChild(thread);
-                            this.resonanceThreads.push(thread);
-                        }
-                    });
-                });
-            }
-            
-            createThread(portal1, portal2) {
-                const thread = document.createElement('div');
-                thread.className = 'resonance-thread';
-                
-                // Calculate thread position and angle
-                const rect1 = portal1.getBoundingClientRect();
-                const rect2 = portal2.getBoundingClientRect();
-                
-                const x1 = rect1.left + rect1.width / 2;
-                const y1 = rect1.top + rect1.height / 2;
-                const x2 = rect2.left + rect2.width / 2;
-                const y2 = rect2.top + rect2.height / 2;
-                
-                const distance = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
-                const angle = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
-                
-                thread.style.cssText = `
-                    left: ${x1}px;
-                    top: ${y1}px;
-                    width: ${distance}px;
-                    transform: rotate(${angle}deg);
-                    animation-delay: ${Math.random() * 4}s;
-                `;
-                
-                return thread;
-            }
-            
-            startMemoryFlow() {
-                setInterval(() => {
-                    this.spawnMemoryFragment();
-                }, 3000 + Math.random() * 4000);
-            }
-            
-            spawnMemoryFragment() {
-                const realms = Object.keys(this.memoryPool);
-                const randomRealm = realms[Math.floor(Math.random() * realms.length)];
-                const symbols = this.memoryPool[randomRealm];
-                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                
-                const fragment = document.createElement('div');
-                fragment.className = `memory-fragment ${randomRealm}`;
-                fragment.textContent = randomSymbol;
-                
-                // Random starting position
-                fragment.style.cssText = `
-                    left: ${Math.random() * 100}vw;
-                    top: 100vh;
-                    animation-delay: ${Math.random() * 2}s;
-                `;
-                
-                document.getElementById('memory-fragments').appendChild(fragment);
-                this.activeMemories.add(fragment);
-                
-                // Clean up after animation
-                setTimeout(() => {
-                    if (fragment.parentNode) {
-                        fragment.parentNode.removeChild(fragment);
-                    }
-                    this.activeMemories.delete(fragment);
-                }, 20000);
-            }
-            
-            activateRealmResonance(realm) {
-                // Enhance realm-specific memory flow
-                const realmSymbols = this.memoryPool[realm];
-                
-                // Spawn burst of realm memories
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => {
-                        const symbol = realmSymbols[Math.floor(Math.random() * realmSymbols.length)];
-                        const fragment = document.createElement('div');
-                        fragment.className = `memory-fragment ${realm} dimensional-sync`;
-                        fragment.textContent = symbol;
-                        
-                        fragment.style.cssText = `
-                            left: ${this.mousePosition.x * 100}vw;
-                            top: ${this.mousePosition.y * 100}vh;
-                            animation-duration: 8s;
-                        `;
-                        
-                        document.getElementById('memory-fragments').appendChild(fragment);
-                        
-                        setTimeout(() => {
-                            if (fragment.parentNode) {
-                                fragment.parentNode.removeChild(fragment);
-                            }
-                        }, 8000);
-                    }, i * 200);
-                }
-                
-                // Activate resonance threads
-                this.resonanceThreads.forEach(thread => {
-                    thread.style.animationDuration = '2s';
-                    thread.style.opacity = '0.4';
-                });
-            }
-            
-            dampResonance() {
-                // Reset thread animations
-                this.resonanceThreads.forEach(thread => {
-                    thread.style.animationDuration = '8s';
-                    thread.style.opacity = '0.1';
-                });
-            }
-            
-            updateHarmonicField() {
-                const field = document.getElementById('harmonic-field');
-                field.style.setProperty('--mouse-x', `${this.mousePosition.x * 100}%`);
-                field.style.setProperty('--mouse-y', `${this.mousePosition.y * 100}%`);
-            }
-            
-            createHarmonicField() {
-                // Create floating harmonic nodes
-                const field = document.getElementById('harmonic-field');
-                
-                for (let i = 0; i < 12; i++) {
-                    const node = document.createElement('div');
-                    node.className = 'memory-thread';
-                    node.style.cssText = `
-                        left: ${Math.random() * 100}%;
-                        top: ${Math.random() * 100}%;
-                        animation-delay: ${i * 0.5}s;
-                    `;
-                    field.appendChild(node);
-                }
-            }
-        }
-        
-        // Cross-Realm Knowledge Integration System
-        class KnowledgeWeaver {
-            constructor() {
-                this.connections = {
-                    'π-φ': 'Mathematics ↔ Sacred Geometry',
-                    '∞-☉': 'Infinity ↔ Cosmic Cycles', 
-                    '⚡-∑': 'Circuits ↔ Mathematical Series',
-                    '☥-⛤': 'Ancient Wisdom ↔ Sacred Symbols'
-                };
-                this.discoveredConnections = new Set();
-                this.init();
-            }
-            
-            init() {
-                this.bindDiscoveryEvents();
-                this.createKnowledgeThreads();
-            }
-            
-            bindDiscoveryEvents() {
-                // Track symbol combinations for knowledge discovery
-                let recentSymbols = [];
-                
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('matrix-cell') || 
-                        e.target.classList.contains('portal-entrance')) {
-                        
-                        const symbol = e.target.textContent.trim();
-                        recentSymbols.push(symbol);
-                        
-                        // Keep only last 3 symbols
-                        if (recentSymbols.length > 3) {
-                            recentSymbols.shift();
-                        }
-                        
-                        this.checkForConnections(recentSymbols);
-                    }
-                });
-            }
-            
-            checkForConnections(symbols) {
-                // Check for meaningful symbol combinations
-                const combinations = [
-                    ['π', 'φ'], ['∞', '☉'], ['⚡', '∑'], ['☥', '⛤'],
-                    ['∑', '✦'], ['◊', '∞'], ['△', '○'], ['⌘', '☥']
-                ];
-                
-                combinations.forEach(combo => {
-                    if (combo.every(s => symbols.includes(s))) {
-                        this.discoverConnection(combo);
-                    }
-                });
-            }
-            
-            discoverConnection(combo) {
-                const connectionKey = combo.join('-');
-                if (!this.discoveredConnections.has(connectionKey)) {
-                    this.discoveredConnections.add(connectionKey);
-                    this.revealKnowledge(combo);
-                }
-            }
-            
-            revealKnowledge(symbols) {
-                // Create knowledge revelation effect
-                const revelation = document.createElement('div');
-                revelation.innerHTML = `${symbols.join(' ⟷ ')}`;
-                revelation.style.cssText = `
-                    position: fixed;
-                    top: 20%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    font-size: 1.5rem;
-                    color: rgba(255,255,255,0.9);
-                    text-shadow: 0 0 20px rgba(255,255,255,0.8);
-                    animation: knowledge-reveal 4s ease-out forwards;
-                    z-index: 1000;
-                    pointer-events: none;
-                `;
-                
-                document.body.appendChild(revelation);
-                
-                setTimeout(() => {
-                    revelation.remove();
-                }, 4000);
-            }
-            
-            createKnowledgeThreads() {
-                // Add knowledge revelation animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes knowledge-reveal {
-                        0% { 
-                            opacity: 0; 
-                            transform: translateX(-50%) scale(0.5); 
-                        }
-                        50% { 
-                            opacity: 1; 
-                            transform: translateX(-50%) scale(1.2); 
-                        }
-                        100% { 
-                            opacity: 0; 
-                            transform: translateX(-50%) scale(0.8) translateY(-50px); 
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-        
-        // Initialize resonance systems
-        const realmResonance = new RealmResonance();
-        const knowledgeWeaver = new KnowledgeWeaver();
-        
-        // Add gateway-specific CSS animations
-        const gatewayStyle = document.createElement('style');
-        gatewayStyle.textContent = `
-            @keyframes gateway-activation {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.1); filter: brightness(1.5); }
-                100% { transform: scale(1); }
-            }
-            
-            @keyframes portal-open {
-                0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
-                50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); opacity: 1; }
-                100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(gatewayStyle);
-        
-        // ○ ● ◉
-        initParticles();
-        
-        // ♫ → ⚡
-        document.querySelectorAll('.harmonic-trigger').forEach(trigger => {
-            trigger.addEventListener('mouseenter', (e) => {
-                const frequency = parseFloat(e.target.dataset.frequency);
-                const realm = e.target.dataset.realm;
-                const connections = e.target.dataset.connections.split(',');
-                
-                // ♫ ≈ ∿
-                connections.forEach((connection, i) => {
-                    const connectedElement = document.querySelector(`[data-realm="${connection}"]`);
-                    if (connectedElement) {
-                        setTimeout(() => {
-                            window.harmonics.createResonance(trigger, connectedElement);
-                        }, i * 100);
-                    }
-                });
-                
-                // φ ∼ ↗
-                trigger.style.animation = `harmonic-pulse ${1.618}s ease-in-out infinite`;
-            });
-            
-            trigger.addEventListener('mouseleave', (e) => {
-                e.target.style.animation = '';
-                // ∿ → ∅
-                document.querySelectorAll('.resonance-line').forEach(line => {
-                    line.style.opacity = '0';
-                    setTimeout(() => line.remove(), 618);
-                });
             });
         });
         
-        // ℱ → ◊
-        let clickSequence = [];
-        const fibSequence = [1, 1, 2, 3, 5, 8];
+        // Initialize connection lines after page load
+        window.addEventListener('load', () => {
+            setTimeout(createConnectionLines, 100);
+        });
         
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('symbol')) {
-                const now = Date.now();
-                clickSequence.push(now);
-                
-                // 6 ↭ ℱ ⧖
-                if (clickSequence.length >= 6) {
-                    const intervals = [];
-                    for (let i = 1; i < 6; i++) {
-                        intervals.push(clickSequence[clickSequence.length - i] - 
-                                     clickSequence[clickSequence.length - i - 1]);
-                    }
-                    
-                    // ⧖ → ≈
-                    const normalized = intervals.map(interval => 
-                        Math.round(interval / 100));
-                    
-                    // ℱ ≟ ✓
-                    let matches = 0;
-                    for (let i = 0; i < Math.min(normalized.length, fibSequence.length); i++) {
-                        if (Math.abs(normalized[i] - fibSequence[i]) <= 1) {
-                            matches++;
-                        }
-                    }
-                    
-                    if (matches >= 4) {
-                        // ℱ ◊ ✓!
-                        createFibonacciPortal();
-                    }
-                }
-                
-                // 10 ← ↺
-                clickSequence = clickSequence.slice(-10);
+        // Konami code easter egg
+        let konamiSequence = [];
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+                           'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiSequence.push(e.key);
+            konamiSequence = konamiSequence.slice(-10);
+            
+            if (konamiSequence.join(',') === konamiCode.join(',')) {
+                // Reveal hidden realm
+                createHiddenPortal();
             }
         });
         
-        function createFibonacciPortal() {
+        function createHiddenPortal() {
             const portal = document.createElement('div');
-            portal.className = 'fibonacci-portal';
+            portal.className = 'hidden-portal-reveal';
             portal.innerHTML = `
                 <div style="
                     position: fixed;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    z-index: 10000;
-                    animation: portal-open 2.618s ease-in-out;
-                    font-size: 2rem;
-                    color: gold;
-                    text-shadow: 0 0 20px gold;
+                    text-align: center;
+                    font-family: monospace;
+                    color: white;
+                    background: black;
+                    padding: 30px;
+                    border: 1px solid white;
+                    z-index: 1000;
                 ">
+                    <h2>◊ QUANTUM REALM UNLOCKED ◊</h2>
                     <pre>
-        φ
-       ╱ ╲
-      ╱   ╲
-     ╱  ∞  ╲
-    ╱_______╲
-        |
-      1.618
+     ╱─────╲
+    │   ∞   │
+    │  ╱╲  │
+    │ ╱  ╲ │
+    │╱    ╲│
+    ────────
                     </pre>
-                    <div style="text-align: center; font-size: 1rem; margin-top: 1rem;">
-                        φ ◊ ✓
-                    </div>
+                    <p>Entering in 3...</p>
                 </div>
             `;
-            
             document.body.appendChild(portal);
             
             setTimeout(() => {
-                portal.style.opacity = '0';
-                setTimeout(() => portal.remove(), 618);
-            }, 2618);
+                window.location.href = '/realms/hidden/quantum-realm.html';
+            }, 3000);
         }
         
-        // π ⊙ ◊
-        const today = new Date();
-        if (today.getMonth() === 2 && today.getDate() === 14) {
-            document.body.classList.add('pi-day');
-            setTimeout(() => {
-                const piMessage = document.createElement('div');
-                piMessage.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 10px;
-                        right: 10px;
-                        background: rgba(0,0,0,0.8);
-                        color: white;
-                        padding: 1rem;
-                        border-radius: 10px;
-                        z-index: 1000;
-                    ">
-                        ∴ π ⊙! 
-                        <br>π = ${Math.PI.toFixed(15)}
-                    </div>
-                `;
-                document.body.appendChild(piMessage);
+        // Symbol combination detector
+        let symbolClicks = [];
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('realm-symbol') || 
+                e.target.classList.contains('nexus-symbol')) {
+                const symbol = e.target.textContent;
+                symbolClicks.push(symbol);
                 
-                setTimeout(() => piMessage.remove(), 3141);
-            }, 314);
+                // Check for combinations
+                if (symbolClicks.length >= 2) {
+                    const recent = symbolClicks.slice(-2).join('+');
+                    checkSymbolCombination(recent);
+                }
+                
+                // Keep only last 5 clicks
+                symbolClicks = symbolClicks.slice(-5);
+            }
+        });
+        
+        function checkSymbolCombination(combo) {
+            const discoveries = {
+                '◊+◊': '◊ × ◊',
+                '∑+∿': '∑ ≈ ♫',
+                '✦+☥': '✦ ∴ ☥',
+                '⌘+∿': '⌘ ≈ ∿'
+            };
+            
+            if (discoveries[combo]) {
+                showDiscovery(combo, discoveries[combo]);
+            }
         }
+        
+        function showDiscovery(combo, meaning) {
+            const discovery = document.createElement('div');
+            discovery.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: black;
+                border: 1px solid white;
+                padding: 15px 25px;
+                font-family: monospace;
+                color: white;
+                z-index: 100;
+                animation: slide-up 0.5s ease-out;
+            `;
+            discovery.innerHTML = `${combo} = ${meaning}`;
+            document.body.appendChild(discovery);
+            
+            setTimeout(() => {
+                discovery.style.transition = 'opacity 0.5s';
+                discovery.style.opacity = '0';
+                setTimeout(() => discovery.remove(), 500);
+            }, 3000);
+        }
+        
+        // Add slide-up animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slide-up {
+                from {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

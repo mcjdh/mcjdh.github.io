@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>◉ Resonance Patterns ◉</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/ascii.css">
+    <link rel="stylesheet" href="/css/symbols.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/symbol-harmonics.css">
+    <style>
+        .cymatics-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .cymatics-pattern {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.2;
+            white-space: pre;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cymatics-pattern:hover {
+            border-color: white;
+            transform: scale(1.02);
+        }
+        
+        .pattern-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .interactive-cymatics {
+            width: 100%;
+            height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        #live-pattern {
+            width: 100%;
+            height: 100%;
+            font-family: monospace;
+            font-size: 10px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="border">
+            <h1 class="ascii-art">
+╔═══════════════════════════════════╗
+║         ◉ ≈ ◉                    ║
+║       ♫ ASCII ♫                  ║
+╚═══════════════════════════════════╝
+            </h1>
+            
+            <div class="ascii-art">
+     ·  ·  ·  ·  ·  ·  ·
+   ·                   ·
+ ·     ╱─────╲         ·
+·     │   ◉   │         ·
+·     │   │   │         ·
+ ·     ╲──┴──╱         ·
+   ·                   ·
+     ·  ·  ·  ·  ·  ·  ·
+            </div>
+            
+            <h2 style="text-align: center; margin: 20px 0;">☥ ∆ ∈ ♫</h2>
+            
+            <div class="cymatics-container">
+                <div class="cymatics-pattern" data-freq="111">
+                    <div class="pattern-title">111 Hz - ○●</div>
+                    <div class="pattern-display">
+    · · · · ·
+   ·   ○   ·
+  · ○ ● ○ ·
+   ·   ○   ·
+    · · · · ·
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="222">
+                    <div class="pattern-title">222 Hz - ±</div>
+                    <div class="pattern-display">
+  ● · · · · ●
+ · ╲     ╱ ·
+·   ╲ ╱   ·
+·   ╱ ╲   ·
+ · ╱     ╲ ·
+  ● · · · · ●
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="333">
+                    <div class="pattern-title">333 Hz - △</div>
+                    <div class="pattern-display">
+      △
+    ╱   ╲
+   ·  ●  ·
+  ╱   │   ╲
+ ●────┼────●
+      │
+      ▽
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="444">
+                    <div class="pattern-title">444 Hz - □</div>
+                    <div class="pattern-display">
+┌─────┬─────┐
+│  ●  │  ●  │
+├─────┼─────┤
+│  ●  │  ●  │
+└─────┴─────┘
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="555">
+                    <div class="pattern-title">555 Hz - ★</div>
+                    <div class="pattern-display">
+      ★
+    ╱   ╲
+   ●     ●
+  ╱ ╲   ╱ ╲
+ ●───╳───●
+      ●
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="666">
+                    <div class="pattern-title">666 Hz - ⬡</div>
+                    <div class="pattern-display">
+    ╱─╲
+   ●   ●
+  │ ◉ │
+   ●   ●
+    ╲─╱
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="777">
+                    <div class="pattern-title">777 Hz - ✦</div>
+                    <div class="pattern-display">
+   ·∴·∴·
+  ∴ ★ ∴
+ · ╱│╲ ·
+  ● ◉ ●
+ · ╲│╱ ·
+  ∴ ☆ ∴
+   ·∵·∵·
+                    </div>
+                </div>
+                
+                <div class="cymatics-pattern" data-freq="888">
+                    <div class="pattern-title">888 Hz - ∞</div>
+                    <div class="pattern-display">
+  ╭───╮╭───╮
+ ╱     ╳     ╲
+│  ∞  ·  ∞  │
+ ╲     ╳     ╱
+  ╰───╯╰───╯
+                    </div>
+                </div>
+            </div>
+            
+            <h2 style="text-align: center; margin: 20px 0;">∿ ≈ ⚚ ∞</h2>
+            
+            <div class="interactive-cymatics">
+                <div id="live-pattern"></div>
+            </div>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <label for="freq-slider" style="font-family: monospace;">♫: <span id="freq-value">432</span> Hz</label><br>
+                <input type="range" id="freq-slider" min="100" max="1000" value="432" style="width: 300px; margin: 10px 0;">
+            </div>
+            
+            <div class="ascii-art" style="margin: 30px 0;">
+╔═══════════════════════════════════╗
+║   "Geometry is frozen music"      ║
+║          - Pythagoras             ║
+╚═══════════════════════════════════╝
+            </div>
+            
+            <div class="navigation">
+                <a href="index.html" class="nav-link">∿</a>
+                <a href="harmonics.html" class="nav-link">♫</a>
+                <a href="waves.html" class="nav-link">≈</a>
+                <a href="/index.html" class="nav-link">◊</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script src="/js/symbol-harmonics.js"></script>
+    <script>
+        // Initialize particles
+        initParticles(['◉', '·', '∴', '∵', '○', '●', '★', '☆']);
+        
+        // Cymatics pattern generator
+        class CymaticsGenerator {
+            constructor() {
+                this.livePattern = document.getElementById('live-pattern');
+                this.freqSlider = document.getElementById('freq-slider');
+                this.freqValue = document.getElementById('freq-value');
+                this.frequency = 432;
+                
+                this.initializeControls();
+                this.initializePatternClicks();
+                this.startAnimation();
+            }
+            
+            initializeControls() {
+                this.freqSlider.addEventListener('input', (e) => {
+                    this.frequency = parseInt(e.target.value);
+                    this.freqValue.textContent = this.frequency;
+                });
+            }
+            
+            initializePatternClicks() {
+                document.querySelectorAll('.cymatics-pattern').forEach(pattern => {
+                    pattern.addEventListener('click', () => {
+                        const freq = parseInt(pattern.dataset.freq);
+                        this.freqSlider.value = freq;
+                        this.frequency = freq;
+                        this.freqValue.textContent = freq;
+                        
+                        // Visual feedback
+                        pattern.style.animation = 'pulse 0.5s';
+                        setTimeout(() => {
+                            pattern.style.animation = '';
+                        }, 500);
+                        
+                        // Trigger harmonic resonance
+                        if (window.symbolResonance) {
+                            const symbols = pattern.textContent.match(/[○●△▽□◊★☆◉]/g);
+                            if (symbols) {
+                                symbols.forEach(sym => {
+                                    const elements = document.querySelectorAll(`*:contains('${sym}')`);
+                                    elements.forEach(el => {
+                                        window.symbolResonance.activateSymbolResonance(el);
+                                    });
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+            
+            generatePattern(frequency, time) {
+                const size = 40;
+                const centerX = size / 2;
+                const centerY = size / 2;
+                const pattern = Array(size).fill(null).map(() => Array(size).fill(' '));
+                
+                // Frequency determines pattern complexity
+                const modes = Math.floor(frequency / 111);
+                const phase = time * frequency * 0.001;
+                
+                for (let y = 0; y < size; y++) {
+                    for (let x = 0; x < size; x++) {
+                        const dx = x - centerX;
+                        const dy = y - centerY;
+                        const r = Math.sqrt(dx * dx + dy * dy);
+                        const theta = Math.atan2(dy, dx);
+                        
+                        // Generate standing wave pattern
+                        let intensity = 0;
+                        
+                        // Radial waves
+                        intensity += Math.sin(r * 0.5 - phase) * 0.5;
+                        
+                        // Angular modes based on frequency
+                        for (let m = 1; m <= modes; m++) {
+                            intensity += Math.sin(theta * m + phase * 0.5) * 
+                                        Math.cos(r * 0.3 * m) * (1 / m);
+                        }
+                        
+                        // Normalize and convert to characters
+                        intensity = (intensity + 1) / 2;
+                        
+                        // Character selection based on intensity
+                        const chars = [' ', '·', '∙', '∘', '○', '◉', '●'];
+                        const charIndex = Math.floor(intensity * chars.length);
+                        
+                        // Only draw if within circular boundary
+                        if (r < size / 2 - 2) {
+                            pattern[y][x] = chars[Math.max(0, Math.min(charIndex, chars.length - 1))];
+                        }
+                    }
+                }
+                
+                // Add frequency-specific sacred geometry
+                this.addSacredGeometry(pattern, frequency, centerX, centerY);
+                
+                return pattern.map(row => row.join('')).join('\n');
+            }
+            
+            addSacredGeometry(pattern, frequency, cx, cy) {
+                // Add specific patterns based on frequency ranges
+                if (frequency >= 100 && frequency < 200) {
+                    // Unity - single point
+                    pattern[Math.floor(cy)][Math.floor(cx)] = '◉';
+                } else if (frequency >= 200 && frequency < 300) {
+                    // Duality - vesica piscis hint
+                    pattern[Math.floor(cy)][Math.floor(cx - 3)] = '●';
+                    pattern[Math.floor(cy)][Math.floor(cx + 3)] = '●';
+                } else if (frequency >= 300 && frequency < 400) {
+                    // Trinity - triangle
+                    pattern[Math.floor(cy - 3)][Math.floor(cx)] = '△';
+                    pattern[Math.floor(cy + 2)][Math.floor(cx - 3)] = '●';
+                    pattern[Math.floor(cy + 2)][Math.floor(cx + 3)] = '●';
+                } else if (frequency >= 400 && frequency < 500) {
+                    // Square
+                    pattern[Math.floor(cy - 2)][Math.floor(cx - 2)] = '┌';
+                    pattern[Math.floor(cy - 2)][Math.floor(cx + 2)] = '┐';
+                    pattern[Math.floor(cy + 2)][Math.floor(cx - 2)] = '└';
+                    pattern[Math.floor(cy + 2)][Math.floor(cx + 2)] = '┘';
+                } else if (frequency >= 500 && frequency < 600) {
+                    // Pentagon/star
+                    pattern[Math.floor(cy - 4)][Math.floor(cx)] = '★';
+                } else if (frequency >= 600 && frequency < 700) {
+                    // Hexagon - flower of life hint
+                    const hex = ['╱', '─', '╲', '╲', '─', '╱'];
+                    for (let i = 0; i < 6; i++) {
+                        const angle = i * Math.PI / 3;
+                        const hx = Math.floor(cx + Math.cos(angle) * 4);
+                        const hy = Math.floor(cy + Math.sin(angle) * 3);
+                        if (hy >= 0 && hy < pattern.length && hx >= 0 && hx < pattern[0].length) {
+                            pattern[hy][hx] = '●';
+                        }
+                    }
+                } else if (frequency >= 700 && frequency < 800) {
+                    // Seven-pointed star approximation
+                    pattern[Math.floor(cy)][Math.floor(cx)] = '✦';
+                } else if (frequency >= 800 && frequency < 900) {
+                    // Infinity symbol
+                    pattern[Math.floor(cy)][Math.floor(cx - 2)] = '∞';
+                } else {
+                    // Higher frequencies - complex mandala hint
+                    pattern[Math.floor(cy)][Math.floor(cx)] = '◈';
+                }
+            }
+            
+            startAnimation() {
+                const animate = () => {
+                    const time = Date.now();
+                    const pattern = this.generatePattern(this.frequency, time);
+                    this.livePattern.textContent = pattern;
+                    requestAnimationFrame(animate);
+                };
+                animate();
+            }
+        }
+        
+        // Initialize generator
+        const cymatics = new CymaticsGenerator();
+        
+        // Harmonic initialization
+        if (window.harmonics) {
+            window.harmonics.init();
+        }
+    </script>
+</body>
+</html>

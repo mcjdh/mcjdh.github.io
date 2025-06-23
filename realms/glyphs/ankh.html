@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/symbols.css">
     <link rel="stylesheet" href="/css/navigation.css">
     <link rel="stylesheet" href="/css/performance.css">
+    <link rel="stylesheet" href="/css/symbol-harmonics.css">
 </head>
 <body>
     <div class="container">
@@ -75,8 +76,26 @@
     </div>
     
     <script src="/js/particles.js"></script>
+    <script src="/js/harmonics.js"></script>
+    <script src="/js/symbol-harmonics.js"></script>
     <script>
         initParticles(['☥', '𓂀', '𓁹', '∞', '☉', '☽', '♀', '♂']);
+        
+        // Initialize harmonic resonance
+        if (window.harmonics) {
+            window.harmonics.init();
+        }
+        
+        // Add universal symbol meanings
+        document.querySelectorAll('.ascii-art').forEach(art => {
+            art.innerHTML = art.innerHTML
+                .replace(/☥/g, '<span class="universal-symbol" data-meaning="♥∞">☥</span>')
+                .replace(/∞/g, '<span class="universal-symbol" data-meaning="○●">∞</span>')
+                .replace(/☉/g, '<span class="universal-symbol" data-meaning="☀⚡">☉</span>')
+                .replace(/☽/g, '<span class="universal-symbol" data-meaning="🌙≈">☽</span>')
+                .replace(/♀/g, '<span class="universal-symbol" data-meaning="○∿">♀</span>')
+                .replace(/♂/g, '<span class="universal-symbol" data-meaning="●▲">♂</span>');
+        });
     </script>
 </body>
 </html>
