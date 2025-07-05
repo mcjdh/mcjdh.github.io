@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>◊</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * {
             margin: 0;
@@ -102,14 +104,39 @@
             opacity: 0.7;
             text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0;
         }
+        
+        .ooo-eye {
+            position: fixed;
+            top: 78%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            line-height: 1.1;
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+            font-family: 'Courier New', monospace;
+            visibility: hidden;
+            transition: all 1.5s ease-in-out;
+        }
+        
+        .ooo-eye.revealed {
+            opacity: 0.6;
+            visibility: visible;
+            animation: ooo-breathe 8s ease-in-out infinite, ooo-reveal 2s ease-in-out;
+        }
 
-        .rabbit-line, .symbol-line {
+        .rabbit-line, .symbol-line, .ooo-line {
             display: block;
             margin: 0;
         }
 
         .live-char {
             display: inline-block;
+        }
+        
+        .rabbit .live-char, .symbol-above .live-char, .symbols-below .live-char {
             animation: char-flicker 2s infinite;
             animation-delay: calc(0.1s * var(--i));
         }
@@ -136,6 +163,14 @@
         .eye {
             animation: eye-blink 4s infinite;
         }
+        
+        .ooo-center {
+            animation: ooo-center-glow 8s ease-in-out infinite;
+        }
+        
+        .ooo-eye-blink {
+            animation: ooo-eye-blink 6s ease-in-out infinite;
+        }
 
         @keyframes eye-blink {
             0%, 92% { 
@@ -149,6 +184,79 @@
             98%, 100% { 
                 opacity: 1; 
                 text-shadow: 0 0 4px #f0f8ff, 0 0 8px #e0e8f0, 0 0 12px #d0d8e0;
+            }
+        }
+        
+        @keyframes ooo-center-glow {
+            0%, 100% { 
+                opacity: 1;
+                text-shadow: inherit;
+            }
+            50% { 
+                opacity: 0.8;
+                text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0;
+            }
+        }
+        
+        @keyframes ooo-eye-blink {
+            0%, 95% { 
+                opacity: 1; 
+                text-shadow: inherit;
+            }
+            97% { 
+                opacity: 0.2; 
+                text-shadow: 0 0 1px #f0f8ff;
+            }
+            99%, 100% { 
+                opacity: 1; 
+                text-shadow: inherit;
+            }
+        }
+        
+        @keyframes ooo-breathe {
+            0%, 100% { 
+                opacity: 0.6;
+                text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+            }
+            50% { 
+                opacity: 0.75;
+                text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0, 0 0 9px #d0d8e0;
+            }
+        }
+        
+        @keyframes ooo-reveal {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3);
+                text-shadow: 0 0 10px #f0f8ff, 0 0 20px #e0e8f0, 0 0 30px #d0d8e0;
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.1);
+                text-shadow: 0 0 8px #f0f8ff, 0 0 16px #e0e8f0, 0 0 24px #d0d8e0;
+            }
+            100% { 
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+                text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+            }
+        }
+        
+        @keyframes sparkle-fade {
+            0% { 
+                opacity: 1; 
+                transform: scale(0.5) rotate(0deg);
+                text-shadow: 0 0 8px #f0f8ff, 0 0 16px #e0e8f0;
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+                text-shadow: 0 0 12px #f0f8ff, 0 0 24px #e0e8f0, 0 0 36px #d0d8e0;
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0.3) rotate(360deg) translateY(-40px);
+                text-shadow: none;
             }
         }
 
@@ -182,6 +290,10 @@
                 font-size: 0.7rem; 
                 top: 70%; 
             }
+            .ooo-eye { 
+                font-size: 0.6rem; 
+                top: 85%; 
+            }
         }
     </style>
 </head>
@@ -208,10 +320,85 @@
         <div class="symbol-line">∞ ◊ ∞</div>
         <div class="symbol-line">∿ ∿ ∿</div>
     </div>
+    
+    <div class="ooo-eye" id="ooo-eye">
+        <div class="ooo-line">     ∘∘○○∘∘●●●∘∘○○∘∘     </div>
+        <div class="ooo-line">   ∘○∘●■∘ ○∘ ∘○ ○■●∘○○   </div>
+        <div class="ooo-line"> ∘■○∘∘○○○●○∘∘∘○●○○○∘∘○■∘ </div>
+        <div class="ooo-line">∘●○○···○○·······○○···○○●∘</div>
+        <div class="ooo-line">●··○○·●○∘∘∘○○∘∘∘∘●●·○○··●</div>
+        <div class="ooo-line">●○■○○■■∘∘· ●■○ ·∘∘■■∘∘■○●</div>
+        <div class="ooo-line">●··○○·●●∘∘∘∘○∘∘∘∘●○·○○ ·●</div>
+        <div class="ooo-line">∘●○○···○○·······○○···○○●∘</div>
+        <div class="ooo-line"> ∘■○∘∘○○○●○∘∘∘○●○○○∘∘○■∘ </div>
+        <div class="ooo-line">   ○○∘●■∘ ○∘ ∘○ ○■●∘○∘   </div>
+        <div class="ooo-line">     ∘∘○○∘∘●●●∘∘○○∘∘     </div>
+    </div>
 
 
     <script src="voice-module.js"></script>
     <script>
+        // Konami Code Easter Egg
+        const konamiCode = [
+            'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+            'KeyB', 'KeyA'
+        ];
+        let konamiSequence = [];
+        let oooRevealed = false;
+        
+        function checkKonamiCode(keyCode) {
+            konamiSequence.push(keyCode);
+            
+            // Keep only the last 10 keys
+            if (konamiSequence.length > konamiCode.length) {
+                konamiSequence.shift();
+            }
+            
+            // Check if sequence matches Konami Code
+            if (konamiSequence.length === konamiCode.length) {
+                const matches = konamiSequence.every((key, index) => key === konamiCode[index]);
+                if (matches && !oooRevealed) {
+                    revealOooEye();
+                }
+            }
+        }
+        
+        function revealOooEye() {
+            oooRevealed = true;
+            const oooEye = document.getElementById('ooo-eye');
+            oooEye.classList.add('revealed');
+            
+            // Add sparkle effect to the field when revealed
+            setTimeout(() => {
+                createSparkleField();
+            }, 500);
+            
+            console.log('◊ ∞ ∿ 🌀 ◎ 🌀 ∿ ∞ ◊');
+        }
+        
+        function createSparkleField() {
+            const sparkles = ['✦', '✧', '✨', '⋆', '◊', '∞', '∿', '🌀', '🌊', '💫', '⭐', '🔮', '🌟'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                    sparkle.style.color = '#f0f8ff';
+                    sparkle.style.fontSize = '1rem';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '1000';
+                    sparkle.style.textShadow = '0 0 8px #f0f8ff, 0 0 16px #e0e8f0';
+                    sparkle.style.animation = 'sparkle-fade 3s ease-out forwards';
+                    
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 3000);
+                }, i * 100);
+            }
+        }
+        
         // Symbols for the living field
         const symbols = [' ', ' ', ' ', '·', '∘', '○', '◯', '●', '◊', '∞', '∿', '⟷'];
         
@@ -261,7 +448,7 @@
         // Living characters function
         function createLivingChars(elementId, isEyeElement = false) {
             const element = document.getElementById(elementId);
-            const lines = element.querySelectorAll('.rabbit-line, .symbol-line');
+            const lines = element.querySelectorAll('.rabbit-line, .symbol-line, .ooo-line');
             
             lines.forEach(line => {
                 const text = line.textContent;
@@ -273,8 +460,19 @@
                     span.textContent = char;
                     span.className = 'live-char';
                     
-                    if (char === 'o' && isEyeElement) {
+                    // Only rabbit eyes get eye blinking animation
+                    if (char === 'o' && isEyeElement && elementId === 'rabbit') {
                         span.className += ' eye';
+                    }
+                    
+                    // Very subtle center pulse for ooo-eye center symbol only
+                    if (elementId === 'ooo-eye' && char === '■' && line.textContent.includes('●■○')) {
+                        span.className += ' ooo-center';
+                    }
+                    
+                    // Add gentle blinking to ooo-eye's eye-like symbols
+                    if (elementId === 'ooo-eye' && ['●', '○', '◉', '◎'].includes(char)) {
+                        span.className += ' ooo-eye-blink';
                     }
                     
                     span.style.setProperty('--i', charIndex);
@@ -317,6 +515,31 @@
             
             const allSymbols = [...sparkSymbols, ...spiralSymbols, ...resonantSymbols];
             mutateElement('.symbols-below', allSymbols);
+        }
+        
+        function mutateOooEye() {
+            // Very minimal mutations - only occasionally and extremely subtle
+            const oooChars = document.querySelectorAll('.ooo-eye .live-char');
+            oooChars.forEach(char => {
+                if (Math.random() < 0.001) { // Very rare - 0.1% chance
+                    const originalChar = char.textContent;
+                    let newChar;
+                    
+                    // Only very subtle shifts for specific symbols
+                    if (originalChar === '●') {
+                        newChar = '◉';
+                    } else if (originalChar === '○') {
+                        newChar = '◯';
+                    } else {
+                        return; // Don't mutate other characters
+                    }
+                    
+                    char.textContent = newChar;
+                    setTimeout(() => {
+                        char.textContent = originalChar;
+                    }, 300);
+                }
+            });
         }
         
         // Text streaming functionality
@@ -409,6 +632,7 @@
         createLivingChars('symbol-above');
         createLivingChars('rabbit', true); // true for eye detection
         createLivingChars('symbols-below');
+        createLivingChars('ooo-eye'); // no eye detection - handled separately
         
         // Start text streaming after initial delay
         setTimeout(startTextStream, 2000);
@@ -418,6 +642,7 @@
         setInterval(mutateRabbit, 300);
         setInterval(mutateSymbolAbove, 400);
         setInterval(mutateSymbolsBelow, 250);
+        setInterval(mutateOooEye, 2000); // Much slower for meditative ooo-eye
         
         // Handle window resize
         let resizeTimeout;
@@ -475,12 +700,18 @@
             }
         }
         
+        // Konami Code listener
+        document.addEventListener('keydown', (e) => {
+            checkKonamiCode(e.code);
+            initializeAudio(); // Also initialize audio on keypress
+        });
+        
         // Add audio initialization to existing click handler
         document.addEventListener('click', initializeAudio, { once: true });
-        document.addEventListener('keydown', initializeAudio, { once: true });
         
         // Console
-        console.log('◊ Try: voiceModule.testSound("◊") or voiceModule.setVolume(0.2)');
+        console.log('◊ voiceModule.testSound("◊")');
+        console.log('∿ ↑↑↓↓←→←→🅱🅰 ∿');
     </script>
 </body>
 </html>
