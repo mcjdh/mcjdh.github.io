@@ -12,24 +12,40 @@ class VoiceModule {
         
         // Character type mappings for different sounds
         this.charMappings = {
-            // Hebrew vowels (lower, warmer tones)
-            vowels: {
-                chars: ['א', 'ע', 'ו', 'י', 'ה', 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'],
-                baseFreq: 220,
+            // Hebrew vowels (lower, warmer tones) - only actual vowel letters
+            hebrewVowels: {
+                chars: ['א', 'ע', 'ו', 'י'],
+                baseFreq: 200,
                 waveform: 'sine',
-                duration: 120
+                duration: 140
             },
             
-            // Hebrew consonants (higher, sharper tones)
-            consonants: {
-                chars: ['ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ', 'ק', 'ר', 'ש', 'ת'],
-                baseFreq: 330,
+            // Hebrew consonants (higher, sharper tones) - complete set
+            hebrewConsonants: {
+                chars: ['ב', 'ג', 'ד', 'ה', 'ז', 'ח', 'ט', 'כ', 'ל', 'מ', 'נ', 'ס', 'פ', 'צ', 'ק', 'ר', 'ש', 'ת', 'ך', 'ם', 'ן', 'ף', 'ץ'],
+                baseFreq: 320,
                 waveform: 'square',
-                duration: 80
+                duration: 85
             },
             
-            // English letters (medium tones)
-            english: {
+            // Hebrew vowel points (niqqud) - ethereal, brief tones
+            niqqud: {
+                chars: ['ְ', 'ִ', 'ֵ', 'ֶ', 'ַ', 'ָ', 'ֹ', 'ּ'],
+                baseFreq: 180,
+                waveform: 'sine',
+                duration: 60
+            },
+            
+            // English vowels
+            englishVowels: {
+                chars: ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'],
+                baseFreq: 240,
+                waveform: 'sine',
+                duration: 110
+            },
+            
+            // English consonants (medium tones)
+            englishConsonants: {
                 chars: 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ',
                 baseFreq: 280,
                 waveform: 'triangle',
@@ -89,7 +105,7 @@ class VoiceModule {
         };
     }
     
-    playCharacterSound(char) {
+    playCharacterSound(char, context = {}) {
         if (!this.enabled || !this.audioContext || char === ' ' || char === '\n') {
             return;
         }
@@ -102,36 +118,86 @@ class VoiceModule {
         const mapping = this.getCharacterType(char);
         const now = this.audioContext.currentTime;
         
-        // Create oscillator
+        // Create oscillator and filter for more dynamic sound
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
+        const filterNode = this.audioContext.createBiquadFilter();
         
-        // Connect nodes
-        oscillator.connect(gainNode);
+        // Connect nodes: oscillator -> filter -> gain -> destination
+        oscillator.connect(filterNode);
+        filterNode.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
         
         // Set waveform
         oscillator.type = mapping.waveform;
         
-        // Set frequency with slight randomization
-        const pitchVariation = (Math.random() - 0.5) * this.pitchVariation;
-        const frequency = mapping.baseFreq * (1 + pitchVariation);
+        // Dynamic frequency based on character type and context
+        let frequency = this.calculateDynamicFrequency(char, mapping, context);
+        
+        // For Hebrew text, add subtle frequency modulation
+        if (this.isHebrewChar(char)) {
+            const modulation = Math.sin(now * 8) * 0.05;
+            frequency *= (1 + modulation);
+            
+            // Add filter sweep for mystical feel
+            filterNode.type = 'lowpass';
+            filterNode.frequency.setValueAtTime(frequency * 2, now);
+            filterNode.frequency.exponentialRampToValueAtTime(frequency * 0.8, now + (mapping.duration / 1000));
+        }
+        
         oscillator.frequency.setValueAtTime(frequency, now);
         
-        // Set volume envelope (quick attack, quick decay)
+        // Enhanced volume envelope based on character type
+        const attack = mapping.chars.includes(char) && char.match(/[◊∞∿]/) ? 0.02 : 0.01;
+        const decay = mapping.duration / 1000;
+        
         gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(this.volume, now + 0.01);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, now + (mapping.duration / 1000));
+        gainNode.gain.linearRampToValueAtTime(this.volume, now + attack);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, now + decay);
         
         // Start and stop
         oscillator.start(now);
-        oscillator.stop(now + (mapping.duration / 1000));
+        oscillator.stop(now + decay);
         
         // Clean up
         oscillator.onended = () => {
             oscillator.disconnect();
+            filterNode.disconnect();
             gainNode.disconnect();
         };
+    }
+    
+    calculateDynamicFrequency(char, mapping, context) {
+        let baseFreq = mapping.baseFreq;
+        
+        // Add pitch variation
+        const pitchVariation = (Math.random() - 0.5) * this.pitchVariation;
+        baseFreq *= (1 + pitchVariation);
+        
+        // Hebrew-specific frequency adjustments
+        if (this.isHebrewChar(char)) {
+            // Higher frequencies for certain letters
+            if (['ק', 'צ', 'ח', 'ט'].includes(char)) {
+                baseFreq *= 1.15;
+            }
+            // Lower frequencies for guttural sounds
+            if (['ע', 'ח', 'ר'].includes(char)) {
+                baseFreq *= 0.85;
+            }
+        }
+        
+        // Mystical symbols get harmonic frequencies
+        if (['◊', '∞', '∿'].includes(char)) {
+            const harmonics = [1, 1.5, 2, 2.5, 3];
+            const harmonic = harmonics[Math.floor(Math.random() * harmonics.length)];
+            baseFreq *= harmonic;
+        }
+        
+        return baseFreq;
+    }
+    
+    isHebrewChar(char) {
+        return /[\u0590-\u05FF]/.test(char);
     }
     
     // Public methods for control
@@ -168,4 +234,4 @@ window.VoiceModule = VoiceModule;
 window.voiceModule = new VoiceModule();
 
 // Console helper
-console.log('🎵 Voice Module loaded - try voiceModule.testSound("◊")');
+console.log('◊ Dynamic Voice Module loaded - try voiceModule.testSound("◊") or voiceModule.testSound("ב")');
