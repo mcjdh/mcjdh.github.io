@@ -20,6 +20,10 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            --accent-h: 50;
+            --accent-s: 90%;
+            --accent-l: 75%;
+            --accent-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
         }
 
         .ascii-field {
@@ -54,7 +58,7 @@
             text-align: center;
             z-index: 10;
             opacity: 0.8;
-            text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0;
+            text-shadow: 0 0 3px #f0f8ff, 0 0 8px var(--accent-color), 0 0 14px var(--accent-color);
         }
 
         .text-stream {
@@ -68,8 +72,9 @@
             z-index: 10;
             opacity: 0.9;
             max-width: 60%;
-            text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+            text-shadow: 0 0 2px var(--accent-color), 0 0 6px var(--accent-color), 0 0 12px #f0f8ff55;
             min-height: 1.2rem;
+            pointer-events: none;
         }
 
         .stream-line {
@@ -89,7 +94,7 @@
             text-align: center;
             z-index: 10;
             white-space: nowrap;
-            text-shadow: 0 0 4px #f0f8ff, 0 0 8px #e0e8f0, 0 0 12px #d0d8e0;
+            text-shadow: 0 0 4px #f0f8ff, 0 0 10px var(--accent-color), 0 0 18px var(--accent-color);
             animation: sigil-breathe 10s ease-in-out infinite;
         }
 
@@ -103,7 +108,7 @@
             text-align: center;
             z-index: 10;
             opacity: 0.7;
-            text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0;
+            text-shadow: 0 0 3px #f0f8ff, 0 0 8px var(--accent-color), 0 0 14px var(--accent-color);
         }
         
         .ooo-eye {
@@ -116,7 +121,7 @@
             text-align: center;
             z-index: 10;
             opacity: 0;
-            text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+            text-shadow: 0 0 2px var(--accent-color), 0 0 10px var(--accent-color), 0 0 18px #ffffff33;
             font-family: 'Courier New', monospace;
             visibility: hidden;
             transition: all 1.5s ease-in-out;
@@ -217,11 +222,11 @@
         @keyframes ooo-breathe {
             0%, 100% { 
                 opacity: 0.6;
-                text-shadow: 0 0 2px #f0f8ff, 0 0 4px #e0e8f0;
+                text-shadow: 0 0 3px var(--accent-color), 0 0 8px var(--accent-color), 0 0 14px #ffffff22;
             }
             50% { 
-                opacity: 0.75;
-                text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0, 0 0 9px #d0d8e0;
+                opacity: 0.78;
+                text-shadow: 0 0 4px var(--accent-color), 0 0 12px var(--accent-color), 0 0 20px #ffffff40;
             }
         }
         
@@ -293,6 +298,48 @@
     @keyframes sat-pulse { 0% { transform: scale(1); filter: brightness(1); } 40% { transform: scale(1.5); filter: brightness(1.6);} 100% { transform: scale(1); filter: brightness(1); } }
     .sigil-glyph { transition: transform 0.5s ease, filter 0.5s ease; will-change: transform, filter; display:inline-block; }
     .sigil-glyph.sigil-pulse { transform: scale(1.4); filter: brightness(1.6); }
+
+        /* Streaming text accent glow & vibes */
+        .text-stream .stream-char { 
+            display:inline-block; 
+            position:relative; 
+            opacity:0.85; 
+            color: var(--accent-color);
+            text-shadow: 0 0 3px var(--accent-color), 0 0 7px var(--accent-color), 0 0 14px color-mix(in srgb, var(--accent-color) 70%, #ffffff 30%); 
+            transition: filter 0.5s ease, opacity 0.5s ease; 
+            will-change: filter, opacity, transform; 
+            animation: stream-flicker 7s ease-in-out infinite; 
+            animation-delay: calc(var(--char-index) * 0.07s);
+        }
+        .text-stream .stream-char.char-emerge { animation: stream-emerge 0.65s ease-out forwards, stream-flicker 7s ease-in-out infinite; }
+        .text-stream .stream-char.stream-pulse { animation: stream-pulse 0.8s ease-out, stream-flicker 7s ease-in-out infinite; }
+        @keyframes stream-emerge { 
+            0% { opacity:0; transform: translateY(0.5em) scale(0.8); filter:brightness(2); text-shadow:0 0 6px var(--accent-color),0 0 14px var(--accent-color),0 0 24px var(--accent-color);} 
+            55% { opacity:1; transform: translateY(-0.15em) scale(1.05); } 
+            100% { opacity:0.9; transform: translateY(0) scale(1); filter:brightness(1); } 
+        }
+        @keyframes stream-pulse { 
+            0% { filter:brightness(2); text-shadow:0 0 6px var(--accent-color),0 0 14px var(--accent-color),0 0 28px var(--accent-color);} 
+            40% { filter:brightness(1.35); } 
+            100% { filter:brightness(1); } 
+        }
+        @keyframes stream-flicker { 
+            0%, 95%, 100% { opacity:0.9; } 
+            40% { opacity:1; } 
+            48% { opacity:0.75; } 
+            70% { opacity:1; } 
+        }
+
+    /* Afterimage adaptation trails */
+    #stream-afterimages { position:absolute; inset:0; overflow:visible; pointer-events:none; }
+    .afterimage-line { position:absolute; left:50%; top:0; transform:translateX(-50%); white-space:nowrap; filter: blur(0.5px) saturate(1.15); opacity:0.8; animation: afterimage-fade 4.2s ease-out forwards; mix-blend-mode: screen; }
+    .afterimage-line span { display:inline-block; animation: after-char 4.2s ease-out forwards; }
+    @keyframes afterimage-fade { 0% { opacity:0.8; transform:translate(-50%,0) scale(1);} 55% { opacity:0.45;} 100% { opacity:0; transform:translate(-50%,-0.7em) scale(1.03);} }
+    @keyframes after-char { 0% { filter:brightness(1.4);} 60% { filter:brightness(1);} 100% { filter:brightness(0.6);} }
+    .sigil-adapt { animation: sigil-adapt-fade 3.5s ease-out forwards; }
+    @keyframes sigil-adapt-fade { 0% { filter:hue-rotate(180deg) brightness(1.3) saturate(1.5);} 60% { filter:hue-rotate(190deg) brightness(1.05) saturate(1.1);} 100% { filter:hue-rotate(200deg) brightness(0.7) saturate(0.6);} }
+    .satellite-adapt span { animation: sat-adapt 3s ease-out; }
+    @keyframes sat-adapt { 0% { filter:hue-rotate(160deg) brightness(1.4);} 70% { filter:hue-rotate(180deg) brightness(1);} 100% { filter:hue-rotate(190deg) brightness(0.65);} }
 
         @media (max-width: 768px) {
             .ascii-cell { font-size: 0.6rem; }
@@ -395,6 +442,7 @@
     
     <div class="text-stream" id="text-stream">
         <div class="stream-line" id="stream-content"></div>
+    <div id="stream-afterimages" aria-hidden="true"></div>
     </div>
     
     <div class="rabbit" id="rabbit">
@@ -661,11 +709,86 @@
             'texts/chiron.txt'
         ];
         
-        let currentFileIndex = 0;
+    let currentFileIndex = 0;
         let currentLineIndex = 0;
         let currentCharIndex = 0;
         let currentLines = [];
         let isStreaming = false;
+    const accentHues = [40,45,200,55,50,10,300,120,20,260,180,0,280]; // legacy palette (used as seeds)
+    // Full-spectrum per-line color weaving state
+    let hueWeaveActive = true;
+    // Current applied components
+    let currentAppliedHue = accentHues[0];
+    let currentAppliedSat = 90; // percent (numeric)
+    let currentAppliedLight = 75; // percent (numeric)
+    // Line interpolation starts/targets
+    let lineHueStart = currentAppliedHue, lineHueTarget = accentHues[1];
+    let lineSatStart = currentAppliedSat, lineSatTarget = 90;
+    let lineLightStart = currentAppliedLight, lineLightTarget = 75;
+    let spectralSequenceIndex = 0;
+    const GOLDEN_ANGLE = 137.50776405003785; // degrees
+    function nextGoldenHue(prev){
+        // keep golden angle but compress into L/M cone dominant gamut (roughly 0°-140° & 320°-360°)
+        let candidate = (prev + GOLDEN_ANGLE + (Math.random()*10-5)) % 360;
+        // Map candidate into red-green wraparound band with some warping
+        if (candidate >= 140 && candidate < 240){
+            // fold yellow-green region toward red-green by subtracting 100 degrees
+            candidate = (candidate - 100 + 360) % 360;
+        } else if (candidate >= 240 && candidate < 300){
+            // compress cyan range toward green
+            candidate = 60 + (candidate-240)*0.25; // 60-75
+        }
+        return candidate;
+    }
+    function pickNextHue(prev){
+        const roll = Math.random();
+        if (roll < 0.78){
+            return nextGoldenHue(prev);
+        }
+        // Rare S-cone (blue/violet) excursion (approx human ~5-10%)
+        if (roll < 0.92){
+            // Choose a blue band 200°-255° but bias to 215-235
+            return 215 + Math.random()*40; // 215-255
+        }
+        // Very rare violet edge or deep red shift
+        if (roll < 0.96){
+            return 275 + Math.random()*40; // 275-315 violet band
+        }
+        // deep red anchor reset to avoid drift monotony
+        return Math.random()<0.5 ? (350 + Math.random()*10)%360 : (5 + Math.random()*15); // 350-360 or 5-20
+    }
+    function pickNextSatLight(prevS, prevL){
+        // Adjust saturation/lightness selection with cone weighting: strong chroma for red/green band, moderated for blue excursions.
+        const roll = Math.random();
+        let targetS, targetL;
+        if (roll < 0.08) { // deep accent
+            targetS = 70 + Math.random()*25; // 70-95
+            targetL = 26 + Math.random()*12; // 26-38
+        } else if (roll < 0.18) { // luminous accent
+            targetS = 52 + Math.random()*30; // 52-82
+            targetL = 80 + Math.random()*12; // 80-92
+        } else { // typical
+            targetS = 60 + Math.random()*38; // 60-98
+            targetL = 40 + Math.random()*34; // 40-74
+        }
+        // If current hue (lineHueStart) sits in blue excursion band, temper saturation slightly & raise lightness a bit
+        if (lineHueStart >= 200 && lineHueStart <= 315){
+            targetS = Math.max(50, targetS - 10);
+            targetL = Math.min(88, targetL + 6);
+        }
+        if (Math.abs(targetL - prevL) < 5) targetL = Math.min(92, targetL + 10);
+        if (Math.abs(targetS - prevS) < 7) targetS = Math.min(100, targetS + 12);
+        return [targetS, targetL];
+    }
+    function beginLineHueCycle(){
+        lineHueStart = currentAppliedHue;
+        lineHueTarget = pickNextHue(lineHueStart);
+        lineSatStart = currentAppliedSat;
+        lineLightStart = currentAppliedLight;
+        [lineSatTarget, lineLightTarget] = pickNextSatLight(lineSatStart, lineLightStart);
+        spectralSequenceIndex++;
+    spawnAfterimageLine();
+    }
         
         async function loadTextFile(filename) {
             try {
@@ -678,65 +801,103 @@
             }
         }
         
-        function streamChar() {
-            if (!currentLines.length || !isStreaming) return;
-            
-            const streamElement = document.getElementById('stream-content');
-            const currentLine = currentLines[currentLineIndex];
-            
-            if (currentCharIndex < currentLine.length) {
-                const char = currentLine[currentCharIndex];
-                streamElement.textContent += char;
-                // Pulse sigil + satellite subtly on each non-space char
-                if (char.trim() !== '') {
-                    pulseSigil(char);
-                }
-                
-                // Play voice sound for character
-                if (window.voiceModule) {
-                    window.voiceModule.playCharacterSound(char);
-                }
-                
-                currentCharIndex++;
-                
-                setTimeout(streamChar, 50 + Math.random() * 50); // 50-100ms per char
+        // Dynamic pacing streaming variables
+        let nextCharAt = 0;
+        let linePauseUntil = 0;
+        function scheduleNextChar(now){
+            const line = currentLines[currentLineIndex];
+            if (!line) return;
+            if (currentCharIndex < line.length) {
+                const p = currentCharIndex / line.length;
+                const ease = p < 0.5 ? (2*p*p) : (-1 + (4 - 2*p)*p);
+                const delay = 35 + (120-35)*(1-ease) + Math.random()*25;
+                nextCharAt = now + delay;
             } else {
-                // Line complete, pause then next line
-                setTimeout(() => {
+                linePauseUntil = now + (400 + (currentLines[currentLineIndex].length||1)*22);
+                nextCharAt = Infinity;
+            }
+        }
+        function processStream(now){
+            if (!isStreaming || !currentLines.length) return;
+            const el = document.getElementById('stream-content');
+            if (linePauseUntil && now >= linePauseUntil){
+                linePauseUntil = 0;
+                const line = currentLines[currentLineIndex];
+                if (currentCharIndex >= line.length){
                     currentLineIndex = (currentLineIndex + 1) % currentLines.length;
                     currentCharIndex = 0;
-                    streamElement.textContent = '';
-                    
-                    if (currentLineIndex === 0) {
-                        // Finished all lines, switch to next file after pause
-                        setTimeout(() => {
-                            currentFileIndex = (currentFileIndex + 1) % textFiles.length;
-                            loadNextText();
-                        }, 3000);
+                    el.innerHTML='';
+                    if (currentLineIndex === 0){
+                        currentFileIndex = (currentFileIndex + 1) % textFiles.length;
+                        loadNextText();
+                        linePauseUntil = now + 1500;
+                        return;
                     } else {
-                        setTimeout(streamChar, 1000); // Pause between lines
+                        beginLineHueCycle();
                     }
-                }, 2000);
+                }
+                scheduleNextChar(now);
+            }
+            if (now >= nextCharAt){
+                const line = currentLines[currentLineIndex];
+                if (!line) return;
+                if (currentCharIndex < line.length){
+                    const char = line[currentCharIndex];
+                    // create span with accent glow and locked per-char color
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.className = 'stream-char char-emerge';
+                    span.style.setProperty('--char-index', currentCharIndex);
+                    // Lock the color at creation using current interpolated values for diversity
+                    const lockedHue = currentAppliedHue;
+                    const lockedSat = currentAppliedSat + (Math.random()*6-3); // slight jitter
+                    const lockedLight = currentAppliedLight + (Math.random()*6-3);
+                    span.style.color = `hsl(${lockedHue.toFixed(1)} ${Math.min(100,Math.max(30,lockedSat)).toFixed(1)}% ${Math.min(92,Math.max(22,lockedLight)).toFixed(1)}%)`;
+                    span.style.textShadow = `0 0 4px hsl(${lockedHue.toFixed(1)} ${Math.min(100,lockedSat+10).toFixed(1)}% ${Math.min(95,lockedLight+5).toFixed(1)}%), 0 0 10px hsl(${(lockedHue+15)%360} ${Math.min(100,lockedSat+5).toFixed(1)}% ${Math.min(90,lockedLight+2).toFixed(1)}%)`;
+                    el.appendChild(span);
+                    // remove emerge class after animation to allow pulse reuse
+                    setTimeout(()=> span.classList.remove('char-emerge'), 700);
+                    if (char.trim()!=='') pulseSigil(char);
+                    if (window.voiceModule) window.voiceModule.playCharacterSound(char);
+                    // propagate dynamic color phase to other glyph systems
+                    updateColorPhasing(currentAppliedHue, currentAppliedSat, currentAppliedLight);
+                    currentCharIndex++;
+                    scheduleNextChar(now);
+                } else if (!linePauseUntil) {
+                    scheduleNextChar(now);
+                }
             }
         }
         
-        async function loadNextText() {
+        async function loadNextText(){
             currentLines = await loadTextFile(textFiles[currentFileIndex]);
             currentLineIndex = 0;
             currentCharIndex = 0;
-            document.getElementById('stream-content').textContent = '';
+            document.getElementById('stream-content').textContent='';
             updateActiveSatellite();
-            setTimeout(streamChar, 1000);
+            const seedHue = accentHues[currentFileIndex] || (currentAppliedHue||50);
+            currentAppliedHue = seedHue;
+            currentAppliedSat = 90;
+            currentAppliedLight = 75;
+            lineHueStart = seedHue;
+            lineHueTarget = pickNextHue(seedHue);
+            [lineSatTarget, lineLightTarget] = pickNextSatLight(currentAppliedSat,currentAppliedLight);
+            document.documentElement.style.setProperty('--accent-h', seedHue.toFixed(2));
+            document.documentElement.style.setProperty('--accent-s', currentAppliedSat + '%');
+            document.documentElement.style.setProperty('--accent-l', currentAppliedLight + '%');
+            document.documentElement.style.setProperty('--accent-color', `hsl(${seedHue.toFixed(2)} ${currentAppliedSat}% ${currentAppliedLight}%)`);
+            const now = performance.now();
+            nextCharAt = now + 1000; // initial delay
+            linePauseUntil = 0;
         }
         
-        function startTextStream() {
-            isStreaming = true;
-            loadNextText();
-        }
+    function startTextStream(){ isStreaming = true; loadNextText(); }
         
         // Defer full experience until user gesture (ENTER) for audio policy compliance
-        let experienceStarted = false;
-        let intervalHandles = [];
+    let experienceStarted = false;
+    let unifiedStarted = false;
+    const taskTimers = { animateField:0, mutateRabbit:0, mutateSymbolAbove:0, mutateSymbolsBelow:0, mutateOooEye:0, satellites:0 };
+    const taskIntervals = { animateField:100, mutateRabbit:300, mutateSymbolAbove:400, mutateSymbolsBelow:250, mutateOooEye:2000, satellites:33, streamPulse:1200 };
         function initExperience() {
             if (experienceStarted) return;
             experienceStarted = true;
@@ -747,12 +908,7 @@
             createLivingChars('symbols-below');
             createLivingChars('ooo-eye');
             setTimeout(startTextStream, 1200); // slight delay after reveal
-            // Animation loops
-            intervalHandles.push(setInterval(animateField, 100));
-            intervalHandles.push(setInterval(mutateRabbit, 300));
-            intervalHandles.push(setInterval(mutateSymbolAbove, 400));
-            intervalHandles.push(setInterval(mutateSymbolsBelow, 250));
-            intervalHandles.push(setInterval(mutateOooEye, 2000));
+            startUnifiedLoop();
             // Stop cover spiral animation if running
             if (coverSpiralActive) {
                 coverSpiralActive = false;
@@ -975,24 +1131,67 @@
                 container.appendChild(div);
                 satellites.push({el:div, angle:(i/count)*Math.PI*2, radius: baseRadius + (i%3)*8});
             }
-            animateSatellites();
+            // satellites integrated into unified loop
             updateActiveSatellite();
         }
-        function animateSatellites(){
+        function updateSatellites(dt){
+            satellites.forEach((s, idx)=>{
+                const speed = 0.000035 + (idx%5)*0.000007;
+                s.angle -= speed * dt;
+                const x = Math.cos(s.angle) * s.radius;
+                const y = Math.sin(s.angle) * s.radius * 0.55;
+                s.el.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+            });
+        }
+        function startUnifiedLoop(){
+            if (unifiedStarted) return; unifiedStarted = true;
             let last = performance.now();
-            function frame(now){
-                const dt = now - last; // ms
-                last = now;
-                satellites.forEach((s, idx)=>{
-                    const speed = 0.000035 + (idx%5)*0.000007; // slower varied speeds
-                    s.angle -= speed * dt; // counterclockwise
-                    const x = Math.cos(s.angle) * s.radius;
-                    const y = Math.sin(s.angle) * s.radius * 0.55; // ellipse vertically compressed
-                    s.el.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
-                });
-                requestAnimationFrame(frame);
+            function loop(now){
+                const dt = now - last; last = now;
+                for (const k in taskTimers) taskTimers[k] += dt;
+                if (taskTimers.animateField >= taskIntervals.animateField){ animateField(); taskTimers.animateField = 0; }
+                if (taskTimers.mutateRabbit >= taskIntervals.mutateRabbit){ mutateRabbit(); taskTimers.mutateRabbit = 0; }
+                if (taskTimers.mutateSymbolAbove >= taskIntervals.mutateSymbolAbove){ mutateSymbolAbove(); taskTimers.mutateSymbolAbove = 0; }
+                if (taskTimers.mutateSymbolsBelow >= taskIntervals.mutateSymbolsBelow){ mutateSymbolsBelow(); taskTimers.mutateSymbolsBelow = 0; }
+                if (taskTimers.mutateOooEye >= taskIntervals.mutateOooEye){ mutateOooEye(); taskTimers.mutateOooEye = 0; }
+                if (taskTimers.satellites >= taskIntervals.satellites){ updateSatellites(dt); taskTimers.satellites = 0; }
+                if (taskTimers.streamPulse >= taskIntervals.streamPulse){
+                    // periodic gentle pulse across a subset of streamed chars
+                    const chars = document.querySelectorAll('#stream-content .stream-char');
+                    if (chars.length){
+                        for (let i=0;i<Math.min(3, Math.ceil(chars.length/8)); i++){
+                            const idx = Math.floor(Math.random()*chars.length);
+                            const c = chars[idx];
+                            c.classList.add('stream-pulse');
+                            setTimeout(()=> c.classList.remove('stream-pulse'), 820);
+                        }
+                    }
+                    taskTimers.streamPulse = 0;
+                }
+                if (hueWeaveActive && currentLines.length){
+                    const line = currentLines[currentLineIndex] || '';
+                    let charProgress = line.length ? currentCharIndex / Math.max(1,line.length) : 0; // 0..1 within line
+                    // Occasionally create a multi-wave spectral drift inside a single long line
+                    if (line.length > 24 && Math.random()<0.002){
+                        // inject a transient oscillation (non-destructive)
+                        charProgress = (charProgress + 0.15*Math.sin(charProgress * Math.PI * 3)) % 1;
+                    }
+                    const fromH = lineHueStart;
+                    const toH = lineHueTarget;
+                    let diffH = ((toH - fromH + 540) % 360) - 180;
+                    const hue = (fromH + diffH * charProgress + 360) % 360;
+                    const sat = lineSatStart + (lineSatTarget - lineSatStart) * charProgress;
+                    const light = lineLightStart + (lineLightTarget - lineLightStart) * charProgress;
+                    currentAppliedHue = hue; currentAppliedSat = sat; currentAppliedLight = light;
+                    document.documentElement.style.setProperty('--accent-h', hue.toFixed(2));
+                    document.documentElement.style.setProperty('--accent-s', sat.toFixed(1)+'%');
+                    document.documentElement.style.setProperty('--accent-l', light.toFixed(1)+'%');
+                    document.documentElement.style.setProperty('--accent-color', `hsl(${hue.toFixed(2)} ${sat.toFixed(1)}% ${light.toFixed(1)}%)`);
+                }
+                processStream(now);
+                requestAnimationFrame(loop);
             }
-            requestAnimationFrame(frame);
+            requestAnimationFrame(loop);
         }
         function updateActiveSatellite(){
             satellites.forEach((s,i)=>{
@@ -1025,6 +1224,93 @@
                     setTimeout(()=>s.el.classList.remove('satellite-pulse'), 550);
                 }
             });
+        }
+        // Sync color phasing to symbol-above, sigil ring, core, and satellites
+        function updateColorPhasing(baseHue, sat, light){
+            // guard
+            if (baseHue == null) return;
+            const symbolAbove = document.getElementById('symbol-above');
+            if (symbolAbove){
+                symbolAbove.style.textShadow = `0 0 4px hsl(${baseHue} ${sat}% ${light}%), 0 0 10px hsl(${(baseHue+30)%360} ${Math.min(100,sat+10)}% ${Math.min(95,light+5)}%), 0 0 18px hsl(${(baseHue+90)%360} ${sat}% ${Math.max(25,light-10)}%)`;
+                symbolAbove.style.color = `hsl(${(baseHue+5)%360} ${sat}% ${Math.min(92,light+8)}%)`;
+            }
+            // Konami eye coloration (if revealed) - mild throttling via randomness
+            const ooo = document.getElementById('ooo-eye');
+            if (ooo && oooRevealed && Math.random()<0.6){
+                const chars = ooo.querySelectorAll('.live-char');
+                const comp = (baseHue + 180) % 360;
+                chars.forEach((c, idx)=>{
+                    if (idx % 3 !== 0) return; // sparse for performance
+                    const local = (comp + idx*7 + Math.sin(idx*0.4)*12) % 360;
+                    const ls = Math.min(88, Math.max(30, light + Math.sin(idx*0.33)*14));
+                    const ss = Math.min(100, Math.max(45, sat + Math.cos(idx*0.27)*18));
+                    c.style.color = `hsl(${local} ${ss}% ${ls}%)`;
+                    c.style.textShadow = `0 0 4px hsl(${local} ${ss}% ${ls}%), 0 0 11px hsl(${(local+40)%360} ${Math.min(100,ss+10)}% ${Math.min(92,ls+6)}%)`;
+                });
+            }
+            const ringChars = document.querySelectorAll('.rabbit .sigil-ring-char');
+            if (ringChars.length){
+                ringChars.forEach((el, idx)=>{
+                    const h = (baseHue + idx*9) % 360;
+                    const ls = Math.min(88, Math.max(28, light + Math.sin(idx*0.7)*12));
+                    const ss = Math.min(100, Math.max(45, sat + Math.cos(idx*0.55)*10));
+                    el.style.color = `hsl(${h} ${ss}% ${ls}%)`;
+                    el.style.textShadow = `0 0 3px hsl(${h} ${ss}% ${ls}%), 0 0 8px hsl(${(h+40)%360} ${Math.min(100,ss+15)}% ${Math.min(90,ls+5)}%)`;
+                    // add adaptation flash occasionally
+                    if (Math.random()<0.002) { el.classList.add('sigil-adapt'); setTimeout(()=>el.classList.remove('sigil-adapt'), 3600); }
+                });
+            }
+            const core = document.querySelector('.rabbit .sigil-core');
+            if (core){
+                const coreHue = (baseHue + 180) % 360;
+                core.style.color = `hsl(${coreHue} ${Math.min(100,sat+5)}% ${Math.min(95,light+10)}%)`;
+                core.style.textShadow = `0 0 6px hsl(${baseHue} ${sat}% ${light}%), 0 0 14px hsl(${coreHue} ${Math.min(100,sat+10)}% ${Math.max(35,light-10)}%), 0 0 26px hsl(${(baseHue+60)%360} ${sat}% ${light}%)`;
+                if (Math.random()<0.01){ core.classList.add('sigil-adapt'); setTimeout(()=>core.classList.remove('sigil-adapt'), 3000); }
+            }
+            if (Array.isArray(satellites) && satellites.length){
+                satellites.forEach((s,i)=>{
+                    const span = s.el.querySelector('span');
+                    if (!span) return;
+                    const sh = (baseHue + i*(360/satellites.length)) % 360;
+                    const ss = Math.min(100, sat + (i%3)*6 - 6);
+                    const sl = Math.min(90, light + (Math.sin(i)+1)*6);
+                    span.style.color = `hsl(${sh} ${ss}% ${sl}%)`;
+                    span.style.textShadow = `0 0 4px hsl(${sh} ${ss}% ${sl}%), 0 0 10px hsl(${(sh+25)%360} ${Math.min(100,ss+10)}% ${Math.min(95,sl+4)}%)`;
+                    if (Math.random()<0.0025){ span.parentElement.classList.add('satellite-adapt'); setTimeout(()=>span.parentElement.classList.remove('satellite-adapt'), 3200); }
+                });
+            }
+        }
+
+        // Afterimage line spawning
+        function spawnAfterimageLine(){
+            const source = document.getElementById('stream-content');
+            const holder = document.getElementById('stream-afterimages');
+            if (!source || !holder) return;
+            const text = source.textContent.trim();
+            if (!text) return;
+            const clone = document.createElement('div');
+            clone.className = 'afterimage-line';
+            // initial vertical cascade offset
+            const existing = holder.querySelectorAll('.afterimage-line').length;
+            clone.style.top = `${existing * 1.1}em`;
+            // build spans with complementary hue (simulate photoreceptor rebound)
+            const compHue = (currentAppliedHue + 180) % 360;
+            for (let i=0;i<text.length;i++){
+                const ch = document.createElement('span');
+                const shift = (i/text.length);
+                const localHue = (compHue + shift*30 + Math.sin(shift*6)*8) % 360;
+                const sat = Math.min(100, currentAppliedSat + 10);
+                const light = Math.min(90, Math.max(35, 100 - currentAppliedLight + 10));
+                ch.textContent = text[i];
+                ch.style.color = `hsl(${localHue.toFixed(1)} ${sat}% ${light}%)`;
+                ch.style.textShadow = `0 0 5px hsl(${localHue.toFixed(1)} ${sat}% ${Math.min(95,light+5)}%), 0 0 12px hsl(${(localHue+50)%360} ${sat}% ${light}%)`;
+                clone.appendChild(ch);
+            }
+            holder.appendChild(clone);
+            // cap afterimages
+            const max = 8;
+            while (holder.children.length > max){ holder.removeChild(holder.firstChild); }
+            setTimeout(()=> clone.remove(), 4300);
         }
     </script>
 </body>
