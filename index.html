@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="◊∞∿◎●○◯✦✧⋆ ✱✲ ✳ ◊∿∞◊">
     <title>◊</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -24,6 +25,27 @@
             --accent-s: 90%;
             --accent-l: 75%;
             --accent-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+            --ring-shift: 0deg;
+            --core-shift: 180deg;
+            --ambient-glow-a: hsla(180 70% 55% / 0.10);
+            --ambient-glow-b: hsla(300 65% 45% / 0.07);
+            --ambient-phase: 0;
+        }
+
+        @keyframes ambient-breathe-hue {
+            0% { filter: hue-rotate(0deg) saturate(1) brightness(1); }
+            50% { filter: hue-rotate(25deg) saturate(1.25) brightness(1.08); }
+            100% { filter: hue-rotate(0deg) saturate(1) brightness(1); }
+        }
+
+        body::before, body::after {
+            content: "";
+            position: fixed; inset:0; pointer-events:none; mix-blend-mode:color-dodge;
+            background: radial-gradient(circle at 50% 55%, var(--ambient-glow-a), transparent 70%),
+                        radial-gradient(circle at 40% 45%, var(--ambient-glow-b), transparent 75%),
+                        radial-gradient(circle at 60% 52%, hsla(calc(var(--accent-h) * 1.0) var(--accent-s) 18% / 0.05), transparent 80%);
+            opacity:0.55; filter:blur(70px) saturate(140%);
+            animation: ambient-breathe-hue 28s ease-in-out infinite;
         }
 
         .ascii-field {
@@ -75,6 +97,8 @@
             text-shadow: 0 0 2px var(--accent-color), 0 0 6px var(--accent-color), 0 0 12px #f0f8ff55;
             min-height: 1.2rem;
             pointer-events: none;
+            direction: rtl; /* Right-to-left flow for Hebrew-style streaming */
+            unicode-bidi: isolate-override;
         }
 
         .stream-line {
@@ -82,6 +106,8 @@
             margin: 0;
             white-space: nowrap;
             overflow: hidden;
+            direction: inherit;
+            unicode-bidi: inherit;
         }
 
         .rabbit {
@@ -332,7 +358,7 @@
 
     /* Afterimage adaptation trails */
     #stream-afterimages { position:absolute; inset:0; overflow:visible; pointer-events:none; }
-    .afterimage-line { position:absolute; left:50%; top:0; transform:translateX(-50%); white-space:nowrap; filter: blur(0.5px) saturate(1.15); opacity:0.8; animation: afterimage-fade 4.2s ease-out forwards; mix-blend-mode: screen; }
+    .afterimage-line { position:absolute; left:50%; top:0; transform:translateX(-50%); white-space:nowrap; filter: blur(0.5px) saturate(1.15); opacity:0.8; animation: afterimage-fade 4.2s ease-out forwards; mix-blend-mode: screen; direction: rtl; unicode-bidi: isolate-override; }
     .afterimage-line span { display:inline-block; animation: after-char 4.2s ease-out forwards; }
     @keyframes afterimage-fade { 0% { opacity:0.8; transform:translate(-50%,0) scale(1);} 55% { opacity:0.45;} 100% { opacity:0; transform:translate(-50%,-0.7em) scale(1.03);} }
     @keyframes after-char { 0% { filter:brightness(1.4);} 60% { filter:brightness(1);} 100% { filter:brightness(0.6);} }
@@ -514,7 +540,7 @@
                 createSparkleField();
             }, 500);
             
-            console.log('◊ ∞ ∿ 🌀 ◎ 🌀 ∿ ∞ ◊');
+            // Portal revealed
         }
         
         function createSparkleField() {
@@ -859,8 +885,8 @@
                     setTimeout(()=> span.classList.remove('char-emerge'), 700);
                     if (char.trim()!=='') pulseSigil(char);
                     if (window.voiceModule) window.voiceModule.playCharacterSound(char);
-                    // propagate dynamic color phase to other glyph systems
-                    updateColorPhasing(currentAppliedHue, currentAppliedSat, currentAppliedLight);
+                    // defer propagation to throttled loop
+                    colorPhaseDirty = true;
                     currentCharIndex++;
                     scheduleNextChar(now);
                 } else if (!linePauseUntil) {
@@ -896,8 +922,16 @@
         // Defer full experience until user gesture (ENTER) for audio policy compliance
     let experienceStarted = false;
     let unifiedStarted = false;
-    const taskTimers = { animateField:0, mutateRabbit:0, mutateSymbolAbove:0, mutateSymbolsBelow:0, mutateOooEye:0, satellites:0 };
-    const taskIntervals = { animateField:100, mutateRabbit:300, mutateSymbolAbove:400, mutateSymbolsBelow:250, mutateOooEye:2000, satellites:33, streamPulse:1200 };
+    const taskTimers = { animateField:0, mutateRabbit:0, mutateSymbolAbove:0, mutateSymbolsBelow:0, mutateOooEye:0, satellites:0, ringPhase:0, colorApply:0 };
+    const taskIntervals = { animateField:100, mutateRabbit:300, mutateSymbolAbove:400, mutateSymbolsBelow:250, mutateOooEye:2000, satellites:33, streamPulse:1200, ringPhase:900, colorApply:90 };
+    let ringPhaseTick = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let displayHue = 50, displaySat = 90, displayLight = 75;
+    let colorPhaseDirty = true;
+    let nextFlareAt = performance.now() + 60000 + Math.random()*40000; // 1-1.7 min
+    let flareActive = false;
+    let flareProgress = 0; // 0..1
+    const activePointer = { x:0.5, y:0.5, t:0 };
         function initExperience() {
             if (experienceStarted) return;
             experienceStarted = true;
@@ -1068,8 +1102,8 @@
         })();
         
         // Console
-        console.log('◊ voiceModule.testSound("◊")');
-        console.log('∿ ↑↑↓↓←→←→🅱🅰 ∿');
+    // hint (arrows + BA)
+    console.log('↑ ↑ ↓ ↓ ← → ← → B A');
 
         // Enhance sigil after spans created
         function enhanceSigil(){
@@ -1098,19 +1132,7 @@
                     }
                 });
             });
-            // Rotation phase cycling
-            let phaseTick = 0;
-            setInterval(()=>{
-                const ring = rabbitEl.querySelectorAll('.sigil-ring-char');
-                phaseTick++;
-                ring.forEach((el, idx)=>{
-                    el.classList.remove('sigil-rotate-phase-a','sigil-rotate-phase-b','sigil-rotate-phase-c');
-                    const phase = (idx + phaseTick)%3;
-                    if (phase===0) el.classList.add('sigil-rotate-phase-a');
-                    else if (phase===1) el.classList.add('sigil-rotate-phase-b');
-                    else el.classList.add('sigil-rotate-phase-c');
-                });
-            }, 900);
+            // Rotation phase cycling now handled inside unified loop via taskTimers.ringPhase
         }
 
         // Satellites logic
@@ -1135,8 +1157,9 @@
             updateActiveSatellite();
         }
         function updateSatellites(dt){
+            const motionScale = reducedMotion ? 0.25 : 1;
             satellites.forEach((s, idx)=>{
-                const speed = 0.000035 + (idx%5)*0.000007;
+                const speed = (0.000035 + (idx%5)*0.000007) * motionScale;
                 s.angle -= speed * dt;
                 const x = Math.cos(s.angle) * s.radius;
                 const y = Math.sin(s.angle) * s.radius * 0.55;
@@ -1167,6 +1190,60 @@
                         }
                     }
                     taskTimers.streamPulse = 0;
+                }
+                // Ring phase cycling
+                if (taskTimers.ringPhase >= taskIntervals.ringPhase){
+                    ringPhaseTick++;
+                    const ring = document.querySelectorAll('.rabbit .sigil-ring-char');
+                    ring.forEach((el, idx)=>{
+                        el.classList.remove('sigil-rotate-phase-a','sigil-rotate-phase-b','sigil-rotate-phase-c');
+                        const phase = (idx + ringPhaseTick)%3;
+                        if (phase===0) el.classList.add('sigil-rotate-phase-a');
+                        else if (phase===1) el.classList.add('sigil-rotate-phase-b');
+                        else el.classList.add('sigil-rotate-phase-c');
+                    });
+                    colorPhaseDirty = true;
+                    taskTimers.ringPhase = 0;
+                }
+                // Smoothed accent color application (throttled)
+                if (taskTimers.colorApply >= taskIntervals.colorApply){
+                    // Target values from currentAppliedHue/Sat/Light
+                    const targetH = currentAppliedHue ?? displayHue;
+                    const targetS = currentAppliedSat ?? displaySat;
+                    const targetL = currentAppliedLight ?? displayLight;
+                    // Solar flare event modulation
+                    const nowTs = now;
+                    if (!flareActive && nowTs >= nextFlareAt){
+                        flareActive = true; flareProgress = 0;
+                    }
+                    if (flareActive){
+                        flareProgress += 0.008; // ~12.5s event
+                        const flareE = flareProgress < 0.5 ? (flareProgress/0.5) : (1 - (flareProgress-0.5)/0.5); // triangular
+                        const flareBoost = flareE*0.55;
+                        // temporarily rotate hue band & boost saturation
+                        displayHue = (displayHue + 0.6 + flareBoost*1.2) % 360;
+                        displaySat = Math.min(100, displaySat + flareBoost*18);
+                        displayLight = Math.min(90, displayLight + flareBoost*6);
+                        if (flareProgress >= 1){ flareActive = false; nextFlareAt = nowTs + 60000 + Math.random()*70000; }
+                    }
+                    // Low-pass filter
+                    const smoothing = 0.18; // adjust feel
+                    const wrapDiff = ((targetH - displayHue + 540) % 360) - 180;
+                    displayHue = (displayHue + wrapDiff * smoothing + 360) % 360;
+                    displaySat += (targetS - displaySat) * smoothing;
+                    displayLight += (targetL - displayLight) * smoothing;
+                    document.documentElement.style.setProperty('--accent-h', displayHue.toFixed(2));
+                    document.documentElement.style.setProperty('--accent-s', displaySat.toFixed(1)+'%');
+                    document.documentElement.style.setProperty('--accent-l', displayLight.toFixed(1)+'%');
+                    document.documentElement.style.setProperty('--accent-color', `hsl(${displayHue.toFixed(2)} ${displaySat.toFixed(1)}% ${displayLight.toFixed(1)}%)`);
+                    if (colorPhaseDirty){
+                        updateColorPhasing(displayHue, displaySat, displayLight);
+                        if (window.voiceModule && typeof window.voiceModule.setGlobalColorContext === 'function') {
+                            window.voiceModule.setGlobalColorContext(displayHue, displaySat, displayLight);
+                        }
+                        colorPhaseDirty = false;
+                    }
+                    taskTimers.colorApply = 0;
                 }
                 if (hueWeaveActive && currentLines.length){
                     const line = currentLines[currentLineIndex] || '';
@@ -1274,7 +1351,10 @@
                     const sh = (baseHue + i*(360/satellites.length)) % 360;
                     const ss = Math.min(100, sat + (i%3)*6 - 6);
                     const sl = Math.min(90, light + (Math.sin(i)+1)*6);
-                    span.style.color = `hsl(${sh} ${ss}% ${sl}%)`;
+                    span.style.setProperty('--sat-h', sh);
+                    span.style.setProperty('--sat-s', ss+'%');
+                    span.style.setProperty('--sat-l', sl+'%');
+                    span.style.color = `hsl(var(--sat-h) var(--sat-s) var(--sat-l))`;
                     span.style.textShadow = `0 0 4px hsl(${sh} ${ss}% ${sl}%), 0 0 10px hsl(${(sh+25)%360} ${Math.min(100,ss+10)}% ${Math.min(95,sl+4)}%)`;
                     if (Math.random()<0.0025){ span.parentElement.classList.add('satellite-adapt'); setTimeout(()=>span.parentElement.classList.remove('satellite-adapt'), 3200); }
                 });
@@ -1283,6 +1363,7 @@
 
         // Afterimage line spawning
         function spawnAfterimageLine(){
+            if (reducedMotion && Math.random()<0.85) return; // heavily suppress trails if reduced motion
             const source = document.getElementById('stream-content');
             const holder = document.getElementById('stream-afterimages');
             if (!source || !holder) return;
@@ -1307,11 +1388,44 @@
                 clone.appendChild(ch);
             }
             holder.appendChild(clone);
-            // cap afterimages
-            const max = 8;
-            while (holder.children.length > max){ holder.removeChild(holder.firstChild); }
+            // cap afterimages (slightly higher, fade out oldest without layout thrash)
+            const max = 14;
+            if (holder.children.length > max){
+                // remove oldest 2 quickly for stability
+                for (let i=0;i<2 && holder.firstChild && holder.children.length>max; i++) holder.removeChild(holder.firstChild);
+            }
             setTimeout(()=> clone.remove(), 4300);
         }
+
+        // Passive tab visibility performance throttle (no UI toggle)
+        document.addEventListener('visibilitychange', ()=>{
+            if (document.hidden){
+                // widen intervals gently
+                taskIntervals.animateField = 180;
+                taskIntervals.satellites = 120;
+                taskIntervals.ringPhase = 1500;
+                taskIntervals.colorApply = 160;
+            } else {
+                taskIntervals.animateField = 100;
+                taskIntervals.satellites = 33;
+                taskIntervals.ringPhase = 900;
+                taskIntervals.colorApply = 90;
+            }
+        });
+
+        // Pointer influence: adjust background glow centers subtly
+        window.addEventListener('pointermove', e=>{
+            activePointer.x = e.clientX / window.innerWidth;
+            activePointer.y = e.clientY / window.innerHeight;
+            activePointer.t = performance.now();
+            const ax = (activePointer.x*60 + 20).toFixed(1);
+            const ay = (activePointer.y*40 + 30).toFixed(1);
+            const bx = (50 + (activePointer.x-0.5)*25).toFixed(1);
+            const by = (55 + (activePointer.y-0.5)*25).toFixed(1);
+            document.body.style.setProperty('--ambient-glow-a', `hsla(${displayHue.toFixed(0)} ${Math.min(100,displaySat+5)}% ${Math.max(20,displayLight-30)}% / 0.12)`);
+            document.body.style.setProperty('--ambient-glow-b', `hsla(${(displayHue+180)%360} ${Math.min(100,displaySat+15)}% ${Math.min(85,displayLight+5)}% / 0.10)`);
+            document.body.style.backgroundPosition = `${ax}% ${ay}%, ${bx}% ${by}%`;
+        }, { passive:true });
     </script>
 </body>
 </html>

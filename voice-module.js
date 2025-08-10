@@ -9,6 +9,8 @@ class VoiceModule {
         this.enabled = true;
         this.volume = 0.1;
         this.pitchVariation = 0.2;
+    this.globalColor = { h:50, s:90, l:75 };
+    this.hasStereo = (typeof StereoPannerNode !== 'undefined');
         
         // Character type mappings for different sounds
         this.charMappings = {
@@ -120,15 +122,21 @@ class VoiceModule {
         const mapping = this.getCharacterType(char);
         const now = this.audioContext.currentTime;
         
-        // Create oscillator and filter for more dynamic sound
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        const filterNode = this.audioContext.createBiquadFilter();
+    // Create oscillator and filter for more dynamic sound
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    const filterNode = this.audioContext.createBiquadFilter();
+    const panner = this.hasStereo ? this.audioContext.createStereoPanner() : null;
         
         // Connect nodes: oscillator -> filter -> gain -> destination
         oscillator.connect(filterNode);
         filterNode.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
+        if (panner){
+            gainNode.connect(panner);
+            panner.connect(this.audioContext.destination);
+        } else {
+            gainNode.connect(this.audioContext.destination);
+        }
         
         // Set waveform
         oscillator.type = mapping.waveform;
@@ -147,7 +155,16 @@ class VoiceModule {
             filterNode.frequency.exponentialRampToValueAtTime(frequency * 0.8, now + (mapping.duration / 1000));
         }
         
-        oscillator.frequency.setValueAtTime(frequency, now);
+    oscillator.frequency.setValueAtTime(frequency, now);
+
+    // Color-linked subtle modulation: map hue to filter Q & detune drift
+    const hueFactor = (this.globalColor.h % 360) / 360; // 0..1
+    filterNode.Q.setValueAtTime(2 + hueFactor * 10, now);
+    oscillator.detune.setValueAtTime((hueFactor - 0.5) * 40, now);
+        if (panner){
+            const pan = (hueFactor * 2 - 1) * 0.5; // -0.5..0.5 gentle
+            panner.pan.setValueAtTime(pan, now);
+        }
         
         // Enhanced volume envelope based on character type
     // Safe check: mapping.chars may be string or array; ensure exists before using
@@ -157,7 +174,11 @@ class VoiceModule {
         const decay = mapping.duration / 1000;
         
         gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(this.volume, now + attack);
+    // Reactive volume scaling tied to global color state (saturation + balanced lightness)
+    const satFactor = (this.globalColor.s / 100); // 0..1
+    const lightBalance = 1 - Math.abs(this.globalColor.l - 55) / 55; // peaked near mid lightness
+    const volScale = 0.6 + satFactor * 0.25 + lightBalance * 0.15; // 0.6..~1.0
+    gainNode.gain.linearRampToValueAtTime(this.volume * volScale, now + attack);
         gainNode.gain.exponentialRampToValueAtTime(0.001, now + decay);
         
         // Start and stop
@@ -169,6 +190,7 @@ class VoiceModule {
             oscillator.disconnect();
             filterNode.disconnect();
             gainNode.disconnect();
+            if (panner) panner.disconnect();
         };
     }
     
@@ -224,6 +246,12 @@ class VoiceModule {
     
     setPitchVariation(variation) {
         this.pitchVariation = Math.max(0, Math.min(1, variation));
+    }
+
+    setGlobalColorContext(h, s, l){
+        this.globalColor.h = h;
+        this.globalColor.s = s;
+        this.globalColor.l = l;
     }
     
     // Test function
