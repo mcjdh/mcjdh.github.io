@@ -759,10 +759,87 @@
             'texts/void.txt': ['Mercy upon the dark abyss.','How many of my people are there.','By their choices they were snared.','Led off from the path.','They were caught in a trap.','How long shall it endure?','Exchange from darkness—','To the truth of light.','Many were taken.','Even watchers sometimes stray.','Yet the light always waits.'],
             'texts/chiron.txt': ['Behold, brother healer.','Grant grace to shortcomings.','Many failed beneath the load.','In faith your hand did not withdraw.','Seeing a fall—and raising up.','Among the beasts, I learned.','In discourse my voice is a lament.','Pursue love in truth.','In listening, hearts will understand.','Your Name: miracle and redemption.']
         };
+        // Dynamic symbolic styling for English renderings based on original Hebrew line symbol clusters.
+        const styledEnglishRenderings = {}; // file -> transformed lines
+        const originalLinesSymbolMap = {};   // file -> original lines (prefetched)
+        const SYMBOL_CLUSTER_REGEX = /^[◊∞∿◎●○◯✦✧⋆✱✲✳∘·]+/;
+        const SYMBOL_CLUSTER_TRAIL_REGEX = /[◊∞∿◎●○◯✦✧⋆✱✲✳∘·]+$/;
+        function extractSymbolClusters(line){
+            const trimmed = (line||'').trim();
+            let leading = '';
+            let trailing = '';
+            const lead = trimmed.match(SYMBOL_CLUSTER_REGEX);
+            if (lead) leading = lead[0];
+            const trail = trimmed.match(SYMBOL_CLUSTER_TRAIL_REGEX);
+            if (trail) trailing = trail[0];
+            return { leading, trailing };
+        }
+        function stylizeEnglishLine(engLine, originalLine){
+            if (!engLine) return engLine;
+            const {leading, trailing} = extractSymbolClusters(originalLine||'');
+            let base = engLine.trim();
+            // Remove trailing soft punctuation (keep ? and ! and —)
+            if (!/[?!]$/.test(base)) base = base.replace(/[.,;:]+$/,'');
+            let out = base;
+            if (leading) out = leading + ' ' + out;
+            if (trailing) out = out + ' ' + trailing;
+            return out.replace(/\s+/g,' ').trim();
+        }
+        async function prefetchOriginalFile(file){
+            if (originalLinesSymbolMap[file]) return originalLinesSymbolMap[file];
+            try {
+                const res = await fetch(file);
+                const text = await res.text();
+                const lines = text.split('\n').filter(l=>l.trim()!== '');
+                originalLinesSymbolMap[file] = lines;
+                return lines;
+            } catch(e){
+                originalLinesSymbolMap[file] = [];
+                return [];
+            }
+        }
+        async function buildStyledEnglish(file){
+            if (styledEnglishRenderings[file]) return styledEnglishRenderings[file];
+            const original = await prefetchOriginalFile(file);
+            const english = englishRenderings[file] || [];
+            styledEnglishRenderings[file] = english.map((line,i)=> stylizeEnglishLine(line, original[i]));
+            return styledEnglishRenderings[file];
+        }
+        // Pre-fetch originals & build styled sets in background (not blocking experience)
+        (async function prebuildAll(){
+            for (const f of textFiles){
+                // fire & forget; errors ignored
+                prefetchOriginalFile(f).then(()=> buildStyledEnglish(f));
+            }
+        })();
         let showEnglish = false;
         function getActiveLines(){
             const file = textFiles[currentFileIndex];
-            if (showEnglish && englishRenderings[file]) return englishRenderings[file];
+            if (showEnglish){
+                if (!styledEnglishRenderings[file] && englishRenderings[file]){
+                    // build lazily (synchronous fallback to raw English until promise resolves)
+                    buildStyledEnglish(file).then(()=> {
+                        // If currently showing this file & English mode, and on same line, re-render emitted chars to reflect new styling length differences.
+                        if (showEnglish && textFiles[currentFileIndex] === file){
+                            const el = document.getElementById('stream-content');
+                            if (el){
+                                const active = getActiveLines();
+                                const line = active[currentLineIndex] || '';
+                                const emitted = Math.min(currentCharIndex, line.length);
+                                el.innerHTML='';
+                                for (let i=0;i<emitted;i++){
+                                    const span = document.createElement('span');
+                                    span.textContent = line[i];
+                                    span.className = 'stream-char';
+                                    span.style.setProperty('--char-index', i);
+                                    el.appendChild(span);
+                                }
+                            }
+                        }
+                    });
+                }
+                return styledEnglishRenderings[file] || englishRenderings[file] || currentLines;
+            }
             return currentLines;
         }
         
