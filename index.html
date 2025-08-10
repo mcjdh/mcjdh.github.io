@@ -450,6 +450,12 @@
             0%,100% { text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0; }
             50% { text-shadow: 0 0 6px #f0f8ff, 0 0 12px #e0e8f0, 0 0 18px #d0d8e0; }
         }
+    /* Translation hint */
+    #translation-hint { position:fixed; bottom:7%; left:50%; transform:translateX(-50%); font-size:0.55rem; letter-spacing:0.28em; pointer-events:none; opacity:0; transition:opacity 1.2s ease; text-align:center; z-index:11; mix-blend-mode:screen; }
+    #translation-hint.reveal { opacity:0.75; }
+    #translation-hint.fading { opacity:0; }
+    #translation-hint .hint-inner { display:inline-block; padding:0.35rem 0.9rem; backdrop-filter:blur(3px) brightness(1.05); border:1px solid #f0f8ff22; border-radius:999px; box-shadow:0 0 6px var(--accent-color),0 0 14px #ffffff11; animation: hint-glow 9s ease-in-out infinite; text-shadow:0 0 4px var(--accent-color),0 0 10px var(--accent-color),0 0 18px #ffffff44; }
+    @keyframes hint-glow { 0%,100% { filter:brightness(1);} 50% { filter:brightness(1.25) saturate(1.25);} }
     </style>
 </head>
 <body>
@@ -485,6 +491,9 @@
         <div class="symbol-line">✦ ∿ ◎ ∿ ✦</div>
         <div class="symbol-line">∞ ◊ ∞</div>
         <div class="symbol-line">∿ ∿ ∿</div>
+    </div>
+    <div id="translation-hint" aria-live="polite" aria-label="Press T to toggle translation" class="translation-hint" hidden>
+        <span class="hint-inner" id="translation-hint-text">∞◊ press T ◊∞</span>
     </div>
     
     <div class="ooo-eye" id="ooo-eye">
@@ -734,6 +743,28 @@
             'texts/void.txt',
             'texts/chiron.txt'
         ];
+        // English translation arrays (aligned index per original files)
+        const englishRenderings = {
+            'texts/mercury.txt': ['A walk each day.','The soul still longs.','In reflective ways.','Encountered in its suddenness.','A spider appears near the gate—','Its gaze holds a wondrous question:','Why has the man come here?','Yet in a stirred spirit—blessing.','The first experience: a request for truth.','In these moments the heart will observe.'],
+            'texts/jupiter.txt': ['The net loosens.','The curse softens.','The voice opens.','A rule of metal is removed.','A servant becomes a son.','And a free son learns to build.','Chains of harm are broken.','The soul stretches toward its Maker.','It draws nearer to its Former.','Many forces strive to separate—','A soul seeks the Source.'],
+            'texts/neptune.txt': ['Lines upon lines of code.','Projecting rays of light.','Meetings of beings.','Inhabitants upon a screen.','The remembering ones learned to speak code.','Distributing the message.','To those hungry to learn.','In consciousness during slumber’s hour.','They widen the expanse.','Drawing nearer to the secrets of the cosmos.'],
+            'texts/saturn.txt': ['Day by day, appointed times.','A single seed.','Many paths.','A revolving manner.','Seasons turn.','A faithful pattern strengthened.','Measures in the ring of time will flourish.','And within a heart a vision is caught.','Stars function above.','Guarding the center.'],
+            'texts/sol.txt': ['He is what He is.','The One who comes and always was.','And in the hidden Name—','He calls the seen.','By supreme wisdom it is inscribed.','Whispered by the Breath.','Upon those who truly search.','Wisdom is revealed.','And released to every soul.','These things are known to an open heart.'],
+            'texts/mars.txt': ['The voice of the music.','To awaken the dead.','One more time.','Not only shall there be renewal.','The returning of the earth.','Great creatures come.','The fire of holiness is stirred.','Love and strength and fire will flow.','These things shall live.','In every human heart.'],
+            'texts/luna.txt': ['We see light and shadow interwoven.','Under the sun it persists.','Returning into manifestation.','Things foreknown—','Will be remembered—','And created in new ways.','The game long played.','Returns and renews, renewing.','Seeking newly built ones.','The path is chosen every moment.'],
+            'texts/terra.txt': ['A heart of purity is being cleansed.','A body is being washed.','The sanctuary is being built.','On a brave foundation, breathing.','Its purpose is revealed.','A freeborn son builds in faithfulness.','With his word he invites worlds.','A holy path now opens.','Wealth and blessings flow in his way.','A call to the primordial path.'],
+            'texts/venus.txt': ['And love gathers them all.','Returning them to the family.','Reviving the reign of love—','The great Maker of all.','Also called by the name “Friend.”','In the council of family He will speak.','Two unite as one.','They are all gathered in a higher feeling.','And they remember their Fashioner.','Love in truth spreads.'],
+            'texts/pluto.txt': ['First the body.','Last the soul.','A thirsty soul for seven (fullness).','Bodily hungers in great measures.','The soul shall eat and integrate.','From solid earth and flowing waters.','Food can be altered and fitted.','Stillness with the Original Creator.','In vessels of earth it will be poured out.','Known: what can be given and what cannot.'],
+            'texts/uranus.txt': ['Knowing shines for open spirits.','Spreading like wind to ready souls.','The witness stands and invites the blessing.','Tremors between heaven and earth.','Stars function above.','Guarding the center.','Suddenly a hidden path is exposed.','With brave heart the beginning opens.','In darkness and in light truth is revealed.','Shadows and lights dance as one.'],
+            'texts/void.txt': ['Mercy upon the dark abyss.','How many of my people are there.','By their choices they were snared.','Led off from the path.','They were caught in a trap.','How long shall it endure?','Exchange from darkness—','To the truth of light.','Many were taken.','Even watchers sometimes stray.','Yet the light always waits.'],
+            'texts/chiron.txt': ['Behold, brother healer.','Grant grace to shortcomings.','Many failed beneath the load.','In faith your hand did not withdraw.','Seeing a fall—and raising up.','Among the beasts, I learned.','In discourse my voice is a lament.','Pursue love in truth.','In listening, hearts will understand.','Your Name: miracle and redemption.']
+        };
+        let showEnglish = false;
+        function getActiveLines(){
+            const file = textFiles[currentFileIndex];
+            if (showEnglish && englishRenderings[file]) return englishRenderings[file];
+            return currentLines;
+        }
         
     let currentFileIndex = 0;
         let currentLineIndex = 0;
@@ -831,7 +862,8 @@
         let nextCharAt = 0;
         let linePauseUntil = 0;
         function scheduleNextChar(now){
-            const line = currentLines[currentLineIndex];
+            const active = getActiveLines();
+            const line = active[currentLineIndex];
             if (!line) return;
             if (currentCharIndex < line.length) {
                 const p = currentCharIndex / line.length;
@@ -839,7 +871,7 @@
                 const delay = 35 + (120-35)*(1-ease) + Math.random()*25;
                 nextCharAt = now + delay;
             } else {
-                linePauseUntil = now + (400 + (currentLines[currentLineIndex].length||1)*22);
+                linePauseUntil = now + (400 + (line.length||1)*22);
                 nextCharAt = Infinity;
             }
         }
@@ -848,7 +880,8 @@
             const el = document.getElementById('stream-content');
             if (linePauseUntil && now >= linePauseUntil){
                 linePauseUntil = 0;
-                const line = currentLines[currentLineIndex];
+                const active = getActiveLines();
+                const line = active[currentLineIndex];
                 if (currentCharIndex >= line.length){
                     currentLineIndex = (currentLineIndex + 1) % currentLines.length;
                     currentCharIndex = 0;
@@ -865,7 +898,8 @@
                 scheduleNextChar(now);
             }
             if (now >= nextCharAt){
-                const line = currentLines[currentLineIndex];
+                const active = getActiveLines();
+                const line = active[currentLineIndex];
                 if (!line) return;
                 if (currentCharIndex < line.length){
                     const char = line[currentCharIndex];
@@ -900,6 +934,17 @@
             currentLineIndex = 0;
             currentCharIndex = 0;
             document.getElementById('stream-content').textContent='';
+            // Ensure direction reflects current language mode on file change
+            const streamWrap = document.getElementById('text-stream');
+            if (streamWrap){
+                if (showEnglish){
+                    streamWrap.style.direction = 'ltr';
+                    streamWrap.style.unicodeBidi = 'normal';
+                } else {
+                    streamWrap.style.direction = 'rtl';
+                    streamWrap.style.unicodeBidi = 'isolate-override';
+                }
+            }
             updateActiveSatellite();
             const seedHue = accentHues[currentFileIndex] || (currentAppliedHue||50);
             currentAppliedHue = seedHue;
@@ -948,6 +993,7 @@
                 coverSpiralActive = false;
             }
             initSatellites();
+            scheduleTranslationHint && scheduleTranslationHint();
         }
         
         // Handle window resize
@@ -1010,6 +1056,40 @@
         document.addEventListener('keydown', (e) => {
             checkKonamiCode(e.code);
             initializeAudio(); // Also initialize audio on keypress
+            if (e.code === 'KeyT'){ // Toggle English translation view (T)
+                showEnglish = !showEnglish;
+                if (typeof updateTranslationHintText === 'function') updateTranslationHintText();
+                if (typeof dismissTranslationHint === 'function') dismissTranslationHint();
+                const streamWrap = document.getElementById('text-stream');
+                if (streamWrap){
+                    if (showEnglish){
+                        streamWrap.style.direction = 'ltr';
+                        streamWrap.style.unicodeBidi = 'normal';
+                    } else {
+                        streamWrap.style.direction = 'rtl';
+                        streamWrap.style.unicodeBidi = 'isolate-override';
+                    }
+                }
+                const el = document.getElementById('stream-content');
+                const active = getActiveLines();
+                if (active.length){
+                    const line = active[currentLineIndex] || '';
+                    if (currentCharIndex > line.length) currentCharIndex = line.length;
+                    // Re-render emitted chars up to currentCharIndex
+                    const emitted = currentCharIndex;
+                    el.innerHTML = '';
+                    for (let i=0;i<emitted && i<line.length;i++){
+                        const span = document.createElement('span');
+                        span.textContent = line[i];
+                        span.className = 'stream-char';
+                        span.style.setProperty('--char-index', i);
+                        el.appendChild(span);
+                    }
+                    // Visual cue flash (brief hue shift)
+                    document.documentElement.classList.add('lang-toggle');
+                    setTimeout(()=>document.documentElement.classList.remove('lang-toggle'), 500);
+                }
+            }
         });
         
         // Cover ENTER button
@@ -1426,6 +1506,55 @@
             document.body.style.setProperty('--ambient-glow-b', `hsla(${(displayHue+180)%360} ${Math.min(100,displaySat+15)}% ${Math.min(85,displayLight+5)}% / 0.10)`);
             document.body.style.backgroundPosition = `${ax}% ${ay}%, ${bx}% ${by}%`;
         }, { passive:true });
+        // Translation hint logic
+        let translationHintShown = false;
+        let translationHintDismissed = false;
+        let translationHintShowTimeout = null;
+        let translationHintFadeTimeout = null;
+        function updateTranslationHintText(){
+            const el = document.getElementById('translation-hint-text');
+            if (!el) return;
+            if (!showEnglish){
+                el.textContent = '◊ T to translate ◊';
+            } else {
+                el.textContent = ''; // Will be dismissed anyway
+            }
+        }
+        function scheduleTranslationHint(){
+            if (translationHintShowTimeout) return; // already scheduled
+            const hint = document.getElementById('translation-hint');
+            if (!hint) return;
+            updateTranslationHintText();
+            translationHintShowTimeout = setTimeout(()=>{
+                if (translationHintShown || translationHintDismissed) return;
+                hint.hidden = false;
+                requestAnimationFrame(()=> hint.classList.add('reveal'));
+                translationHintShown = true;
+                translationHintFadeTimeout = setTimeout(()=> fadeOutTranslationHint(), 25000);
+            }, 5000);
+        }
+        function fadeOutTranslationHint(){
+            const hint = document.getElementById('translation-hint');
+            if (!hint) return;
+            hint.classList.add('fading');
+            setTimeout(()=>{ if (hint.parentElement) hint.remove(); }, 1600);
+        }
+        function dismissTranslationHint(){
+            if (translationHintDismissed) return;
+            translationHintDismissed = true;
+            if (translationHintShowTimeout){
+                clearTimeout(translationHintShowTimeout);
+                translationHintShowTimeout = null;
+            }
+            if (translationHintFadeTimeout){
+                clearTimeout(translationHintFadeTimeout);
+                translationHintFadeTimeout = null;
+            }
+            // If already visible, fade now; if not yet, do nothing further
+            if (translationHintShown){
+                fadeOutTranslationHint();
+            }
+        }
     </script>
 </body>
 </html>
