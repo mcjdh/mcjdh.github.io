@@ -90,6 +90,7 @@
             z-index: 10;
             white-space: nowrap;
             text-shadow: 0 0 4px #f0f8ff, 0 0 8px #e0e8f0, 0 0 12px #d0d8e0;
+            animation: sigil-breathe 10s ease-in-out infinite;
         }
 
         .symbols-below {
@@ -260,6 +261,39 @@
             }
         }
 
+        /* Sigil animations */
+        @keyframes sigil-breathe {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.98); filter: brightness(1); }
+            50% { transform: translate(-50%, -50%) scale(1.03); filter: brightness(1.15); }
+        }
+        .sigil-ring-char { animation: ring-flicker 5s ease-in-out infinite; }
+        @keyframes ring-flicker {
+            0%,100% { opacity: 0.85; }
+            25% { opacity: 1; }
+            50% { opacity: 0.7; }
+            75% { opacity: 1; }
+        }
+        .sigil-core { animation: core-pulse 6s ease-in-out infinite; text-shadow: 0 0 5px #f0f8ff,0 0 12px #e0e8f0,0 0 18px #d0d8e0; }
+        @keyframes core-pulse {
+            0%,100% { transform: scale(1); }
+            40% { transform: scale(1.2); }
+            60% { transform: scale(0.9); }
+        }
+        .sigil-rotate-phase-a { text-shadow: 0 0 4px #f0f8ff, 0 0 10px #b8c8d8; }
+        .sigil-rotate-phase-b { text-shadow: 0 0 6px #f0f8ff, 0 0 14px #e0f0ff; }
+        .sigil-rotate-phase-c { text-shadow: 0 0 4px #d0e8ff, 0 0 12px #f0f8ff; }
+    /* Satellites */
+    .sigil-satellites { position: absolute; inset: 0; pointer-events: none; }
+    .satellite { position: absolute; top: 50%; left: 50%; width: 1rem; height: 1rem; transform: translate(-50%, -50%); font-size: 0.65rem; display: flex; align-items: center; justify-content: center; color: #f0f8ff; text-shadow: 0 0 4px #f0f8ff,0 0 10px #e0e8f0; }
+    .satellite span { display:inline-block; animation: sat-flicker 4s ease-in-out infinite; }
+    @keyframes sat-flicker { 0%,100% { opacity:0.85;} 50% { opacity:1;} }
+    .satellite-active span { animation: sat-active 2.4s ease-in-out infinite; }
+    @keyframes sat-active { 0%,100% { transform: scale(1); filter: brightness(1); } 40% { transform: scale(1.35); filter: brightness(1.4);} }
+    .satellite-pulse span { animation: sat-pulse 0.6s ease-out; }
+    @keyframes sat-pulse { 0% { transform: scale(1); filter: brightness(1); } 40% { transform: scale(1.5); filter: brightness(1.6);} 100% { transform: scale(1); filter: brightness(1); } }
+    .sigil-glyph { transition: transform 0.5s ease, filter 0.5s ease; will-change: transform, filter; display:inline-block; }
+    .sigil-glyph.sigil-pulse { transform: scale(1.4); filter: brightness(1.6); }
+
         @media (max-width: 768px) {
             .ascii-cell { font-size: 0.6rem; }
             .symbol-above { font-size: 1rem; }
@@ -295,9 +329,64 @@
                 top: 85%; 
             }
         }
+
+        /* Cover overlay */
+        #cover-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, #05070a 0%, #000 70%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            color: #f0f8ff;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+        #cover-overlay.hidden { opacity: 0; pointer-events: none; }
+        .cover-spiral {
+            line-height: 1.05;
+            font-size: 0.8rem;
+            white-space: pre;
+            text-shadow: 0 0 4px #f0f8ff, 0 0 8px #e0e8f0;
+            animation: spiral-pulse 8s ease-in-out infinite;
+            opacity: 0.85;
+        }
+    .cover-title { font-size: 1rem; letter-spacing: 0.35em; opacity: 0.85; }
+        .enter-btn {
+            background: rgba(240,248,255,0.1);
+            border: 1px solid #f0f8ff55;
+            color: #f0f8ff;
+            padding: 0.6rem 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            backdrop-filter: blur(4px);
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .enter-btn:hover { background: rgba(240,248,255,0.18); border-color: #f0f8ffa0; }
+        .enter-btn:active { transform: scale(0.95); }
+    .cover-hint { font-size: 0.55rem; opacity: 0.6; letter-spacing: 0.25em; }
+    .visually-hidden { position: absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+        @keyframes spiral-pulse {
+            0%,100% { text-shadow: 0 0 3px #f0f8ff, 0 0 6px #e0e8f0; }
+            50% { text-shadow: 0 0 6px #f0f8ff, 0 0 12px #e0e8f0, 0 0 18px #d0d8e0; }
+        }
     </style>
 </head>
 <body>
+    <!-- Cover Overlay (user gesture gate for audio) -->
+    <div id="cover-overlay" aria-labelledby="cover-title" aria-describedby="cover-hint" role="button" tabindex="0" aria-label="Enter portal. Click or press any key to begin">
+<div class="cover-spiral" aria-hidden="true" id="dynamic-cover-spiral">(loading)</div>
+        <div class="cover-title" id="cover-title" aria-label="Portal">◊∞∿◊∞</div>
+    <div class="cover-hint" id="cover-hint" aria-label="Click or press any key; Konami code reveals hidden eye">∞◊∿◎∿◊∞</div>
+        <span class="visually-hidden">Portal entrance. Press the central glyph or any key to begin. Konami code reveals a hidden element.</span>
+    </div>
     <div class="ascii-field" id="ascii-field"></div>
     
     <div class="symbol-above" id="symbol-above">
@@ -309,10 +398,13 @@
     </div>
     
     <div class="rabbit" id="rabbit">
-        <div class="rabbit-line">  (\__/)</div>
-        <div class="rabbit-line"> ( o.o )</div>
-        <div class="rabbit-line">  > ^ <</div>
-        <div class="rabbit-line"> (_) (_)</div>
+    <div class="rabbit-line">      ∞ ∿ ∞      </div>
+    <div class="rabbit-line">   ∿  ◊ ◎ ◊  ∿   </div>
+    <div class="rabbit-line">  ◊ ◎ ● ◊ ● ◎ ◊  </div>
+    <div class="rabbit-line">   ∿  ◊ ◎ ◊  ∿   </div>
+    <div class="rabbit-line">      ∞ ∿ ∞      </div>
+    <div class="rabbit-line">        ◊        </div>
+    <div class="sigil-satellites" id="sigil-satellites" aria-hidden="true"></div>
     </div>
     
     <div class="symbols-below" id="symbols-below">
@@ -501,7 +593,17 @@
         }
         
         function mutateRabbit() {
-            mutateElement('.rabbit', ['◊', '∿', '○', '●', '◯']);
+            // Sigil-specific subtle mutations (outer ring only)
+            const ringChars = document.querySelectorAll('.rabbit .sigil-ring-char');
+            if (ringChars.length && Math.random() < 0.08) {
+                const target = ringChars[Math.floor(Math.random() * ringChars.length)];
+                const original = target.textContent;
+                const variants = ['◊','∞','∿','◎','●','○','◯'];
+                let next = original;
+                while (next === original) next = variants[Math.floor(Math.random()*variants.length)];
+                target.textContent = next;
+                setTimeout(()=>{ target.textContent = original; }, 600 + Math.random()*600);
+            }
         }
         
         function mutateSymbolAbove() {
@@ -585,6 +687,10 @@
             if (currentCharIndex < currentLine.length) {
                 const char = currentLine[currentCharIndex];
                 streamElement.textContent += char;
+                // Pulse sigil + satellite subtly on each non-space char
+                if (char.trim() !== '') {
+                    pulseSigil(char);
+                }
                 
                 // Play voice sound for character
                 if (window.voiceModule) {
@@ -619,6 +725,7 @@
             currentLineIndex = 0;
             currentCharIndex = 0;
             document.getElementById('stream-content').textContent = '';
+            updateActiveSatellite();
             setTimeout(streamChar, 1000);
         }
         
@@ -627,22 +734,31 @@
             loadNextText();
         }
         
-        // Initialize
-        createField();
-        createLivingChars('symbol-above');
-        createLivingChars('rabbit', true); // true for eye detection
-        createLivingChars('symbols-below');
-        createLivingChars('ooo-eye'); // no eye detection - handled separately
-        
-        // Start text streaming after initial delay
-        setTimeout(startTextStream, 2000);
-        
-        // Animation loops
-        setInterval(animateField, 100);
-        setInterval(mutateRabbit, 300);
-        setInterval(mutateSymbolAbove, 400);
-        setInterval(mutateSymbolsBelow, 250);
-        setInterval(mutateOooEye, 2000); // Much slower for meditative ooo-eye
+        // Defer full experience until user gesture (ENTER) for audio policy compliance
+        let experienceStarted = false;
+        let intervalHandles = [];
+        function initExperience() {
+            if (experienceStarted) return;
+            experienceStarted = true;
+            createField();
+            createLivingChars('symbol-above');
+            createLivingChars('rabbit', true);
+            enhanceSigil();
+            createLivingChars('symbols-below');
+            createLivingChars('ooo-eye');
+            setTimeout(startTextStream, 1200); // slight delay after reveal
+            // Animation loops
+            intervalHandles.push(setInterval(animateField, 100));
+            intervalHandles.push(setInterval(mutateRabbit, 300));
+            intervalHandles.push(setInterval(mutateSymbolAbove, 400));
+            intervalHandles.push(setInterval(mutateSymbolsBelow, 250));
+            intervalHandles.push(setInterval(mutateOooEye, 2000));
+            // Stop cover spiral animation if running
+            if (coverSpiralActive) {
+                coverSpiralActive = false;
+            }
+            initSatellites();
+        }
         
         // Handle window resize
         let resizeTimeout;
@@ -706,12 +822,210 @@
             initializeAudio(); // Also initialize audio on keypress
         });
         
-        // Add audio initialization to existing click handler
-        document.addEventListener('click', initializeAudio, { once: true });
+        // Cover ENTER button
+        const cover = document.getElementById('cover-overlay');
+        function activatePortal(){
+            if (!cover || cover.classList.contains('hidden')) return;
+            initializeAudio();
+            if (window.voiceModule && window.voiceModule.audioContext?.state === 'suspended') {
+                window.voiceModule.audioContext.resume();
+            }
+            initExperience();
+            cover.classList.add('hidden');
+            setTimeout(() => { cover.remove(); }, 1200);
+        }
+        // Fallback: any key while cover active also triggers
+        document.addEventListener('keydown', (e) => {
+            if (!experienceStarted && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                activatePortal();
+            }
+        });
+        cover.addEventListener('click', activatePortal);
+        cover.addEventListener('keydown', (e)=>{
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                activatePortal();
+            }
+        });
+
+    // Dynamic ASCII spiral (breathing, rotating) for cover
+        const spiralEl = document.getElementById('dynamic-cover-spiral');
+        let coverSpiralActive = true;
+        (function startCoverSpiral(){
+            if (!spiralEl) return;
+            const size = 23; // odd for center
+            const mid = (size-1)/2;
+            const charsCore = ['◯','◊','∞','∿','◎','●','○'];
+            const bgChar = ' ';
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function frame(t){
+                if (!coverSpiralActive) return; // stop when experience starts
+                const time = t/1000;
+                const grid = Array.from({length:size},()=>Array(size).fill(bgChar));
+                const turns = 3; // spiral turns
+                const maxTheta = Math.PI*2*turns;
+                const baseRadius = mid*0.9;
+                const breathe = 0.08*Math.sin(time*0.9);
+                const wobble = 0.15*Math.sin(time*0.7);
+                const rotationSpeed = 0.08; // radians per second (slow)
+                const rotation = time * rotationSpeed; // positive -> clockwise visually; subtract for counterclockwise
+                const density = 420; // number of points sampled
+                for (let i=0;i<=density;i++){
+                    const theta = i/density*maxTheta;
+                    const progress = theta/maxTheta;
+                    const radius = (baseRadius*(progress + 0.05))* (1+breathe) ;
+                    // Subtract rotation for counterclockwise visual in screen coords (y increases downward)
+                    const ang = theta + wobble - rotation;
+                    const x = mid + (radius*Math.cos(ang));
+                    const y = mid + (radius*Math.sin(ang));
+                    const gx = Math.round(x);
+                    const gy = Math.round(y);
+                    if (gx>=0 && gx<size && gy>=0 && gy<size){
+                        // Choose char based on progress + subtle time modulation
+                        const idxRaw = Math.floor((progress + (Math.sin(time*2+progress*10)*0.5+0.5)*0.15) * (charsCore.length-1));
+                        const ch = charsCore[idxRaw] || '◯';
+                        grid[gy][gx] = ch;
+                    }
+                }
+                // Add pulsing core
+                const corePulse = (Math.sin(time*2)+1)/2; // 0..1
+                const coreRadius = 2 + corePulse*1.5;
+                for(let y=0;y<size;y++){
+                    for(let x=0;x<size;x++){
+                        const dx=x-mid, dy=y-mid;
+                        const dist=Math.hypot(dx,dy);
+                        if (dist < coreRadius){
+                            if (Math.random()<0.15) grid[y][x] = '◊'; else grid[y][x]='∞';
+                        }
+                    }
+                }
+                // Occasional sparkles if motion allowed
+                if (!prefersReduced && Math.random()<0.12){
+                    const sx = Math.floor(Math.random()*size);
+                    const sy = Math.floor(Math.random()*size);
+                    grid[sy][sx] = Math.random()<0.5 ? '✦':'✧';
+                }
+                spiralEl.textContent = grid.map(r=>r.join('')).join('\n');
+                if (!prefersReduced) requestAnimationFrame(frame); else setTimeout(()=>requestAnimationFrame(frame),350);
+            }
+            requestAnimationFrame(frame);
+        })();
         
         // Console
         console.log('◊ voiceModule.testSound("◊")');
         console.log('∿ ↑↑↓↓←→←→🅱🅰 ∿');
+
+        // Enhance sigil after spans created
+        function enhanceSigil(){
+            const rabbitEl = document.getElementById('rabbit');
+            if (!rabbitEl) return;
+            const lines = rabbitEl.querySelectorAll('.rabbit-line');
+            // Determine center line & position for core classification
+            const midLineIndex = Math.floor(lines.length/2);
+            lines.forEach((line, li)=>{
+                const chars = line.querySelectorAll('.live-char');
+                const len = chars.length;
+                const mid = Math.floor(len/2);
+                chars.forEach((ch, ci)=>{
+                    const glyph = ch.textContent.trim();
+                    if (glyph) ch.classList.add('sigil-glyph');
+                    if (glyph === '◊' && li === lines.length-1) { // bottom single ◊ core
+                        ch.classList.add('sigil-core');
+                    } else if (glyph && glyph !== '') {
+                        // classify outer ring vs interior
+                        const distFromCenter = Math.hypot(ci-mid, li-midLineIndex);
+                        if (distFromCenter > 3.5) {
+                            ch.classList.add('sigil-ring-char','sigil-rotate-phase-a');
+                        } else if (glyph === '∞' || glyph === '◊') {
+                            ch.classList.add('sigil-ring-char','sigil-rotate-phase-b');
+                        }
+                    }
+                });
+            });
+            // Rotation phase cycling
+            let phaseTick = 0;
+            setInterval(()=>{
+                const ring = rabbitEl.querySelectorAll('.sigil-ring-char');
+                phaseTick++;
+                ring.forEach((el, idx)=>{
+                    el.classList.remove('sigil-rotate-phase-a','sigil-rotate-phase-b','sigil-rotate-phase-c');
+                    const phase = (idx + phaseTick)%3;
+                    if (phase===0) el.classList.add('sigil-rotate-phase-a');
+                    else if (phase===1) el.classList.add('sigil-rotate-phase-b');
+                    else el.classList.add('sigil-rotate-phase-c');
+                });
+            }, 900);
+        }
+
+        // Satellites logic
+        const satelliteSymbols = ['◊','∞','∿','◎','●','○','◯','✦','✧','◈','⊙','⊚'];
+        let satellites = [];
+        function initSatellites(){
+            const container = document.getElementById('sigil-satellites');
+            if (!container) return;
+            container.innerHTML='';
+            const count = textFiles.length; // one per text file
+            const baseRadius = 95; // pixels approximate (will adapt with transform later)
+            for (let i=0;i<count;i++){
+                const div = document.createElement('div');
+                div.className = 'satellite';
+                const span = document.createElement('span');
+                span.textContent = satelliteSymbols[i % satelliteSymbols.length];
+                div.appendChild(span);
+                container.appendChild(div);
+                satellites.push({el:div, angle:(i/count)*Math.PI*2, radius: baseRadius + (i%3)*8});
+            }
+            animateSatellites();
+            updateActiveSatellite();
+        }
+        function animateSatellites(){
+            let last = performance.now();
+            function frame(now){
+                const dt = now - last; // ms
+                last = now;
+                satellites.forEach((s, idx)=>{
+                    const speed = 0.000035 + (idx%5)*0.000007; // slower varied speeds
+                    s.angle -= speed * dt; // counterclockwise
+                    const x = Math.cos(s.angle) * s.radius;
+                    const y = Math.sin(s.angle) * s.radius * 0.55; // ellipse vertically compressed
+                    s.el.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+                });
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+        function updateActiveSatellite(){
+            satellites.forEach((s,i)=>{
+                s.el.classList.toggle('satellite-active', i===currentFileIndex);
+            });
+        }
+        function pulseSigil(char){
+            // Pulse a subset of glyphs based on char code hash
+            const glyphs = document.querySelectorAll('.rabbit .sigil-glyph');
+            if (!glyphs.length) return;
+            const hash = char.codePointAt(0) || 0;
+            const pickCount = 2 + (hash % 3); // 2-4 glyphs
+            const chosen = [];
+            for (let i=0;i<pickCount;i++) {
+                const idx = (hash + i*13) % glyphs.length;
+                const g = glyphs[idx];
+                if (!chosen.includes(g)) chosen.push(g);
+            }
+            chosen.forEach(g=>{
+                g.classList.add('sigil-pulse');
+                setTimeout(()=>g.classList.remove('sigil-pulse'), 500);
+            });
+            // Satellite pulse: active satellite strong, others occasional
+            satellites.forEach((s,i)=>{
+                if (i===currentFileIndex) {
+                    s.el.classList.add('satellite-pulse');
+                    setTimeout(()=>s.el.classList.remove('satellite-pulse'), 550);
+                } else if (Math.random()<0.05) {
+                    s.el.classList.add('satellite-pulse');
+                    setTimeout(()=>s.el.classList.remove('satellite-pulse'), 550);
+                }
+            });
+        }
     </script>
 </body>
 </html>

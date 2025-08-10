@@ -101,7 +101,9 @@ class VoiceModule {
         return {
             baseFreq: 300,
             waveform: 'sine',
-            duration: 100
+            duration: 100,
+            // Provide empty chars collection so downstream code can safely call .includes
+            chars: ''
         };
     }
     
@@ -148,7 +150,10 @@ class VoiceModule {
         oscillator.frequency.setValueAtTime(frequency, now);
         
         // Enhanced volume envelope based on character type
-        const attack = mapping.chars.includes(char) && char.match(/[◊∞∿]/) ? 0.02 : 0.01;
+    // Safe check: mapping.chars may be string or array; ensure exists before using
+    const hasCharCollection = !!mapping.chars;
+    const inCollection = hasCharCollection && (Array.isArray(mapping.chars) ? mapping.chars.includes(char) : mapping.chars.includes(char));
+    const attack = inCollection && /[◊∞∿]/.test(char) ? 0.02 : 0.01;
         const decay = mapping.duration / 1000;
         
         gainNode.gain.setValueAtTime(0, now);
